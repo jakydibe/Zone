@@ -3,7 +3,10 @@ import sys
 import pefile
 import time
 
+instr_max_size = 9
 
+
+adjusted_array = []
 
 def get_base_address(pe):
     return pe.OPTIONAL_HEADER.BaseOfCode
@@ -31,10 +34,20 @@ def get_section_size(section):
 #section.SizeOfRawData      grandezza effettiva sul disco della sezione 
 
 
+
+#problema: indirizzi gia' sfanculati ---> devo gia' metterli a posto
+#soluzione: 
+#    1) tupla con: (indirizzo_originale,indirizzo_nuovo, bytes )
+#    2) itero istruzioni
+#    3) quando rilevo un' istruzione jmp  aggiorno con indirizzo_nuovo
+#         3.1) short jmp, solo 2 byte (quindi rilevo 7 NOP), potrei trasformare in far jmp
+#         3.2) altimenti far jmp, modifico indirizzo 
+
 if __name__ == '__main__':
+     #try:
      #exe_path = str(sys.argv[1])
 
-     pe = pefile.PE('C:\\Users\\jakyd\\Desktop\\crypter\\crypter_ultrasw3g-main\\mio_stub.exe')
+     pe = pefile.PE("C:\\Users\\jakyd\\Downloads\\startup.exe")
 
      base_address = get_base_address(pe)
      print("Base address: 0x%x" %base_address)
@@ -46,22 +59,15 @@ if __name__ == '__main__':
 
 
      cs = Cs(CS_ARCH_X86, CS_MODE_64)
-     for i in cs.disasm(raw_bytes, base_address):
+
+     for x,i in enumerate(cs.disasm(raw_bytes, base_address)):
           #scrivimi tutti i campi di i (address, mnemonic, op_str)
           #time.sleep(1000)
-          print("0x{}:\t{} \t{}\t{}".format(hex(i.address),bytearray(i.bytes), i.mnemonic, i.op_str))
+          print("{}:\t{} \t{}\t{}".format(hex(i.address),bytearray(i.bytes), i.mnemonic, i.op_str))
+          #print(len(i.bytes))
+          adjusted_array.append(i.bytes)
+          for n in range(instr_max_size - len(i.bytes)):
+               adjusted_array[x] += b'\x90'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(adjusted_array)
