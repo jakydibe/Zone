@@ -27,6 +27,8 @@ def get_section_size(section):
     return section.Misc_VirtualSize
 
 
+
+
 #sezione: .text
 #section.Name == '.text'
 #section.VirtualAddress 
@@ -66,16 +68,22 @@ class Instruction:
         self.new_length = new_length
 
 
+class lables:
+    def __init__(self, instr_address, label_address):
+        self.instr_address = instr_address
+        self.label_address = label_address
+
 
 class Zone:
     #def __init__(self, file):
     def __init__(self):
         #self.file = file
         self.cs = Cs(CS_ARCH_X86, CS_MODE_64)
+        self.cs.detail = True
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
         self.pe = pefile.PE("C:\\Users\\jak\\Desktop\\pymetamorph-master\\hello_world.exe") #eventualmente passare il file come parametro
 
-        self.label_table = dict()
+        self.label_table = []
 
         self.old_instructions = []
 
@@ -92,7 +100,7 @@ class Zone:
 
 
         
-        for x,i in enumerate(self.cs.disasm(self.raw_bytes, self.base_address)):
+        for i in self.cs.disasm(self.raw_bytes, self.base_address):
             #scrivimi tutti i campi di i (address, mnemonic, op_str)
             #time.sleep(1000)
 
@@ -105,10 +113,41 @@ class Zone:
 
         for instr in self.old_instructions:
 
+            if (x86_const.X86_GRP_JUMP in instr.groups or x86_const.X86_GRP_CALL in instr.groups): 
+                if (instr.operands[0].type == x86_const.X86_OP_IMM):
+                    label = lables(instr.address, instr.operands[0].imm)
+                    self.label_table.append(label)
+                elif (instr.operands[0].type == x86_const.X86_OP_MEM):
+                    label = lables(instr.address, instr.operands[0].mem.disp)
+                    self.label_table.append(label)
 
-            if ((x86_const.X86_GRP_JUMP in instr.groups or x86_const.X86_GRP_CALL in instr.groups) and instr.operands[0].type == x86_const.X86_OP_IMM):
-                address = int(i.operands[0].value.imm)
-                self.label_table = {address: None}
+                
+
+        print(self.label_table)
+
+    def increase_addresses(self,num_bytes):
+        for instr in self.new_instructions:
+            #PROBABILMENTE QUESTE TOCCA TOGLIERE IL COMMENTO
+            #string_instruction = instr.mnemonic + " " + instr.op_str
+            #asm, _ = self.ks.asm(string_instruction, (instr.address+ num_bytes))
+            #instr.new_bytes = bytearray(asm)
+            instr.new_address = instr.address + num_bytes
+            
+
+    def equal_instructions(self):
+        for instr in self.new_instructions:
+            if(instr.old_instr.id == x86_const.X86_INS_XOR and instr.old_instr.opernads[0].type == x86_const.X86_OP_REG and instr.old_instr.operands[1].type == x86_const.X86_OP_REG):
+
+                str_instr = f"mov {instr.original_inst.reg_name(instr.original_inst.operands[0].reg)},0x0"
+                asm, _ = self.ks.asm(str_instr, instr.old_instr.address)
+
+                instr.new_bytes = bytearray(asm)
+                instr.new_mnemonic = "mov"
+                instr.new_length = len(asm)
+
+
+
+
 
 
 
