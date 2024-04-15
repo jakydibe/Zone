@@ -47,16 +47,17 @@ def get_section_size(section):
 
 
 class Instruction:
-    def __init__(self,old_instr, old_address, new_address, old_mnemonic, new_mnemonic, old_length, new_length, old_bytes, new_bytes):
+    def __init__(self,old_instr,new_instr, old_address, new_address, old_mnemonic, new_mnemonic, old_length, new_length, old_bytes, new_bytes):
         self.old_instr = old_instr
-        self.old_address = old_address
-        self.new_address = new_address
-        self.old_mnemonic = old_mnemonic
-        self.new_mnemonic = new_mnemonic
-        self.old_length = old_length
-        self.new_length = new_length
-        self.old_bytes = old_bytes
-        self.new_bytes = new_bytes
+        self.new_instr = new_instr
+        # self.old_address = old_address
+        # self.new_address = new_address
+        # self.old_mnemonic = old_mnemonic
+        # self.new_mnemonic = new_mnemonic
+        # self.old_length = old_length
+        # self.new_length = new_length
+        # self.old_bytes = old_bytes
+        # self.new_bytes = new_bytes
 
     def update_address(self, new_address):
         self.new_address = new_address
@@ -81,7 +82,7 @@ class Zone:
         self.cs = Cs(CS_ARCH_X86, CS_MODE_64)
         self.cs.detail = True
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
-        self.pe = pefile.PE("C:\\Users\\jak\\Desktop\\pymetamorph-master\\hello_world.exe") #eventualmente passare il file come parametro
+        self.pe = pefile.PE("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world.exe") #eventualmente passare il file come parametro
 
         self.label_table = []
 
@@ -104,51 +105,71 @@ class Zone:
             #scrivimi tutti i campi di i (address, mnemonic, op_str)
             #time.sleep(1000)
 
-
             self.old_instructions.append(i)
-            new_instr = Instruction(i,i.address, i.address, i.mnemonic, i.mnemonic, i.size, i.size, i.bytes, i.bytes)
+            new_instr = Instruction(i,i,i.address, i.address, i.mnemonic, i.mnemonic, i.size, i.size, i.bytes, i.bytes)
             self.new_instructions.append(new_instr)
 
 
 
-        for instr in self.old_instructions:
+    def print_instructions(self):
+        for instr in self.new_instructions:
+            print("{}:\t{} \t{}\t{}".format(hex(instr.new_instr.address),bytearray(instr.new_instr.bytes), instr.new_instr.mnemonic, instr.new_isntr.op_str))
 
-            if (x86_const.X86_GRP_JUMP in instr.groups or x86_const.X86_GRP_CALL in instr.groups): 
-                if (instr.operands[0].type == x86_const.X86_OP_IMM):
-                    label = lables(instr.address, instr.operands[0].imm)
-                    self.label_table.append(label)
-                elif (instr.operands[0].type == x86_const.X86_OP_MEM):
-                    label = lables(instr.address, instr.operands[0].mem.disp)
-                    self.label_table.append(label)
 
                 
+    def update_label_table(self):
+        tmp_table = []
+        for instr in self.new_instructions:
+            if (x86_const.X86_GRP_JUMP in instr.new_instr.groups or x86_const.X86_GRP_CALL in instr.new_instr.groups): 
+                if (instr.new_instr.operands[0].type == x86_const.X86_OP_IMM):
+                    label = lables(instr.new_instr.address, instr.new_instr.operands[0].imm)
+                    tmp_table.append(label)
+                elif (instr.new_instr.operands[0].type == x86_const.X86_OP_MEM):
+                    label = lables(instr.new_instr.address, instr.new_instr.operands[0].mem.disp)
+                    tmp_table.append(label)
 
-        print(self.label_table)
+        self.label_table = tmp_table
+        #print(self.label_table)
 
-    def increase_addresses(self,num_bytes):
+
+#CAMBIARE::: incrementare solo le istruzioni dopo
+    def increase_addresses(self,starting_addr,num_bytes):
         for instr in self.new_instructions:
             #PROBABILMENTE QUESTE TOCCA TOGLIERE IL COMMENTO
             #string_instruction = instr.mnemonic + " " + instr.op_str
             #asm, _ = self.ks.asm(string_instruction, (instr.address+ num_bytes))
             #instr.new_bytes = bytearray(asm)
-            instr.new_address = instr.address + num_bytes
-            
 
+            #sommo num_bytes alle istruzioni dei jump
+
+
+            instr.new_instr.address = instr.new_instr.address + num_bytes     
+
+
+
+    def update_jumps(self):
+        for label in self.label_table:
+            for instr in self.new_instructions:
+                if instr.old == label.label_address:
+                    label.label_address = self.instr.new_instr.address
+
+
+    # xor eax,eax --> mov eax,0
     def equal_instructions(self):
         for instr in self.new_instructions:
-            if(instr.old_instr.id == x86_const.X86_INS_XOR and instr.old_instr.opernads[0].type == x86_const.X86_OP_REG and instr.old_instr.operands[1].type == x86_const.X86_OP_REG):
+            if(instr.new_instr.id == x86_const.X86_INS_XOR and instr.new_instr.operands[0].type == x86_const.X86_OP_REG and instr.new_instr.operands[1].type == x86_const.X86_OP_REG):
 
-                str_instr = f"mov {instr.original_inst.reg_name(instr.original_inst.operands[0].reg)},0x0"
-                asm, _ = self.ks.asm(str_instr, instr.old_instr.address)
+                str_instr = f"mov {instr.new_instr.reg_name(instr.new_instr.operands[0].reg)},0x0"
+                asm, _ = self.ks.asm(str_instr, instr.new_instr.address)
 
-                instr.new_bytes = bytearray(asm)
-                instr.new_mnemonic = "mov"
-                instr.new_length = len(asm)
-
-
+                instr.new_instr.bytes = bytearray(asm)
+                instr.new_instr.mnemonic = "mov"
+                instr.new_instr.length = len(asm)
 
 
-
+                self.increase_addresses(instr.new_instr.address,instr.new_length - instr.old_length)
+                self.update_label_table()
+                self.update_jumps()
 
 
 
@@ -157,6 +178,9 @@ if __name__ == '__main__':
      #exe_path = str(sys.argv[1])
 
     zone = Zone()
+    zone.equal_instructions()
+    zone.print_instructions()
+
 
 
     
@@ -205,5 +229,4 @@ if __name__ == '__main__':
     #     #   adjusted_array.append(i.bytes)
     #     #   for n in range(instr_max_size - len(i.bytes)):
     #     #        adjusted_array[x] += b'\x90'
-
 
