@@ -30,7 +30,8 @@ def get_section_size(section):
 
 
 class Instruction:
-    def __init__(self,old_instr,new_instr):
+    def __init__(self,original_instr,old_instr,new_instr):
+        self.original_instr = original_instr
         self.old_instr = old_instr
         self.new_instr = new_instr
 
@@ -59,17 +60,18 @@ class Zone:
 
         self.label_table = []
 
-
         self.new_instructions = []
-        self.original_entry_point = self.pe_handler.getEntryPointAddress()
+        self.original_entry_point = self.pe.NT_HEADERS.OPTIONAL_HEADER.AddressOfEntryPoint
+        
 
         self.base_address = get_base_address(self.pe)
         self.code_section = get_text_section(self.pe, self.base_address)
         self.code_section_size = get_section_size(self.code_section)
         self.raw_bytes = self.code_section.get_data(self.base_address,self.code_section_size)
 
+
         print("Base address: 0x%x" %self.base_address)
-        print(self.code_section.Name, hex(self.code_section.VirtualAddress),hex(self.code_section.Misc_VirtualSize), self.code_section.SizeOfRawData )
+        print(self.code_section.Name, hex(self.code_section.VirtualAddress),hex(self.code_section.Misc_VirtualSize), hex(self.code_section.SizeOfRawData))
 
 
 
@@ -78,7 +80,7 @@ class Zone:
             #scrivimi tutti i campi di i (address, mnemonic, op_str)
             #time.sleep(1000)
 
-            new_instr = Instruction(i,i)
+            new_instr = Instruction(i,i,i)
             self.new_instructions.append(new_instr)
 
         self.create_label_table()
@@ -93,27 +95,59 @@ class Zone:
             else:
                 break
 
+    def locate_by_address(self, address):
+        for instr in self.new_instructions:
+            if instr.original_instr.address == address:
+                return instr
+        return None
 
+    def generate_binary_code(self):
+        code = b''
+        for instruction in self.new_instructions:
+            code += instruction.new_instr.bytes
+        return code
 
 #relocate_image()
     def write_pe_text_section(self):
 
-        new_bytes = b""
+        #new_bytes = self.generate_binary_code()
+        new_bytes = b''
         for instr in self.new_instructions:
             new_bytes += instr.new_instr.bytes
 
-        #new_bytes = bytearray(new_bytes)
+
+        new_entry = self.locate_by_address(self.original_entry_point).new_instr.address
+        self.pe.NT_HEADERS.OPTIONAL_HEADER.AddressOfEntryPoint = self.original_entry_point
+        print("New entry point: 0x%x" %new_entry)
+
+        # self.code_section.Misc_VirtualSize = len(new_bytes)
+        # self.code_section.Misc_PhysicalAddress = len(new_bytes)
+        # self.code_section.Misc = len(new_bytes)
+        # gap = self.pe.OPTIONAL_HEADER.SectionAlignment - (len(new_bytes) % self.pe.OPTIONAL_HEADER.SectionAlignment)
+        # gap_bytes = b''
+        # for _ in range(gap):
+        #     gap_bytes += b'\x00' 
+        # new_bytes += gap_bytes
+        # self.code_section.SizeOfRawData = len(new_bytes)
+
+        # if not self.pe.set_bytes_at_offset(self.base_address, new_bytes):
+        #     print("Error writing new bytes")
+        #     return
+        # self.pe.write("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world_patched.exe")
+
+        new_bytes = bytearray(new_bytes)
         with open("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world_patched.exe", "r+b") as f:
 
             original_file = f.read()
 
-            modified_file = original_file[:0x400] + new_bytes + original_file[0x400+len(new_bytes):]
+            #0x75
+            modified_file = original_file[:0x400] + new_bytes[:75] + original_file[0x400+0x75:]
             f.seek(0, os.SEEK_SET)
 
             f.write(modified_file)
 
         # self.pe.set_bytes_at_offset(self.code_section,new_bytes)
-        # self.pe.write("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world_patched.exe")
+        #self.pe.write("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world_patched.exe")
 
                 
     def create_label_table(self):
@@ -154,7 +188,6 @@ class Zone:
                 for i in self.cs.disasm(new_bytes, (instr.new_instr.address+ num_bytes)):
                     instr.new_instr = i
             #sommo num_bytes alle istruzioni dei jump
-
 
 
     def update_jumps(self):
