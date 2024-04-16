@@ -3,6 +3,7 @@ from keystone import *
 import sys
 import pefile
 import time
+import os
 from capstone import x86_const
 
 
@@ -28,32 +29,14 @@ def get_section_size(section):
 
 
 
-
-#sezione: .text
-#section.Name == '.text'
-#section.VirtualAddress 
-#section.Misc_VirtualSize   grandezza della sezione quando verra' caricata in memoria
-#section.SizeOfRawData      grandezza effettiva sul disco della sezione 
-
-
-
-#problema: indirizzi gia' sfanculati ---> devo gia' metterli a posto
-#soluzione: 
-#    1) tupla con: (indirizzo_originale,indirizzo_nuovo, bytes )
-#    2) itero istruzioni
-#    3) quando rilevo un' istruzione jmp  aggiorno con indirizzo_nuovo
-#         3.1) short jmp, solo 2 byte (quindi rilevo 7 NOP), potrei trasformare in far jmp
-#         3.2) altimenti far jmp, modifico indirizzo 
-
-
 class Instruction:
     def __init__(self,old_instr,new_instr):
         self.old_instr = old_instr
         self.new_instr = new_instr
 
 
-    def update_address(self, num_bytes):
-        self.new_instr.address = self.new_instr.address + num_bytes
+    # def update_address(self, num_bytes):
+    #     self.new_instr.address = self.new_instr.address + num_bytes
 
 
 
@@ -78,6 +61,7 @@ class Zone:
 
 
         self.new_instructions = []
+        self.original_entry_point = self.pe_handler.getEntryPointAddress()
 
         self.base_address = get_base_address(self.pe)
         self.code_section = get_text_section(self.pe, self.base_address)
@@ -108,6 +92,28 @@ class Zone:
                 print("{}:\t{} \t{}\t{}".format(hex(instr.new_instr.address),bytearray(instr.new_instr.bytes), instr.new_instr.mnemonic, instr.new_instr.op_str))
             else:
                 break
+
+
+
+#relocate_image()
+    def write_pe_text_section(self):
+
+        new_bytes = b""
+        for instr in self.new_instructions:
+            new_bytes += instr.new_instr.bytes
+
+        #new_bytes = bytearray(new_bytes)
+        with open("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world_patched.exe", "r+b") as f:
+
+            original_file = f.read()
+
+            modified_file = original_file[:0x400] + new_bytes + original_file[0x400+len(new_bytes):]
+            f.seek(0, os.SEEK_SET)
+
+            f.write(modified_file)
+
+        # self.pe.set_bytes_at_offset(self.code_section,new_bytes)
+        # self.pe.write("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world_patched.exe")
 
                 
     def create_label_table(self):
@@ -193,8 +199,6 @@ class Zone:
                 bytes_arr = bytearray(asm)
 
 
-
-
                 for i in self.cs.disasm(bytes_arr,instr.new_instr.address):
                     instr.new_instr = i
                     #instr.update_address(num_bytes)                  
@@ -220,54 +224,5 @@ if __name__ == '__main__':
     zone.print_instructions()
     zone.equal_instructions()
     zone.print_instructions()
-
-
-
-    
-
-    
-    
-
-
-
-
-
-#primo xor eax,eax trovato a 0x1010, grosso 2 byte
-
-#Provo a sostituirlo con mov eax,0x0
-
-    # for instr in istruzioni_nuove:
-    #     try:
-    #         from capstone import x86_const
-    #         if instr.old_instr.id == x86_const.X86_INS_XOR:
-    #             print("{}:\t{} \t{}\t{}".format(hex(instr.old_instr.address),bytearray(instr.old_instr.bytes), instr.old_instr.mnemonic, instr.old_instr.op_str))
-    #             print("lunghezza istruzione: ", instr.old_instr.size)
-                
-    #             new_inst_str = "mov eax,0x0"
-    #             asm, _ = ks.asm(new_inst_str, instr.old_instr.address)
-    #             instr.new_bytes = bytearray(asm)
-    #             print(asm)
-
-    #             for i in cs.disasm(instr.new_bytes, instr.old_instr.address):
-    #                 instr.old_instr = i
-    #                 instr.new_mnemonic = i.mnemonic
-    #                 instr.new_length = i.size
-
-    #             #Per rimettere tutto a posto dovro assemblare tutto il codice a + 
-
-    #             print("{}:\t{} \t{}\t{}".format(hex(instr.old_instr.address),bytearray(instr.old_instr.bytes), instr.old_instr.mnemonic,instr.old_instr.op_str))
-    #             print("lunghezza istruzione: ", i.size)
-    #             break
-    #     except Exception as e:
-    #         print(e)
-    #         break
-
-    # for i in cs.disasm(raw_bytes, base_address):
-    #     print("{}:\t{} \t{}\t{}".format(hex(i.address),bytearray(i.bytes), i.mnemonic, i.op_str))
-            
-    #     #   #print(len(i.bytes))
-    #     #   adjusted_array.append(i.bytes)
-    #     #   for n in range(instr_max_size - len(i.bytes)):
-    #     #        adjusted_array[x] += b'\x90'
-
+    zone.write_pe_text_section()
 
