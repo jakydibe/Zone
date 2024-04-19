@@ -4,8 +4,10 @@ import sys
 import pefile
 import time
 import os
+import re
 from capstone import x86_const
 
+#da guardare: 0x1949
 
 
 def get_base_address(pe):
@@ -26,6 +28,17 @@ def get_text_section(pe, address):
           
 def get_section_size(section):
     return section.Misc_VirtualSize
+
+def estrai_valore(stringa):
+    # Usa un'espressione regolare per trovare il valore tra "rip +" e "]"
+    match = re.search(r"rip \+ (.*?)\]", stringa)
+    
+    # Se non c'è corrispondenza, restituisci un messaggio di errore
+    if match is None:
+        return "La stringa non contiene 'rip +'"
+    
+    # Altrimenti, restituisci il valore trovato
+    return int(match.group(1), 16)
 
 
 #classe che tiene conto per ogni istruzione di quella originale, della precedente e dell' attuale
@@ -69,15 +82,21 @@ class Zone:
 
         self.original_entry_point = self.pe.NT_HEADERS.OPTIONAL_HEADER.AddressOfEntryPoint
 
+
         #print(self.pe.OPTIONAL_HEADER)
-        
+            
 
         self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
         self.code_section = get_text_section(self.pe, self.base_address)
         self.code_section_size = get_section_size(self.code_section)
 
-        #i bytes della .text
+        self.base_rdata = self.base_address + self.code_section_size
+        #
+
+        print("Base data address: 0x%x" %self.base_rdata)
+        # i bytes della .text
         self.raw_bytes = self.code_section.get_data(self.base_address,self.code_section_size)
+        self.original_bytes_len = len(self.raw_bytes)
 
 
         print("Base address: 0x%x" %self.base_address)
@@ -177,12 +196,12 @@ class Zone:
 
         new_entry_point = self.locate_by_address(self.pe.OPTIONAL_HEADER.AddressOfEntryPoint)
 
-        print(f"LUNGHEZZA NEW_BYTES: {len(new_bytes)}")
+        print(f"LUNGHEZZA NEW_BYTES: {hex(len(new_bytes))}")
 
         with open("hello_world_patched.exe", "r+b") as f:
             original_file = f.read()
             #f.seek(self.pe.OPTIONAL_HEADER.BaseOfCode)
-            modified_file = original_file[:0x400] + new_bytes + original_file[0x400+ len(new_bytes):]
+            modified_file = original_file[:0x400] + new_bytes + original_file[0x400+len(new_bytes):]
 
             modified_file = modified_file[:0x120] + new_entry_point.new_instr.address.to_bytes(4, byteorder='little') + modified_file[0x124:]
             f.seek(0)
@@ -220,10 +239,14 @@ class Zone:
     def increase_addresses(self,starting_addr,num_bytes):
         for instr in self.new_instructions:
             if instr.new_instr.address > starting_addr:
+                # if instr.new_instr.address >= self.base_rdata:
+                #     break
                 #PROBABILMENTE QUESTE TOCCA TOGLIERE IL COMMENTO
                 # string_instruction = instr.new_instr.mnemonic + " " + instr.new_instr.op_str
                 # asm, _ = self.ks.asm(instr.new_instr.bytes, (instr.new_instr.address + num_bytes))
                 # new_bytes = bytearray(asm)
+
+                    
                 new_bytes = instr.old_instr.bytes
 
 
@@ -244,7 +267,28 @@ class Zone:
                         exit(1)
 
                     instr.new_instr = i
+                
+                if 'rip + ' in instr.new_instr.op_str:
+                    offset_new = hex(estrai_valore(instr.new_instr.op_str))
+                    new_address = instr.new_instr.address + estrai_valore(instr.new_instr.op_str)
+                    old_address = instr.original_instr.address + estrai_valore(instr.original_instr.op_str)
 
+                    if old_address < self.code_section.VirtualAddress + self.code_section.SizeOfRawData:
+                        continue
+                    if old_address != new_address:
+                        offset_aggiustato = hex(old_address - instr.new_instr.address)
+                        string = instr.new_instr.mnemonic + ' ' +  instr.new_instr.op_str
+                        string = string.replace(f"rip + {offset_new}", f"rip + {offset_aggiustato}")
+                        #print(f"offset_new: {offset_new}, offset_aggiustato: {offset_aggiustato}")
+                        #print("istruzione: ", instr.new_instr.mnemonic, instr.new_instr.op_str)
+
+                        #print("string: ", string)
+                        asm, _ = self.ks.asm(string, instr.new_instr.address)
+
+                        new_bytes = bytearray(asm)
+                        for n in self.cs.disasm(new_bytes, instr.new_instr.address):
+                            instr.new_instr = n
+                        
             #sommo num_bytes alle istruzioni dei jump
 
 
@@ -255,6 +299,9 @@ class Zone:
             for instr in self.new_instructions:
                 #se c'e' un istruzione il cui precedente indirizzo compare nella label_table aggiornala
                 if instr.old_instr.address == label.label_address:
+
+                    if label.label_address > (self.code_section.VirtualAddress + self.code_section.SizeOfRawData):
+                        continue
                     label.label_address = instr.new_instr.address
 
                     addr = hex(label.label_address)
