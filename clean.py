@@ -18,7 +18,7 @@
 #       1.1) se sono fuori dalla .text,(l'indirizzo lo calcolo col valore dopo rip+) --> riassembla l'istruzone con sostituendo il valore dopo 'rip +' con la differenza tra indirizzo_attuale - indirizzo_originale
 #       1.2) se sono dentro la .text, --> riassemblo la jump a con il nuovo indirizzo dell'istruzione a cui puntava
 #
-#   2) verificare se durante l'assemblaggio il numero di byte dell'istruzione e' cambiato
+#   2) verificare se durante l'assemblaggio il numero di byte dell'istruzione e' cambiato(far jump --> short jump)
 #       2.1) verificare se la stringa del disassemblaggio e' uguale alla stringa dell'assemblaggio	
 #       2.2) se la grandezza nuova e'minore della grandezza vecchia, --> aggiungere NOP fino a raggiungere la grandezza vecchia
 #           2.2.1) creare un metodo per inserire istruzioni
@@ -31,8 +31,8 @@
 #3) creare le label table                                                                       FATTO!       
 #4) modificare un'istruzione (solo per testing)                                                 FATTO!
 #5) aggiornare (incrementare) le varie istruzioni                                               FATTO!
-#6) aggiornare le varie jump o varie references   
-#7) controllare tutte istruzioni con 'rip +' dentro (sono istruzioni che puntano alla .data)
+#6) aggiornare le varie jump o varie references                                                 FATTO! (forse)
+#7) controllare tutte istruzioni con 'rip +' dentro (sono istruzioni che puntano alla .data)    
 #   7.1) similmente alle jump, calcolare l' indirizzo grazie all'indirizzo originale
 #8) scrivere il PE
 #
@@ -43,8 +43,34 @@ import sys
 import pefile
 import time
 import os
-import re
 from capstone import x86_const
+
+# def estrai_valore(stringa):
+#     # Usa un'espressione regolare per trovare il valore tra "rip +" e "]"
+#     match = re.search(r"rip \+ (.*?)\]", stringa)
+    
+#     # Se non c'è corrispondenza, restituisci un messaggio di errore
+#     if match is None:
+#         return "La stringa non contiene 'rip +'"
+    
+#     # Altrimenti, restituisci il valore trovato
+#     return int(match.group(1), 16)
+
+import re
+
+def estrai_valore(instruzione):
+    # Usa un'espressione regolare per cercare un numero esadecimale nella stringa
+    match = re.search(r'0x[0-9a-fA-F]+', instruzione)
+    
+    # Se un numero esadecimale è stato trovato, convertilo in un intero e restituiscilo
+    if match:
+        return int(match.group(), 16)
+    else:
+        return None
+
+
+
+
 
 def get_text_section(pe, address):
     #return pe.O
@@ -131,19 +157,56 @@ class Zone:
 
         self.label_table = lt
 
-    def update_label_table(self):
-        for x,instr in enumerate(self.instructions):
-            if (instr.original_instruction.address in self.label_table):
-                new_str = self.label_table[instr.original_instruction.address].new_instruction.mnemonic + ' ' + instr.new_instruction.address
+    def insert_instruction(self,index,instruction):
+        self.instructions[index].next_instruction = instruction
+        self.instructions[index +1].prev_instruction = instruction
 
-                asm, _ = self.ks.asm(new_str, self.label_table[instr.original_instruction.address].new_instruction.address)
+        instruction.previous_instruction = self.instructions[index]
+        instruction.next_instruction = self.instructions[index +1]
+
+        self.instructions.insert(index,instruction)
+
+
+    def update_label_table(self):
+        for instr in self.instructions:
+            if instr.original_instruction.address in self.label_table:
+                
+                for instr2 in self.instructions:
+                    if instr2.original_instruction.address == self.label_table[instr.original_instruction.address].original_instruction.address:
+                        new_addr = instr.new_instruction.address
+
+                        new_str = f"{instr2.original_instruction.mnemonic} {hex(new_addr)}"
+                        
+                        asm,_ = self.ks.asm(new_str,instr2.new_instruction.address)
+                        asm = bytearray(asm)
+
+                        if(len(asm) < instr2.new_instruction.size):
+                            print("ERRORE RIDICOLO")
+                        elif(len(asm) == instr2.new_instruction.size):
+                            for i in self.cs.disasm(asm,instr2.new_instruction.address):
+                                instr2.new_instruction = i
+
+
+
+    def adjust_out_text_references(self):
+        for instr in self.instructions:
+            if ('rip +' in instr.new_instruction.op_str):
+                print(instr.original_instruction.mnemonic,instr.original_instruction.op_str)
+                valore_originale = estrai_valore(instr.original_instruction.op_str)
+                addr = instr.original_instruction.address + estrai_valore(instr.original_instruction.op_str)
+                new_addr = addr - instr.new_instruction.address
+                print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
+                old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
+                new_string = old_string.replace(hex(addr),hex(new_addr))
+
+                asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
                 bytes_arr = bytearray(asm)
-                if len(bytes_arr) < instr.new_instruction.size:
-                    print("ERRORE DI MERDA")
-                    diff = instr.new_instruction.size - len(bytes_arr)
-                    #insert_instruction
-                for i in self.cs.disasm(bytes_arr, self.label_table[instr.original_instruction.address].new_instruction.address):
-                    self.label_table[instr.original_instruction.address].new_instruction = i
+
+                if(len(bytes_arr) < instr.new_instruction.size):
+                    print("ERRORE DURANTE REFERENCE A OUTSIDE")
+                
+                for i in self.cs.disasm(bytes_arr, instr.new_instruction.address):
+                    instr.new_instruction = i
 
 
     def update_old_instructions(self,instr):
@@ -179,6 +242,10 @@ if __name__ == '__main__':
     zone.create_label_table()
     zone.equal_instructions()
     zone.update_instr()
+    zone.update_label_table()
+    zone.adjust_out_text_references()
+
     zone.print_instructions()
+
 
 
