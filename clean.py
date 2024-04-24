@@ -261,9 +261,52 @@ class Zone:
                                 else:
                                     insr = Instruction(i,i,i,None,None)
                                     self.insert_instruction(num_instr + x, insr)
-                    
-                    for i in self.cs.disasm(asm, instr.new_instruction.address):
-                        instr.new_instruction = i
+                    else:
+                        for i in self.cs.disasm(asm, instr.new_instruction.address):
+                            instr.new_instruction = i
+
+                elif ('rip -' in instr.new_instruction.op_str):
+                    #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
+                    valore_originale = estrai_valore(instr.original_instruction.op_str)
+                    print("valore_originale: ",valore_originale)
+                    if valore_originale == 0:
+                        continue
+                    addr = instr.original_instruction.address - valore_originale
+                    new_addr = instr.new_instruction.address - addr
+                    #print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
+                    old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
+
+                    new_string = old_string.replace(hex(valore_originale),hex(new_addr))
+
+                    asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
+                    asm = bytearray(asm)
+
+                    if(len(asm) < len(instr.new_instruction.bytes)):
+                        #checka il problema del bytes 0x48 che ks non lo assembla molto spesso
+                        if(instr.new_instruction.bytes[0] == 0x48 and (len(instr.new_instruction.bytes) - len(asm) == 1)):
+                            print("cosa strana")
+                            print("Indirizzo: ",hex(instr.new_instruction.address))
+
+                            asm.insert(0,0x48)
+                            for i in self.cs.disasm(asm, instr.new_instruction.address):
+                                instr.new_instruction = i
+                        else:                     
+                            ##########DA IMPLEMENTARE################
+                            print("Indirizzo: ",hex(instr.new_instruction.address))
+                            print('nuova lunghezza asm: ',len(asm))
+                            print('vecchia lunghezza instr.new_instruction: ',instr.new_instruction.size)
+                            nop_num = instr.new_instruction.size - len(asm)
+                            for i in range(nop_num):
+                                asm.append(0x90)
+                            for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
+                                if x == 0:
+                                    instr.new_instruction = i
+                                else:
+                                    insr = Instruction(i,i,i,None,None)
+                                    self.insert_instruction(num_instr + x, insr)
+                    else:
+                        for i in self.cs.disasm(asm, instr.new_instruction.address):
+                            instr.new_instruction = i
             else:
                 print("dentro adjust_out_text_references(), instr e' None")
 
