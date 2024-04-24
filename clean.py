@@ -116,7 +116,7 @@ class Zone:
         with open('instr.txt', 'r+') as f:
             for i in self.cs.disasm(self.raw_code, self.base_address):
                 self.instructions.append(Instruction(i,i,i,None,None))
-                stringa = f"{hex(i.address)}  {i.size}  {i.mnemonic}  {i.op_str}\n"
+                stringa = f"{hex(i.address)} {i.bytes} {i.size}  {i.mnemonic}  {i.op_str}\n"
                 f.write(stringa)
 
 
@@ -132,7 +132,7 @@ class Zone:
         for x,i in enumerate(self.instructions):
             if x == 0:
                 continue
-            addr = i.prev_instruction.new_instruction.address + i.prev_instruction.new_instruction.size
+            addr = i.prev_instruction.new_instruction.address + len(i.prev_instruction.new_instruction.bytes)
 
 
             for n in self.cs.disasm(i.new_instruction.bytes,addr):
@@ -142,7 +142,7 @@ class Zone:
         with open('instr_2.txt', 'r+') as f:
 
             for x,i in enumerate(self.instructions):
-                stringa  = f"{hex(i.new_instruction.address)}  {i.new_instruction.size}  {i.new_instruction.mnemonic}  {i.new_instruction.op_str}\n"
+                stringa  = f"{hex(i.new_instruction.address)} {i.new_instruction.bytes} {len(i.new_instruction.bytes)}  {i.new_instruction.mnemonic}  {i.new_instruction.op_str}\n"
                 f.write(stringa)
 
     def print_label_table(self):
@@ -197,25 +197,32 @@ class Zone:
                                 restart = True
                                 print("Indirizzo: ",hex(instr2.new_instruction.address))
                                 print('Istruzione: ',instr2.new_instruction.mnemonic,instr2.new_instruction.op_str)
+                                print("lunghezza asm: ",len(asm))
+                                print("lunghezza instr2.new_instruction: ",instr2.new_instruction.size)
                                 nop_num = instr2.new_instruction.size - len(asm)
                         ###################DA AGGIUSTARE################################
-                                # for i in range(nop_num):
-                                #     asm.append(0x90)
-                                # for x,i in enumerate(self.cs.disasm(asm, instr2.new_instruction.address)):
-                                #     if x == 0:
-                                #         instr.new_instruction = i
-                                #     else:
-                                #         self.insert_instruction(num_instr + x, i)
+                                for i in range(nop_num):
+                                    asm.append(0x90)
+                                for x,i in enumerate(self.cs.disasm(asm, instr2.new_instruction.address)):
+                                    if x == 0:
+                                        instr2.new_instruction = i
+                                    else:
+                                        insr = Instruction(i,i,i,None,None)
+                                        self.insert_instruction(num_instr + x, insr)
+                                # for i in self.cs.disasm(asm,instr2.new_instruction.address):
+                                #     instr.new_instruction = i
                             elif(len(asm) == instr2.new_instruction.size):
                                 for i in self.cs.disasm(asm,instr2.new_instruction.address):
                                     instr2.new_instruction = i
+                            else:
+                                print("SOSPETTO: len(asm) > instr2.new_instruction.size")
             finished = True
 
 
 
 
     def adjust_out_text_references(self):
-        for instr in self.instructions:
+        for num_instr,instr in enumerate(self.instructions):
             if instr is not None:
                 if ('rip +' in instr.new_instruction.op_str):
                     #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
@@ -230,13 +237,32 @@ class Zone:
                     new_string = old_string.replace(hex(valore_originale),hex(new_addr))
 
                     asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
-                    bytes_arr = bytearray(asm)
+                    asm = bytearray(asm)
 
-                    if(len(bytes_arr) < instr.new_instruction.size):
-                        ##########DA IMPLEMENTARE################
-                        print("ERRORE DURANTE REFERENCE A OUTSIDE")
+                    if(len(asm) < len(instr.new_instruction.bytes)):
+                        if(instr.new_instruction.bytes[0] == 0x48 and (len(instr.new_instruction.bytes) - len(asm) == 1)):
+                            print("cosa strana")
+                            print("Indirizzo: ",hex(instr.new_instruction.address))
+
+                            asm.insert(0,0x48)
+                            for i in self.cs.disasm(asm, instr.new_instruction.address):
+                                instr.new_instruction = i
+                        else:                     
+                            ##########DA IMPLEMENTARE################
+                            print("Indirizzo: ",hex(instr.new_instruction.address))
+                            print('nuova lunghezza asm: ',len(asm))
+                            print('vecchia lunghezza instr.new_instruction: ',instr.new_instruction.size)
+                            nop_num = instr.new_instruction.size - len(asm)
+                            for i in range(nop_num):
+                                asm.append(0x90)
+                            for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
+                                if x == 0:
+                                    instr.new_instruction = i
+                                else:
+                                    insr = Instruction(i,i,i,None,None)
+                                    self.insert_instruction(num_instr + x, insr)
                     
-                    for i in self.cs.disasm(bytes_arr, instr.new_instruction.address):
+                    for i in self.cs.disasm(asm, instr.new_instruction.address):
                         instr.new_instruction = i
             else:
                 print("dentro adjust_out_text_references(), instr e' None")
@@ -276,7 +302,11 @@ class Zone:
         new_bytes = b''
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
+        
+        gap = self.pe.OPTIONAL_HEADER.SectionAlignment - (len(new_bytes) % self.pe.OPTIONAL_HEADER.SectionAlignment)
 
+        gap_bytes = (bytearray([0 for _ in range(gap)]))
+        new_bytes += gap_bytes
         new_entry_point = self.locate_by_address(self.original_entry_point).new_instruction.address
 
         with open("hello_world.exe", "r+b") as f:
@@ -285,9 +315,9 @@ class Zone:
             print(f"LEN ORIGINAL_FILE: {len(original_file)}")
             new_bytes = bytearray(new_bytes)
 
-            #addr = 0x1000
+            addr = 0x133b
             original_file[0x400 : 0x400 + len(new_bytes)] = new_bytes
-            original_file[0x120: 0x124] = (new_entry_point).to_bytes(4, byteorder='little')
+            original_file[0x130: 0x134] = addr.to_bytes(4, byteorder='little')
             print(f"LEN NUOVO_FILE: {len(original_file)}")
 
             f.seek(0)
@@ -310,6 +340,5 @@ if __name__ == '__main__':
     zone.print_instructions()
 
     zone.write_pe_file()
-
 
 
