@@ -336,6 +336,20 @@ class Zone:
 
                 break
 
+    def adjust_reloc_table(self):
+        for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
+            for reloc in entries.entries:
+                data = self.pe.get_qword_at_rva(reloc.rva)
+                data = data - self.pe.OPTIONAL_HEADER.ImageBase
+                #print(hex(reloc.rva), reloc.type,hex(data))#, reloc.value)
+                for instr in self.instructions:
+                    if instr.original_instruction.address == data:
+                        print("Trovato un reloc che punta ad un'istruzione")
+                        print(hex(reloc.rva), reloc.type,hex(data))
+                        self.pe.set_qword_at_rva(reloc.rva, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
+                        self.pe.write("hello_world.exe")
+
+                        
     def locate_by_address(self, address):
         for instr in self.instructions:
             if instr.original_instruction.address == address:
@@ -381,6 +395,8 @@ if __name__ == '__main__':
     zone.adjust_out_text_references()
 
     zone.print_instructions()
+
+    zone.adjust_reloc_table()
 
     zone.write_pe_file()
 
