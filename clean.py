@@ -369,8 +369,9 @@ class Zone:
                         print("nella reloc: ",hex(data))
                         print("nella istruzione: ",hex(instr.new_instruction.address))
                         self.pe.set_qword_at_rva(reloc.rva, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
-                        self.pe.write("hello_world.exe")
                         break
+        self.pe.write("hello_world.exe")
+
 
                         
     def locate_by_address(self, address):
