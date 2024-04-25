@@ -229,12 +229,23 @@ class Zone:
                     valore_originale = estrai_valore(instr.original_instruction.op_str)
                     if valore_originale == 0:
                         continue
-                    addr = instr.original_instruction.address + valore_originale
-                    new_addr = addr - instr.new_instruction.address
+
+                    addr = self.instructions[num_instr + 1].original_instruction.address + valore_originale
+
+                    #checko se l'indirizzo e'all'interno della .text
+                    if addr > self.base_address and addr < self.base_address + self.code_section_size:
+                        for i in self.instructions:
+                            if i.original_instruction.address == addr:
+                                addr = i.new_instruction.address
+                                print("NUOVO INDIRIZZO JUMP RIP+ : ",hex(addr))
+                                break
+         
+                    offset = addr - self.instructions[num_instr + 1].new_instruction.address
+
                     #print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
                     old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
 
-                    new_string = old_string.replace(hex(valore_originale),hex(new_addr))
+                    new_string = old_string.replace(hex(valore_originale),hex(offset))
 
                     asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
                     asm = bytearray(asm)
@@ -271,12 +282,21 @@ class Zone:
                     print("valore_originale: ",valore_originale)
                     if valore_originale == 0:
                         continue
-                    addr = instr.original_instruction.address - valore_originale
-                    new_addr = instr.new_instruction.address - addr
+                    addr = self.instructions[num_instr + 1].original_instruction.address - valore_originale
+
+                    #checko se l'indirizzo e'all'interno della .text
+                    if addr > self.base_address and addr < self.base_address + self.code_section_size:
+                        for i in self.instructions:
+                            if i.original_instruction.address == addr:
+                                addr = i.new_instruction.address
+                                break
+
+                    offset = self.instructions[num_instr + 1].new_instruction.address - addr
+
                     #print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
                     old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
 
-                    new_string = old_string.replace(hex(valore_originale),hex(new_addr))
+                    new_string = old_string.replace(hex(valore_originale),hex(offset))
 
                     asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
                     asm = bytearray(asm)
@@ -284,17 +304,17 @@ class Zone:
                     if(len(asm) < len(instr.new_instruction.bytes)):
                         #checka il problema del bytes 0x48 che ks non lo assembla molto spesso
                         if(instr.new_instruction.bytes[0] == 0x48 and (len(instr.new_instruction.bytes) - len(asm) == 1)):
-                            print("cosa strana")
-                            print("Indirizzo: ",hex(instr.new_instruction.address))
+                            # print("cosa strana")
+                            # print("Indirizzo: ",hex(instr.new_instruction.address))
 
                             asm.insert(0,0x48)
                             for i in self.cs.disasm(asm, instr.new_instruction.address):
                                 instr.new_instruction = i
                         else:                     
                             ##########DA IMPLEMENTARE################
-                            print("Indirizzo: ",hex(instr.new_instruction.address))
-                            print('nuova lunghezza asm: ',len(asm))
-                            print('vecchia lunghezza instr.new_instruction: ',instr.new_instruction.size)
+                            # print("Indirizzo: ",hex(instr.new_instruction.address))
+                            # print('nuova lunghezza asm: ',len(asm))
+                            # print('vecchia lunghezza instr.new_instruction: ',instr.new_instruction.size)
                             nop_num = instr.new_instruction.size - len(asm)
                             for i in range(nop_num):
                                 asm.append(0x90)
@@ -344,10 +364,13 @@ class Zone:
                 #print(hex(reloc.rva), reloc.type,hex(data))#, reloc.value)
                 for instr in self.instructions:
                     if instr.original_instruction.address == data:
-                        print("Trovato un reloc che punta ad un'istruzione")
-                        print(hex(reloc.rva), reloc.type,hex(data))
+                        # print("Trovato un reloc che punta ad un'istruzione")
+                        # print(hex(reloc.rva), reloc.type,hex(data))
+                        print("nella reloc: ",hex(data))
+                        print("nella istruzione: ",hex(instr.new_instruction.address))
                         self.pe.set_qword_at_rva(reloc.rva, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
                         self.pe.write("hello_world.exe")
+                        break
 
                         
     def locate_by_address(self, address):
@@ -399,5 +422,6 @@ if __name__ == '__main__':
     zone.adjust_reloc_table()
 
     zone.write_pe_file()
+ 
 
-
+#1f4e
