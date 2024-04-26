@@ -24,6 +24,18 @@
 #           2.2.1) creare un metodo per inserire istruzioni
 #                2.2.2) prev_instr = self.instructions[i], next_instr = self.instructions[i+1]
 
+#
+from capstone import *   #e' un disassembler
+from keystone import *   #e' un assembler
+import sys
+import pefile
+import time
+import os
+from capstone import x86_const
+
+# def estrai_valore(stringa):
+#     # Usa un'espressione regolare per trovare il valore tra "rip +" e "]"
+#     match = re.search(r"rip \+ (.*?)\]", stringa)
 #STRUTTURA COSE DA FARE
 #0) inizializzare tutto                                                                         FATTO!                                       
 #1) dumpare la .text                                                                            FATTO!
@@ -37,18 +49,6 @@
 #8) scrivere il PE
 #
 #--> inserire le NOP
-#
-from capstone import *   #e' un disassembler
-from keystone import *   #e' un assembler
-import sys
-import pefile
-import time
-import os
-from capstone import x86_const
-
-# def estrai_valore(stringa):
-#     # Usa un'espressione regolare per trovare il valore tra "rip +" e "]"
-#     match = re.search(r"rip \+ (.*?)\]", stringa)
     
 #     # Se non c'è corrispondenza, restituisci un messaggio di errore
 #     if match is None:
@@ -105,6 +105,7 @@ class Zone:
         self.code_section = get_text_section(self.pe, self.base_address)
         self.code_section_size = self.code_section.Misc_VirtualSize
 
+        self.code_raw_start = self.code_section.PointerToRawData
         print(f"Original entry point: {hex(self.original_entry_point)}")
         print(f"Base address: {hex(self.base_address)}")
         print(f"Code section size: {hex(self.code_section_size)}")
@@ -384,21 +385,21 @@ class Zone:
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
         
-        gap = self.pe.OPTIONAL_HEADER.SectionAlignment - (len(new_bytes) % self.pe.OPTIONAL_HEADER.SectionAlignment)
+        # gap = self.pe.OPTIONAL_HEADER.SectionAlignment - (len(new_bytes) % self.pe.OPTIONAL_HEADER.SectionAlignment)
 
-        gap_bytes = (bytearray([0 for _ in range(gap)]))
-        new_bytes += gap_bytes
+        # gap_bytes = (bytearray([0 for _ in range(gap)]))
+        # new_bytes += gap_bytes
         new_entry_point = self.locate_by_address(self.original_entry_point).new_instruction.address
-
+        entry_point_addr = self.pe.DOS_HEADER.e_lfanew + 0x28
         with open("hello_world.exe", "r+b") as f:
 
             original_file = bytearray(f.read())
             print(f"LEN ORIGINAL_FILE: {len(original_file)}")
             new_bytes = bytearray(new_bytes)
 
-            addr = 0x133b
-            original_file[0x400 : 0x400 + len(new_bytes)] = new_bytes
-            original_file[0x130: 0x134] = addr.to_bytes(4, byteorder='little')
+            #addr = 0x133b
+            original_file[self.code_raw_start : self.code_raw_start + len(new_bytes)] = new_bytes
+            original_file[entry_point_addr: entry_point_addr + 4] = new_entry_point.to_bytes(4, byteorder='little')
             print(f"LEN NUOVO_FILE: {len(original_file)}")
 
             f.seek(0)
