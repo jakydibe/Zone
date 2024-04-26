@@ -80,6 +80,13 @@ def get_text_section(pe, address):
             print(section.Name, hex(section.VirtualAddress),hex(section.Misc_VirtualSize), section.SizeOfRawData )
             return section
 
+def get_section(pe,name):
+    for section in pe.sections:
+        if section.Name == name:
+            print(section.Name, hex(section.VirtualAddress),hex(section.Misc_VirtualSize), section.SizeOfRawData )
+            return section
+    return None
+
 class Instruction:
     def __init__(self,new_instruction,old_instruction,original_instruction,prev_instruction,next_instruction):
         self.new_instruction = new_instruction
@@ -359,6 +366,35 @@ class Zone:
 
                 break
 
+    def adjust_everything(self):
+        name_length = 8
+        nome_rdata = b'.rdata' + b'\x00' * (8 - len(b'.rdata'))
+        nome_pdata = b'.pdata' + b'\x00' * (8 - len(b'.pdata'))
+        rdata_addr = get_section(self.pe, nome_rdata).VirtualAddress
+        pdata = get_section(self.pe, nome_pdata) 
+        pdata_end = pdata.VirtualAddress + pdata.SizeOfRawData
+
+        for i in range(pdata_end - rdata_addr):
+            roba_dword = self.pe.get_dword_at_rva(rdata_addr + i)
+            roba_qword = self.pe.get_qword_at_rva(rdata_addr + i)
+            for instr in self.instructions:
+                if instr.original_instruction.address == (roba_qword - self.pe.OPTIONAL_HEADER.ImageBase):
+                    print("Trovato un reloc che punta ad un'istruzione")
+                    print(hex(roba_qword))
+                    print(hex(instr.new_instruction.address))
+                    self.pe.set_qword_at_rva(rdata_addr + i, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
+                    break
+                elif instr.original_instruction.address == (roba_dword ):
+                    print("Trovato un reloc che punta ad un'istruzione")
+                    print(hex(roba_dword))
+                    print(hex(instr.new_instruction.address))
+                    self.pe.set_dword_at_rva(rdata_addr + i, instr.new_instruction.address)
+                    break
+
+        self.pe.write("hello_world.exe")
+
+
+
     def adjust_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
             for reloc in entries.entries:
@@ -427,7 +463,7 @@ if __name__ == '__main__':
     zone.print_instructions()
 
     zone.adjust_reloc_table()
-
+    zone.adjust_everything()
     zone.write_pe_file()
  
 
