@@ -343,6 +343,8 @@ class Zone:
 
                 print("ADDRESS DEL PRIMO XOR EAX,EAX: ", hex(instr.old_instruction.address))
                 str_instr = f"mov {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},0x0"
+                #str_instr = f"sub eax,eax"
+
                 asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
 
                 bytes_arr = bytearray(asm)
@@ -390,6 +392,8 @@ class Zone:
         # gap_bytes = (bytearray([0 for _ in range(gap)]))
         # new_bytes += gap_bytes
         new_entry_point = self.locate_by_address(self.original_entry_point).new_instruction.address
+
+        #indirizzo dove viene salvato l'entry point
         entry_point_addr = self.pe.DOS_HEADER.e_lfanew + 0x28
         with open("hello_world.exe", "r+b") as f:
 
@@ -397,8 +401,9 @@ class Zone:
             print(f"LEN ORIGINAL_FILE: {len(original_file)}")
             new_bytes = bytearray(new_bytes)
 
-            #addr = 0x133b
+            #riscrivo la .text
             original_file[self.code_raw_start : self.code_raw_start + len(new_bytes)] = new_bytes
+            #scrivo l' entry point
             original_file[entry_point_addr: entry_point_addr + 4] = new_entry_point.to_bytes(4, byteorder='little')
             print(f"LEN NUOVO_FILE: {len(original_file)}")
 
