@@ -30,6 +30,7 @@ from keystone import *   #e' un assembler
 import sys
 import pefile
 import time
+import lief
 import os
 from capstone import x86_const
 
@@ -79,6 +80,12 @@ def get_text_section(pe, address):
         if section.contains_rva(address):
             print(section.Name, hex(section.VirtualAddress),hex(section.Misc_VirtualSize), section.SizeOfRawData )
             return section
+        
+def get_text_section_lief(pe):
+    for section in pe.sections:
+        if section.name == '.text':
+            return section
+    return None
 
 def get_section(pe,name):
     for section in pe.sections:
@@ -104,6 +111,9 @@ class Zone:
         
         self.pe = pefile.PE("hello_world.exe")
 
+        self.pe_lief = lief.parse("hello_world.exe")
+
+
         self.label_table = []
         self.instructions = []
 
@@ -112,12 +122,18 @@ class Zone:
         self.code_section = get_text_section(self.pe, self.base_address)
         self.code_section_size = self.code_section.Misc_VirtualSize
 
+
+        self.data_directories = self.pe.OPTIONAL_HEADER.DATA_DIRECTORY
+
         self.code_raw_start = self.code_section.PointerToRawData
         print(f"Original entry point: {hex(self.original_entry_point)}")
         print(f"Base address: {hex(self.base_address)}")
         print(f"Code section size: {hex(self.code_section_size)}")
 
         self.raw_code = self.code_section.get_data(self.base_address, self.code_section_size)
+        #self.raw_code = get_text_section_lief(self.pe_lief).content
+
+
         self.original_code_length = len(self.raw_code)
 
 
@@ -371,26 +387,36 @@ class Zone:
         nome_rdata = b'.rdata' + b'\x00' * (8 - len(b'.rdata'))
         nome_pdata = b'.pdata' + b'\x00' * (8 - len(b'.pdata'))
         rdata_addr = get_section(self.pe, nome_rdata).VirtualAddress
+        # import_table = None
+        # for directory in self.data_directories:
+        #     if directory.name == 'IMAGE_DIRECTORY_ENTRY_IMPORT':
+        #         import_table = directory
+        #         break
+        #starting_addr = (import_table.VirtualAddress + import_table.Size)
+        #starting_addr = 0x17258
+            
         pdata = get_section(self.pe, nome_pdata) 
         pdata_end = pdata.VirtualAddress + pdata.SizeOfRawData
 
-        for i in range(pdata_end - rdata_addr):
-            roba_dword = self.pe.get_dword_at_rva(rdata_addr + i)
-            roba_qword = self.pe.get_qword_at_rva(rdata_addr + i)
-            for instr in self.instructions:
-                if instr.original_instruction.address == (roba_qword - self.pe.OPTIONAL_HEADER.ImageBase):
-                    print("Trovato un reloc che punta ad un'istruzione")
-                    print(hex(roba_qword))
-                    print(hex(instr.new_instruction.address))
-                    self.pe.set_qword_at_rva(rdata_addr + i, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
-                    break
-                elif instr.original_instruction.address == (roba_dword ):
-                    print("Trovato un reloc che punta ad un'istruzione")
-                    print(hex(roba_dword))
-                    print(hex(instr.new_instruction.address))
-                    self.pe.set_dword_at_rva(rdata_addr + i, instr.new_instruction.address)
-                    break
+        print("startin_addr: ",hex(rdata_addr))
+        print("end_addr: ",hex(pdata_end))
+        for instr in self.instructions:
+            xrefs = self.pe_lief.xref(int(instr.original_instruction.address))
+            if xrefs == None:
+                continue
+            for xref in xrefs:
+                if xref >= rdata_addr and xref < pdata_end:
+                    rif = self.pe.get_dword_at_rva(xref)
+                    if rif == instr.original_instruction.address:
+                        print("Trovato un riferimento alla .data")
+                        print("indirizzo .data: ",hex(xref))
+                        print("indirizzo istruzione: ",hex(instr.new_instruction.address))
+                        print("indirizzo originale: ",hex(instr.original_instruction.address))
+                        self.pe.set_dword_at_rva(xref, instr.new_instruction.address)
+            #print(hex(instr.original_instruction.address))
 
+
+                    
         self.pe.write("hello_world.exe")
 
 
@@ -456,14 +482,16 @@ if __name__ == '__main__':
     zone.update_instr()
     zone.update_label_table()
 
-    zone.print_instructions()
+    #zone.print_instructions()
 
     zone.adjust_out_text_references()
 
-    zone.print_instructions()
+    #zone.print_instructions()
+
 
     zone.adjust_reloc_table()
-    zone.adjust_everything()
+    #zone.adjust_everything()
+
     zone.write_pe_file()
  
 
