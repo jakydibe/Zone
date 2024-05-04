@@ -71,7 +71,18 @@ def estrai_valore(instruzione):
         return 0
 
 
+def find_xref(addr):
+    addr_bytes = addr.to_bytes(4, byteorder='little')
 
+    with open("hel.exe", "rb") as f:
+        data = f.read()
+        xref_list = []
+        for i in range(len(data)):
+            if data[i:i+4] == addr_bytes:
+                #print(addr_bytes,hex(i))
+                xref_list.append(i)
+
+    return xref_list
 
 
 def get_text_section(pe, address):
@@ -103,10 +114,15 @@ class Instruction:
         self.next_instruction = next_instruction
 
 
+
+
 class Zone:
     def __init__(self):
         self.cs = Cs(CS_ARCH_X86, CS_MODE_64)
         self.cs.detail = True
+
+        self.cs.skipdata = True
+        self.cs.skipdata_setup = ("uint", None, None)
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
         
         self.pe = pefile.PE("hello_world.exe")
@@ -117,10 +133,14 @@ class Zone:
         self.label_table = []
         self.instructions = []
 
+        self.jump_table = []
+
         self.original_entry_point = self.pe.OPTIONAL_HEADER.AddressOfEntryPoint
         self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
         self.code_section = get_text_section(self.pe, self.base_address)
         self.code_section_size = self.code_section.Misc_VirtualSize
+
+        self.rdata_section = get_section(self.pe, '.rdata\x00\x00')
 
 
         self.data_directories = self.pe.OPTIONAL_HEADER.DATA_DIRECTORY
@@ -138,10 +158,36 @@ class Zone:
 
 
         with open('instr.txt', 'r+') as f:
-            for i in self.cs.disasm(self.raw_code, self.base_address):
-                self.instructions.append(Instruction(i,i,i,None,None))
-                stringa = f"{hex(i.address)} {i.bytes} {i.size}  {i.mnemonic}  {i.op_str}\n"
-                f.write(stringa)
+            begin = self.base_address
+            end = self.base_address + self.code_section_size
+
+            #time.sleep(10000)
+            while True:
+                last_address = 0
+                last_size = 0
+                print(f"begin: {hex(begin)}")
+                print(f"end: {hex(end)}")
+                time.sleep(1)
+
+                print("CICLO\n")
+                for i in self.cs.disasm(self.raw_code[begin-self.base_address:end], begin):
+                    self.instructions.append(Instruction(i,i,i,None,None))
+                    stringa = f"{hex(i.address)} {i.bytes} {i.size}  {i.mnemonic}  {i.op_str}\n"
+                    last_address = i.address
+                    last_size = i.size
+                    f.write(stringa)
+                
+
+
+                begin = max(int(last_address),begin) + last_size + 1
+                
+                if begin >= end:
+                    break
+                #self.raw_code = self.code_section.get_data(self.base_address, self.code_section_size)[begin:end]
+
+
+        print("FINITO DI DISASSEMBLARE")
+        time.sleep(10000)
 
 
         for x,instr in enumerate(self.instructions):
@@ -162,6 +208,16 @@ class Zone:
             for n in self.cs.disasm(i.new_instruction.bytes,addr):
                 i.new_instruction = n
 
+    def find_section_via_raw(self,raw_address):
+        for section in self.pe.sections:
+            if raw_address >= section.PointerToRawData and raw_address < section.PointerToRawData + section.SizeOfRawData:
+                return section
+        return None
+
+    #File Offset = RVA - Section.VirtualAddress + Section.PointerToRawData
+    def convert_raw_to_rva(self,raw_address,section):
+        return raw_address + section.VirtualAddress - section.PointerToRawData
+
     def print_instructions(self):
         with open('instr_2.txt', 'r+') as f:
 
@@ -172,6 +228,38 @@ class Zone:
     def print_label_table(self):
         for k,v in self.label_table.items():
             print(hex(k),v.new_instruction.mnemonic, v.new_instruction.op_str)
+
+    
+    def create_jmp_table(self):
+        for instr in self.instructions:
+            if instr.old_instruction.id == x86_const.X86_INS_JMP and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG:
+                if instr.prev_instruction.new_instruction.mnemonic == 'add' and instr.prev_instruction.prev_instruction.new_instruction.mnemonic == 'mov':
+                    indirizzo_jmp_table = estrai_valore(instr.prev_instruction.prev_instruction.new_instruction.op_str)
+                    self.jump_table.append(indirizzo_jmp_table)
+    
+    def print_jmp_table(self):
+        with open('jmp_table.txt', 'r+') as f:
+            for i in self.jump_table:
+                f.write(hex(i) + '\n')
+                    
+    def adjust_jmp_table(self):
+        for n,i in enumerate(self.jump_table):
+            x = 0
+            if n != len(self.jump_table) - 1:
+                while (i + x*4 < self.jump_table[n+1]):
+                    addr = self.pe.get_dword_at_rva(i + x*4)
+                    is_an_instruction = False
+                    for instr in self.instructions:
+                        if instr.original_instruction.address == addr:
+                            self.pe.set_dword_at_rva(i + x*4, instr.new_instruction.address)
+                            is_an_instruction = True
+                            break
+                    if is_an_instruction == False:
+                        break
+                    x += 1
+
+        self.pe.write("hello_world.exe")
+                    
 
 
     def create_label_table(self):
@@ -382,45 +470,6 @@ class Zone:
 
                 break
 
-    def adjust_everything(self):
-        name_length = 8
-        nome_rdata = b'.rdata' + b'\x00' * (8 - len(b'.rdata'))
-        nome_pdata = b'.pdata' + b'\x00' * (8 - len(b'.pdata'))
-        rdata_addr = get_section(self.pe, nome_rdata).VirtualAddress
-        # import_table = None
-        # for directory in self.data_directories:
-        #     if directory.name == 'IMAGE_DIRECTORY_ENTRY_IMPORT':
-        #         import_table = directory
-        #         break
-        #starting_addr = (import_table.VirtualAddress + import_table.Size)
-        #starting_addr = 0x17258
-            
-        pdata = get_section(self.pe, nome_pdata) 
-        pdata_end = pdata.VirtualAddress + pdata.SizeOfRawData
-
-        print("startin_addr: ",hex(rdata_addr))
-        print("end_addr: ",hex(pdata_end))
-        for instr in self.instructions:
-            xrefs = self.pe_lief.xref(int(instr.original_instruction.address))
-            if xrefs == None:
-                continue
-            for xref in xrefs:
-                if xref >= rdata_addr and xref < pdata_end:
-                    rif = self.pe.get_dword_at_rva(xref)
-                    if rif == instr.original_instruction.address:
-                        print("Trovato un riferimento alla .data")
-                        print("indirizzo .data: ",hex(xref))
-                        print("indirizzo istruzione: ",hex(instr.new_instruction.address))
-                        print("indirizzo originale: ",hex(instr.original_instruction.address))
-                        self.pe.set_dword_at_rva(xref, instr.new_instruction.address)
-            #print(hex(instr.original_instruction.address))
-
-
-                    
-        self.pe.write("hello_world.exe")
-
-
-
     def adjust_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
             for reloc in entries.entries:
@@ -476,23 +525,29 @@ class Zone:
 
 if __name__ == '__main__':
     zone = Zone()
+
     zone.print_instructions()
-    zone.create_label_table()
-    zone.equal_instructions()
-    zone.update_instr()
-    zone.update_label_table()
 
-    #zone.print_instructions()
+    # zone.create_label_table()
+    
+    # zone.create_jmp_table()
+    # zone.print_jmp_table()
 
-    zone.adjust_out_text_references()
+    # zone.equal_instructions()
+    # zone.update_instr()
+    # zone.update_label_table()
 
-    #zone.print_instructions()
+    # #zone.print_instructions()
+
+    # zone.adjust_out_text_references()
+
+    # #zone.print_instructions()
 
 
-    zone.adjust_reloc_table()
-    #zone.adjust_everything()
+    # zone.adjust_reloc_table()
+    # zone.adjust_jmp_table()
 
-    zone.write_pe_file()
+    # zone.write_pe_file()
  
 
 #1f4e
