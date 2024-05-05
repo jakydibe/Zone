@@ -112,7 +112,7 @@ class Instruction:
         self.original_instruction = original_instruction
         self.prev_instruction = prev_instruction
         self.next_instruction = next_instruction
-
+        self.new_bytes = None
 
 
 
@@ -122,8 +122,8 @@ class Zone:
         self.cs.detail = True
 
         self.cs.skipdata = True
-        self.cs.skipdata_setup = ("uint", None, None)
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
+        
         
         self.pe = pefile.PE("hello_world.exe")
 
@@ -134,6 +134,8 @@ class Zone:
         self.instructions = []
 
         self.jump_table = []
+        self.start_end_table = []
+
 
         self.original_entry_point = self.pe.OPTIONAL_HEADER.AddressOfEntryPoint
         self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
@@ -156,10 +158,13 @@ class Zone:
 
         self.original_code_length = len(self.raw_code)
 
+        self.bytes_to_add = []
+
 
         with open('instr.txt', 'r+') as f:
             begin = self.base_address
             end = self.base_address + self.code_section_size
+
 
             #time.sleep(10000)
             while True:
@@ -178,25 +183,33 @@ class Zone:
                     f.write(stringa)
                 
 
-
-                begin = max(int(last_address),begin) + last_size + 1
                 
                 if begin >= end:
                     break
+
+
+                begin = max(int(last_address),begin) + last_size
+                # byte_rotto = hex(self.raw_code[begin-self.base_address -1])
+                #print(f"byte rotto: {byte_rotto}")
+
+
                 #self.raw_code = self.code_section.get_data(self.base_address, self.code_section_size)[begin:end]
 
 
         print("FINITO DI DISASSEMBLARE")
-        time.sleep(10000)
-
+        #self.cs.skipdata = False
 
         for x,instr in enumerate(self.instructions):
+            instr.new_bytes = instr.new_instruction.bytes
+
             if x == 0:
                 continue
             instr.prev_instruction = self.instructions[x-1]
             if x == len(self.instructions)-1:
                 continue
             instr.next_instruction = self.instructions[x+1]
+
+
 
     def update_instr(self):
         for x,i in enumerate(self.instructions):
@@ -236,13 +249,39 @@ class Zone:
                 if instr.prev_instruction.new_instruction.mnemonic == 'add' and instr.prev_instruction.prev_instruction.new_instruction.mnemonic == 'mov':
                     indirizzo_jmp_table = estrai_valore(instr.prev_instruction.prev_instruction.new_instruction.op_str)
                     self.jump_table.append(indirizzo_jmp_table)
+
+        self.jump_table.sort()
+
+        for n,i in enumerate(self.jump_table):
+            start = i
+            end = 0
+            x = 0
+            if n != len(self.jump_table) - 1:
+                while (i + x*4 < self.jump_table[n+1]):
+                    addr = self.pe.get_dword_at_rva(i + x*4)
+                    is_an_instruction = False
+                    for instr in self.instructions:
+                        if instr.original_instruction.address == addr:
+                            is_an_instruction = True
+                            break
+                    if is_an_instruction == False:
+                        break
+                    x += 1           
+                end = i + x*4 
+            self.start_end_table.append((start,end))
+
+
     
     def print_jmp_table(self):
         with open('jmp_table.txt', 'r+') as f:
             for i in self.jump_table:
                 f.write(hex(i) + '\n')
+            f.write('\n\n\n####################\n\n\n')
+            for i in self.start_end_table:
+                f.write(hex(i[0]) + ' ' + hex(i[1]) + '\n')
                     
     def adjust_jmp_table(self):
+
         for n,i in enumerate(self.jump_table):
             x = 0
             if n != len(self.jump_table) - 1:
@@ -260,12 +299,22 @@ class Zone:
 
         self.pe.write("hello_world.exe")
                     
+    def check_if_inside_jmp_table(self,address):
+        inside_jmp_table = False
+        for jmp in self.start_end_table:
+            if address >= jmp[0] and address <= jmp[1]:
+                inside_jmp_table = True
 
+        return inside_jmp_table
 
     def create_label_table(self):
         lt = dict()
 
         for instr in self.instructions:
+            
+            inside_jmp_table = self.check_if_inside_jmp_table(instr.original_instruction.address)
+            if inside_jmp_table == True:
+                continue
             if (x86_const.X86_GRP_JUMP in instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
                 if(instr.new_instruction.operands[0].type == x86_const.X86_OP_IMM):
                     addr = instr.new_instruction.operands[0].imm
@@ -290,11 +339,18 @@ class Zone:
             restart = False
 
             for instr in self.instructions:
+
+
+
                 if restart == True:
                     break
                 if instr.original_instruction.address in self.label_table:
                     
                     for num_instr,instr2 in enumerate(self.instructions):
+                        inside_jmp_table = self.check_if_inside_jmp_table(instr2.original_instruction.address)
+
+                        if inside_jmp_table == True:
+                            continue
                         if restart == True:
                             break
                         if instr2.original_instruction.address == self.label_table[instr.original_instruction.address].original_instruction.address:
@@ -335,6 +391,10 @@ class Zone:
 
     def adjust_out_text_references(self):
         for num_instr,instr in enumerate(self.instructions):
+            inside_jmp_table = self.check_if_inside_jmp_table(instr.original_instruction.address)
+            if inside_jmp_table == True:
+                continue
+
             if instr is not None:
                 if ('rip +' in instr.new_instruction.op_str):
                     #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
@@ -344,6 +404,8 @@ class Zone:
 
                     addr = self.instructions[num_instr + 1].original_instruction.address + valore_originale
 
+                    # print("valore_originale: ",valore_originale)
+                    # print("nuovo indirizzo: ",hex(addr))
                     #checko se l'indirizzo e'all'interno della .text
                     if addr > self.base_address and addr < self.base_address + self.code_section_size:
                         for i in self.instructions:
@@ -359,8 +421,19 @@ class Zone:
 
                     new_string = old_string.replace(hex(valore_originale),hex(offset))
 
-                    asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
-                    asm = bytearray(asm)
+
+
+                    try:
+                        asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
+                        asm = bytearray(asm)
+                    except:
+                        nuovi_bytes = offset.to_bytes(4, byteorder='little')
+                        bytes_vecchi = valore_originale.to_bytes(4, byteorder='little')
+                        asm = bytearray(instr.new_instruction.bytes.replace(bytes_vecchi,nuovi_bytes))
+                        print('vecchi bytes: ',instr.new_instruction.bytes)
+                        print('nuovi bytes: ',asm)
+
+
 
                     if(len(asm) < len(instr.new_instruction.bytes)):
                         if(instr.new_instruction.bytes[0] == 0x48 and (len(instr.new_instruction.bytes) - len(asm) == 1)):
@@ -493,6 +566,8 @@ class Zone:
             if instr.original_instruction.address == address:
                 return instr
         return None
+    
+
     def write_pe_file(self):
         new_bytes = b''
         for i in self.instructions:
@@ -528,26 +603,30 @@ if __name__ == '__main__':
 
     zone.print_instructions()
 
-    # zone.create_label_table()
     
-    # zone.create_jmp_table()
-    # zone.print_jmp_table()
+    zone.create_jmp_table()
+    zone.print_jmp_table()
 
-    # zone.equal_instructions()
-    # zone.update_instr()
-    # zone.update_label_table()
-
-    # #zone.print_instructions()
-
-    # zone.adjust_out_text_references()
-
-    # #zone.print_instructions()
+    zone.create_label_table()
 
 
-    # zone.adjust_reloc_table()
-    # zone.adjust_jmp_table()
+    zone.equal_instructions()
+    zone.update_instr()
+    zone.update_label_table()
 
-    # zone.write_pe_file()
+    zone.print_instructions()
+
+    zone.adjust_out_text_references()
+
+
+
+    zone.adjust_reloc_table()
+    zone.adjust_jmp_table()
+
+    zone.print_instructions()
+
+
+    zone.write_pe_file()
  
 
 #1f4e
