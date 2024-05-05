@@ -112,22 +112,23 @@ class Instruction:
         self.original_instruction = original_instruction
         self.prev_instruction = prev_instruction
         self.next_instruction = next_instruction
-        self.new_bytes = None
 
 
 
 class Zone:
-    def __init__(self):
+    def __init__(self, file):
         self.cs = Cs(CS_ARCH_X86, CS_MODE_64)
         self.cs.detail = True
-
         self.cs.skipdata = True
+
+        self.file = file
+
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
         
         
-        self.pe = pefile.PE("hello_world.exe")
+        self.pe = pefile.PE(file)
 
-        self.pe_lief = lief.parse("hello_world.exe")
+        self.pe_lief = lief.parse(file)
 
 
         self.label_table = []
@@ -210,7 +211,6 @@ class Zone:
             instr.next_instruction = self.instructions[x+1]
 
 
-
     def update_instr(self):
         for x,i in enumerate(self.instructions):
             if x == 0:
@@ -219,6 +219,7 @@ class Zone:
 
 
             for n in self.cs.disasm(i.new_instruction.bytes,addr):
+                i.old_instruction = i.new_instruction
                 i.new_instruction = n
 
     def find_section_via_raw(self,raw_address):
@@ -239,8 +240,8 @@ class Zone:
                 f.write(stringa)
 
     def print_label_table(self):
-        for k,v in self.label_table.items():
-            print(hex(k),v.new_instruction.mnemonic, v.new_instruction.op_str)
+        for v in self.label_table:
+            print(hex(v))
 
     
     def create_jmp_table(self):
@@ -297,7 +298,7 @@ class Zone:
                         break
                     x += 1
 
-        self.pe.write("hello_world.exe")
+        self.pe.write(file)
                     
     def check_if_inside_jmp_table(self,address):
         inside_jmp_table = False
@@ -308,19 +309,26 @@ class Zone:
         return inside_jmp_table
 
     def create_label_table(self):
-        lt = dict()
-
+        lt = []
         for instr in self.instructions:
-            
             inside_jmp_table = self.check_if_inside_jmp_table(instr.original_instruction.address)
             if inside_jmp_table == True:
                 continue
-            if (x86_const.X86_GRP_JUMP in instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
-                if(instr.new_instruction.operands[0].type == x86_const.X86_OP_IMM):
-                    addr = instr.new_instruction.operands[0].imm
-                    lt[addr] = instr
+            
+            if instr.new_instruction.mnemonic == '.byte':
+                continue
 
+            if (x86_const.X86_GRP_JUMP in instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
+                if 'ptr' not in instr.new_instruction.op_str:
+                    addr = estrai_valore(instr.new_instruction.op_str)
+                    if addr not in lt:
+                       lt.append(addr)
+        lt.sort()
+        with open('label_table.txt', 'r+') as f:
+            for i in lt:
+                f.write(hex(i) + '\n')
         self.label_table = lt
+
 
     def insert_instruction(self,index,instruction):
         self.instructions[index].next_instruction = instruction
@@ -332,61 +340,98 @@ class Zone:
         self.instructions.insert(index,instruction)
 
 
-    def update_label_table(self):
-        restart = False
-        finished = False
-        while finished == False:
-            restart = False
+    # def update_label_table(self):
+    #     restart = False
+    #     finished = False
+    #     while finished == False:
+    #         restart = False
 
-            for instr in self.instructions:
+    #         for instr in self.instructions:
 
 
-
-                if restart == True:
-                    break
-                if instr.original_instruction.address in self.label_table:
+    #             if restart == True:
+    #                 break
+    #             if instr.original_instruction.address in self.label_table:
                     
-                    for num_instr,instr2 in enumerate(self.instructions):
-                        inside_jmp_table = self.check_if_inside_jmp_table(instr2.original_instruction.address)
+    #                 for num_instr,instr2 in enumerate(self.instructions):
+    #                     inside_jmp_table = self.check_if_inside_jmp_table(instr2.original_instruction.address)
 
-                        if inside_jmp_table == True:
-                            continue
-                        if restart == True:
-                            break
-                        if instr2.original_instruction.address == self.label_table[instr.original_instruction.address].original_instruction.address:
-                            new_addr = instr.new_instruction.address
+    #                     if inside_jmp_table == True:
+    #                         continue
+    #                     if restart == True:
+    #                         break
 
-                            new_str = f"{instr2.original_instruction.mnemonic} {hex(new_addr)}"
+                                
+    #                     if instr2.original_instruction.address == self.label_table[instr.original_instruction.address].original_instruction.address:
+
+
+    #                         new_addr = instr.new_instruction.address
+
+    #                         new_str = f"{instr2.new_instruction.mnemonic} {hex(new_addr)}"
                             
-                            asm,_ = self.ks.asm(new_str,instr2.new_instruction.address)
-                            asm = bytearray(asm)
+    #                         asm,_ = self.ks.asm(new_str,instr2.new_instruction.address)
+    #                         asm = bytearray(asm)
 
-                            if(len(asm) < instr2.new_instruction.size):
-                                restart = True
-                                print("Indirizzo: ",hex(instr2.new_instruction.address))
-                                print('Istruzione: ',instr2.new_instruction.mnemonic,instr2.new_instruction.op_str)
+    #                         if(len(asm) < instr2.new_instruction.size):
+    #                             restart = True
+    #                             print("Indirizzo: ",hex(instr2.new_instruction.address))
+    #                             print('Istruzione: ',instr2.new_instruction.mnemonic,instr2.new_instruction.op_str)
+    #                             print("lunghezza asm: ",len(asm))
+    #                             print("lunghezza instr2.new_instruction: ",instr2.new_instruction.size)
+    #                             nop_num = instr2.new_instruction.size - len(asm)
+    #                     ###################DA AGGIUSTARE################################
+    #                             for i in range(nop_num):
+    #                                 asm.append(0x90)
+    #                             for x,i in enumerate(self.cs.disasm(asm, instr2.new_instruction.address)):
+    #                                 if x == 0:
+    #                                     instr2.new_instruction = i
+    #                                 else:
+    #                                     insr = Instruction(i,i,i,None,None)
+    #                                     self.insert_instruction(num_instr + x, insr)
+    #                             # for i in self.cs.disasm(asm,instr2.new_instruction.address):
+    #                             #     instr.new_instruction = i
+    #                         elif(len(asm) == instr2.new_instruction.size):
+    #                             for i in self.cs.disasm(asm,instr2.new_instruction.address):
+    #                                 instr2.new_instruction = i
+    #                         else:
+    #                             print("SOSPETTO: len(asm) > instr2.new_instruction.size")
+    #         finished = True
+
+    def update_label_table(self):
+        for num_instr,instr in enumerate(self.instructions):
+            if instr.new_instruction.mnemonic == '.byte':
+                continue
+
+            if (x86_const.X86_GRP_JUMP in  instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
+
+                if 'ptr' in instr.new_instruction.op_str:
+                    continue
+                addr = estrai_valore(instr.original_instruction.op_str)
+                if addr in self.label_table:
+                    for instr2 in self.instructions:
+                        if instr2.original_instruction.address == addr:
+                            new_str = f"{instr.new_instruction.mnemonic} {hex(instr2.new_instruction.address)}"
+                            asm,_ = self.ks.asm(new_str,instr.new_instruction.address)
+                            asm = bytearray(asm)
+                            if(len(asm) < instr.new_instruction.size):
+                                print("Indirizzo: ",hex(instr.new_instruction.address))
+                                print('Istruzione: ',instr.new_instruction.mnemonic,instr.new_instruction.op_str)
                                 print("lunghezza asm: ",len(asm))
-                                print("lunghezza instr2.new_instruction: ",instr2.new_instruction.size)
-                                nop_num = instr2.new_instruction.size - len(asm)
-                        ###################DA AGGIUSTARE################################
+                                nop_num = instr.new_instruction.size - len(asm)
                                 for i in range(nop_num):
                                     asm.append(0x90)
-                                for x,i in enumerate(self.cs.disasm(asm, instr2.new_instruction.address)):
+                                for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
                                     if x == 0:
-                                        instr2.new_instruction = i
+                                        instr.new_instruction = i
                                     else:
                                         insr = Instruction(i,i,i,None,None)
                                         self.insert_instruction(num_instr + x, insr)
-                                # for i in self.cs.disasm(asm,instr2.new_instruction.address):
-                                #     instr.new_instruction = i
-                            elif(len(asm) == instr2.new_instruction.size):
-                                for i in self.cs.disasm(asm,instr2.new_instruction.address):
-                                    instr2.new_instruction = i
+                            elif(len(asm) == instr.new_instruction.size):
+                                for i in self.cs.disasm(asm,instr.new_instruction.address):
+                                    instr.new_instruction = i
                             else:
                                 print("SOSPETTO: len(asm) > instr2.new_instruction.size")
-            finished = True
-
-
+                            break   
 
 
     def adjust_out_text_references(self):
@@ -521,27 +566,29 @@ class Zone:
         instr.old_instruction = instr.new_instruction
 
     def equal_instructions(self):
+        change_num = 0
         for instr in self.instructions:
 
             if(instr.old_instruction.id == x86_const.X86_INS_XOR and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_REG):
+                if instr.old_instruction.operands[0].reg == instr.old_instruction.operands[1].reg:
+                    print("ADDRESS DEL PRIMO XOR EAX,EAX: ", hex(instr.old_instruction.address))
+                    str_instr = f"mov {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},0x0"
+                    #str_instr = f"sub eax,eax"
 
-                print("ADDRESS DEL PRIMO XOR EAX,EAX: ", hex(instr.old_instruction.address))
-                str_instr = f"mov {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},0x0"
-                #str_instr = f"sub eax,eax"
+                    asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
 
-                asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
-
-                bytes_arr = bytearray(asm)
+                    bytes_arr = bytearray(asm)
 
 
-                for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
-                    print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
-                    print("nuova istruzione: ", i.mnemonic, i.op_str)
-                    instr.new_instruction = i
-                    #instr.update_address(num_bytes)    
-                self.update_old_instructions(instr)              
-
-                break
+                    for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                        print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                        print("nuova istruzione: ", i.mnemonic, i.op_str)
+                        instr.new_instruction = i
+                        #instr.update_address(num_bytes)    
+                    #self.update_old_instructions(instr)              
+                    change_num += 1
+                    if change_num == 1:
+                        break
 
     def adjust_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
@@ -553,11 +600,11 @@ class Zone:
                     if instr.original_instruction.address == data:
                         # print("Trovato un reloc che punta ad un'istruzione")
                         # print(hex(reloc.rva), reloc.type,hex(data))
-                        print("nella reloc: ",hex(data))
-                        print("nella istruzione: ",hex(instr.new_instruction.address))
+                        #rint("nella reloc: ",hex(data))
+                        #print("nella istruzione: ",hex(instr.new_instruction.address))
                         self.pe.set_qword_at_rva(reloc.rva, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
                         break
-        self.pe.write("hello_world.exe")
+        self.pe.write(file)
 
 
                         
@@ -581,7 +628,7 @@ class Zone:
 
         #indirizzo dove viene salvato l'entry point
         entry_point_addr = self.pe.DOS_HEADER.e_lfanew + 0x28
-        with open("hello_world.exe", "r+b") as f:
+        with open(file, "r+b") as f:
 
             original_file = bytearray(f.read())
             print(f"LEN ORIGINAL_FILE: {len(original_file)}")
@@ -599,7 +646,10 @@ class Zone:
 
 
 if __name__ == '__main__':
-    zone = Zone()
+
+    #file = 'hello_world.exe'
+    file = 'C:\\Users\\jak\\Downloads\\PE-bear_0.6.7.3_qt4_x86_win_vs10\\PE-bear_patched.exe'
+    zone = Zone(file)
 
     zone.print_instructions()
 
@@ -612,6 +662,7 @@ if __name__ == '__main__':
 
     zone.equal_instructions()
     zone.update_instr()
+
     zone.update_label_table()
 
     zone.print_instructions()
