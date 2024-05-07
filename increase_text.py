@@ -133,6 +133,7 @@ class PEFile:
         self.text_section = get_section(self.pe,b'.text\x00\x00\x00')
         self.next_section = get_section(self.pe,b'.rdata\x00\x00')
         self.increase_size = increase_size
+        self.file = file
 
         self.cs = Cs(CS_ARCH_X86, CS_MODE_64)
         self.cs.detail = True
@@ -146,9 +147,14 @@ class PEFile:
         self.start_end_table = []
 
         self.base_address = self.text_section.VirtualAddress
+        self.raw_base_address = self.text_section.PointerToRawData
+
         self.code_section_size = self.text_section.SizeOfRawData
 
         self.raw_code = self.text_section.get_data(self.base_address, self.code_section_size)
+
+        self.ImportAddressTable = None
+
 
         with open('instr_incrs_text.txt', 'r+') as f:
             begin = self.base_address
@@ -210,7 +216,7 @@ class PEFile:
 
 
     def patch_headers_and_sections(self):
-        with open(file, 'r+b') as f:
+        with open(self.file, 'r+b') as f:
             opt_hdr = self.pe.OPTIONAL_HEADER
             print(opt_hdr)
             dict = opt_hdr.dump_dict()
@@ -220,7 +226,7 @@ class PEFile:
     ##################################################################### AGGIUSTO SIZE OF CODE
             SizeOfCode_addr = int(dict['SizeOfCode']['FileOffset'])
             new_SizeOfCode = int(dict['SizeOfCode']['Value'])
-            new_SizeOfCode += increase_size
+            new_SizeOfCode += self.increase_size
 
 
             print("new_SizeOfCode: ", hex(new_SizeOfCode))
@@ -231,7 +237,7 @@ class PEFile:
     #####################################################################AGGIUSTO SIZE OF IMAGE
             SizeOfImage_addr = int(dict['SizeOfImage']['FileOffset'])
             new_SizeOfImage = int(dict['SizeOfImage']['Value'])
-            new_SizeOfImage += increase_size
+            new_SizeOfImage += self.increase_size
             original_file[SizeOfImage_addr:SizeOfImage_addr+4] = new_SizeOfImage.to_bytes(4,byteorder='little')
     #####################################################################
     #####################################################################AGGIUSTO DATA DIRECTORY
@@ -239,9 +245,8 @@ class PEFile:
             for data in opt_hdr.DATA_DIRECTORY:
                 if data.VirtualAddress != 0:
                     data = data.dump_dict()
-
                     addr = data['VirtualAddress']['FileOffset']
-                    nuovo_valore = data['VirtualAddress']['Value'] + increase_size
+                    nuovo_valore = data['VirtualAddress']['Value'] + self.increase_size
                     #data.Size += increase_size
                     original_file[addr:addr+4] = nuovo_valore.to_bytes(4,byteorder='little')
 
@@ -258,8 +263,8 @@ class PEFile:
                     section_size = section['SizeOfRawData']['Value']
                     section_virtual_size = section['Misc_VirtualSize']['Value']
 
-                    section_size += increase_size
-                    section_virtual_size += increase_size
+                    section_size += self.increase_size
+                    section_virtual_size += self.increase_size
 
                     original_file[section_addr:section_addr+4] = section_size.to_bytes(4,byteorder='little')
                     original_file[section['Misc_VirtualSize']['FileOffset']:section['Misc_VirtualSize']['FileOffset']+4] = section_virtual_size.to_bytes(4,byteorder='little')
@@ -270,8 +275,8 @@ class PEFile:
                     section_virtual_addr = section['VirtualAddress']['Value']
                     section_pointer_to_raw_data = section['PointerToRawData']['Value']
 
-                    section_virtual_addr += increase_size
-                    section_pointer_to_raw_data += increase_size
+                    section_virtual_addr += self.increase_size
+                    section_pointer_to_raw_data += self.increase_size
 
                     original_file[section['VirtualAddress']['FileOffset']:section['VirtualAddress']['FileOffset']+4] = section_virtual_addr.to_bytes(4,byteorder='little')
                     original_file[section['PointerToRawData']['FileOffset']:section['PointerToRawData']['FileOffset']+4] = section_pointer_to_raw_data.to_bytes(4,byteorder='little')
@@ -279,13 +284,95 @@ class PEFile:
 
             f.seek(0)
             f.write(original_file)
+            f.close()
 
 
     def patch_import_table(self):
-        pass
+        import_table = self.pe.DIRECTORY_ENTRY_IMPORT
+        for i in import_table:
+            struct = i.struct
+            struct = struct.dump_dict()
+            FirstThunk = struct['FirstThunk']['Value']
+            indirizzo = self.pe.get_qword_at_rva(FirstThunk)
+            new_FirstThunk = FirstThunk + self.increase_size
+            self.pe.set_qword_at_rva(FirstThunk,new_FirstThunk)
+            print("indirizzo: ",hex(indirizzo))
+        self.pe.write(self.file)
 
-    def patch_load_config(self):
-        pass
+            
+        time.sleep(10000)
+        for imp in import_table:
+            struct = imp.struct
+            struct = struct.dump_dict()
+            #print(struct)
+
+            OriginalFirstThunk = struct['OriginalFirstThunk']['Value']
+            OriginalFirstThunk_addr = struct['OriginalFirstThunk']['FileOffset']
+            new_OriginalFirstThunk = OriginalFirstThunk + self.increase_size
+
+            Characteristics = struct['Characteristics']['Value']
+            Characteristics_addr = struct['Characteristics']['FileOffset']
+            new_Characteristics = Characteristics + self.increase_size
+
+            Name = struct['Name']['Value']
+            Name_addr = struct['Name']['FileOffset']
+            new_Name = Name + self.increase_size
+
+            FirstThunk = struct['FirstThunk']['Value']
+            FirstThunk_addr = struct['FirstThunk']['FileOffset']
+            new_FirstThunk = FirstThunk + self.increase_size
+
+            with open(self.file, 'r+b') as f:
+                original_file = bytearray(f.read())
+
+                original_file[OriginalFirstThunk_addr:OriginalFirstThunk_addr+4] = new_OriginalFirstThunk.to_bytes(4,byteorder='little')
+                original_file[Characteristics_addr:Characteristics_addr+4] = new_Characteristics.to_bytes(4,byteorder='little')
+                original_file[Name_addr:Name_addr+4] = new_Name.to_bytes(4,byteorder='little')
+                original_file[FirstThunk_addr:FirstThunk_addr+4] = new_FirstThunk.to_bytes(4,byteorder='little')
+
+                f.seek(0)
+                f.write(original_file)
+                f.close()
+
+            
+
+
+
+    def patch_reloc_table(self):
+        for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
+            entry_struct = entries.struct
+            entry_struct = entry_struct.dump_dict()
+            print(entry_struct)
+
+            VirtualAddress = entry_struct['VirtualAddress']['Value']
+            VirtualAddress_addr = entry_struct['VirtualAddress']['FileOffset']
+            new_VirtualAddress = VirtualAddress + self.increase_size
+            print("new_VirtualAddress: ",hex(new_VirtualAddress))
+
+            with open(self.file, 'r+b') as f:
+                original_file = bytearray(f.read())
+
+                original_file[VirtualAddress_addr:VirtualAddress_addr+4] = new_VirtualAddress.to_bytes(4,byteorder='little')
+
+                f.seek(0)
+                f.write(original_file)
+                f.close()
+
+            #for reloc in entries.entries:
+                
+
+    def increase_text_section(self):
+        new_bytes = b'\x90' * self.increase_size
+
+        text_section_start = self.raw_base_address
+        text_section_end = self.raw_base_address + self.code_section_size
+
+        with open(self.file, 'r+b') as f:
+            original_file = bytearray(f.read())
+            original_file = original_file[:text_section_end] + new_bytes + original_file[text_section_end:]
+            f.seek(0)
+            f.write(original_file)
+            f.close()
 
     def create_jmp_table(self):
         for instr in self.instructions:
@@ -447,13 +534,6 @@ class PEFile:
 
 
 
-
-    
-
-
-    
-
-
 if __name__ == '__main__':
     file = "hello_world.exe"
 
@@ -462,6 +542,14 @@ if __name__ == '__main__':
 
     # next_section = get_section(pe,b'.rdata\x00\x00')
     extend = PEFile(file,increase_size)
-    extend.patch_headers_and_sections()
-    extend.adjust_out_text_references()
-    extend.print_instructions()
+    #extend.patch_import_table()
+    #time.sleep(10000)
+
+    # extend.patch_headers_and_sections()
+    # extend.adjust_out_text_references()
+    extend.patch_import_table()
+    # extend.patch_reloc_table()
+    
+    # extend.increase_text_section()
+    # extend.print_instructions()
+
