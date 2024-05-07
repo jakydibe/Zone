@@ -4,6 +4,7 @@ from keystone import *
 import time
 import re
 from capstone import x86_const
+import json
 
 
 #COSE DA FARE PER INCREMENTARE LA SEZIONE .TEXT
@@ -110,6 +111,15 @@ def estrai_valore(instruzione):
     else:
         return 0
 
+def estrai_ultimo_valore(testo):
+    # Trova tutti i valori esadecimali nella stringa
+    valori_esadecimali = re.findall(r'0x[0-9a-fA-F]+', testo)
+    
+    # Restituisci l'ultimo valore esadecimale
+    if valori_esadecimali:
+        return int(valori_esadecimali[-1], 16)
+    else:
+        return 0
 
 def get_section(pe_file,name):
     for section in pe_file.sections:
@@ -149,6 +159,7 @@ class PEFile:
         self.base_address = self.text_section.VirtualAddress
         self.raw_base_address = self.text_section.PointerToRawData
 
+        self.image_base = self.pe.OPTIONAL_HEADER.ImageBase
         self.code_section_size = self.text_section.SizeOfRawData
 
         self.raw_code = self.text_section.get_data(self.base_address, self.code_section_size)
@@ -289,22 +300,14 @@ class PEFile:
 
     def patch_import_table(self):
         import_table = self.pe.DIRECTORY_ENTRY_IMPORT
-        for i in import_table:
-            struct = i.struct
-            struct = struct.dump_dict()
-            FirstThunk = struct['FirstThunk']['Value']
-            indirizzo = self.pe.get_qword_at_rva(FirstThunk)
-            new_FirstThunk = FirstThunk + self.increase_size
-            self.pe.set_qword_at_rva(FirstThunk,new_FirstThunk)
-            print("indirizzo: ",hex(indirizzo))
-        self.pe.write(self.file)
 
-            
-        time.sleep(10000)
         for imp in import_table:
             struct = imp.struct
+            
+            
             struct = struct.dump_dict()
             #print(struct)
+            print(struct)
 
             OriginalFirstThunk = struct['OriginalFirstThunk']['Value']
             OriginalFirstThunk_addr = struct['OriginalFirstThunk']['FileOffset']
@@ -322,6 +325,9 @@ class PEFile:
             FirstThunk_addr = struct['FirstThunk']['FileOffset']
             new_FirstThunk = FirstThunk + self.increase_size
 
+            fuction_num = len(imp.imports)
+
+
             with open(self.file, 'r+b') as f:
                 original_file = bytearray(f.read())
 
@@ -330,24 +336,82 @@ class PEFile:
                 original_file[Name_addr:Name_addr+4] = new_Name.to_bytes(4,byteorder='little')
                 original_file[FirstThunk_addr:FirstThunk_addr+4] = new_FirstThunk.to_bytes(4,byteorder='little')
 
+
+                first_thunk_offset = self.pe.get_offset_from_rva(FirstThunk)
+                original_first_thunk_offset = self.pe.get_offset_from_rva(OriginalFirstThunk)
+
+                for i in range(fuction_num):
+
+                    old_value = int.from_bytes(original_file[first_thunk_offset + i*8:first_thunk_offset + i*8 + 8],byteorder='little')
+                    new_value = old_value + self.increase_size
+
+
+                    original_file[first_thunk_offset  + i*8:first_thunk_offset + i*8 + 8] = new_value.to_bytes(8,byteorder='little')
+
+                    old_value = int.from_bytes(original_file[original_first_thunk_offset + i*8:original_first_thunk_offset + i*8 + 8],byteorder='little')
+
+                    new_value = old_value + self.increase_size
+
+                    original_file[original_first_thunk_offset + i*8:original_first_thunk_offset + i*8 + 8] = new_value.to_bytes(8,byteorder='little')
+
                 f.seek(0)
                 f.write(original_file)
                 f.close()
 
             
 
+    def patch_load_config(self):
+        load_config = self.pe.DIRECTORY_ENTRY_LOAD_CONFIG
+        struct = load_config.struct
+        struct = struct.dump_dict()
+        security_cookie = struct['SecurityCookie']['Value']
+        security_cookie_addr = struct['SecurityCookie']['FileOffset']
+        print("security_cookie: ",hex(security_cookie))
+        #print(struct)
+
+        file_offsets = []
+
+        for key in struct:
+            try:
+                addr = struct[key]['FileOffset']
+                file_offsets.append(addr)
+            except:
+                continue
+
+        for n,key in enumerate(struct):
+            #print(key,value)
+
+            try:
+                value = struct[key]['Value']
+                addr = struct[key]['FileOffset']
+
+                size = file_offsets[n+1] - addr
+
+                if value >= self.image_base:
+                    new_value = value + self.increase_size
+
+                    with open(self.file, 'r+b') as f:
+                        original_file = bytearray(f.read())
+                        original_file[addr:addr+size] = new_value.to_bytes(size,byteorder='little')
+                        f.seek(0)
+                        f.write(original_file)
+                        f.close()
+
+
+            except:
+                continue
 
 
     def patch_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
             entry_struct = entries.struct
             entry_struct = entry_struct.dump_dict()
-            print(entry_struct)
+            #print(entry_struct)
 
             VirtualAddress = entry_struct['VirtualAddress']['Value']
             VirtualAddress_addr = entry_struct['VirtualAddress']['FileOffset']
             new_VirtualAddress = VirtualAddress + self.increase_size
-            print("new_VirtualAddress: ",hex(new_VirtualAddress))
+            #print("new_VirtualAddress: ",hex(new_VirtualAddress))
 
             with open(self.file, 'r+b') as f:
                 original_file = bytearray(f.read())
@@ -400,6 +464,7 @@ class PEFile:
                     x += 1           
                 end = i + x*4 
             self.start_end_table.append((start,end))
+
 
 
     def check_if_inside_jmp_table(self,address):
@@ -528,10 +593,40 @@ class PEFile:
                     else:
                         for i in self.cs.disasm(asm, instr.new_instruction.address):
                             instr.new_instruction = i
+                elif 'ptr' in instr.new_instruction.op_str and '*' in instr.new_instruction.op_str:
+                    valore_originale = estrai_ultimo_valore(instr.original_instruction.op_str)
+                    if valore_originale == 0:
+                        continue
+                    
+                    try:
+                        nuovo_valore = valore_originale + self.increase_size
+                        nuovi_bytes = instr.new_instruction.bytes.replace(valore_originale.to_bytes(4, byteorder='little'),nuovo_valore.to_bytes(4, byteorder='little'))
+
+                        for i in self.cs.disasm(nuovi_bytes, instr.new_instruction.address):
+                            instr.new_instruction = i
+                    except:
+                        print("errore in adjust_out_text_references()")
+                        
+
             else:
                 print("dentro adjust_out_text_references(), instr e' None")
 
+    def write_instructions(self):
+        new_bytes = b''
+        for instr in self.instructions:
+            new_bytes += instr.new_instruction.bytes
+        
+        with open(self.file, 'r+b') as f:
+            original_file = bytearray(f.read())
 
+            start_text_section = self.text_section.PointerToRawData
+            end_text_section = self.text_section.PointerToRawData + self.text_section.SizeOfRawData
+            
+            original_file[start_text_section:end_text_section] = new_bytes
+
+            f.seek(0)
+            f.write(original_file)
+            f.close()
 
 
 if __name__ == '__main__':
@@ -545,11 +640,15 @@ if __name__ == '__main__':
     #extend.patch_import_table()
     #time.sleep(10000)
 
-    # extend.patch_headers_and_sections()
-    # extend.adjust_out_text_references()
+    extend.patch_headers_and_sections()
     extend.patch_import_table()
-    # extend.patch_reloc_table()
+    extend.patch_reloc_table()
     
-    # extend.increase_text_section()
-    # extend.print_instructions()
+    extend.increase_text_section()
+    extend.patch_load_config()
 
+    extend.adjust_out_text_references()
+    
+    extend.print_instructions()
+
+    extend.write_instructions()
