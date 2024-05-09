@@ -164,6 +164,7 @@ class PEFile:
 
         self.raw_code = self.text_section.get_data(self.base_address, self.code_section_size)
 
+
         self.ImportAddressTable = None
 
 
@@ -403,14 +404,30 @@ class PEFile:
 
 
     def patch_reloc_table(self):
+
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
+            with open(self.file, 'r+b') as f:
+                original_file = bytearray(f.read())
+
+                for reloc in entries.entries:
+                    data = self.pe.get_qword_at_rva(reloc.rva)
+                    data = data - self.pe.OPTIONAL_HEADER.ImageBase
+                    if data >= self.base_address + self.code_section_size and data < self.pe.OPTIONAL_HEADER.SizeOfImage:
+                        new_data = data + self.increase_size + self.pe.OPTIONAL_HEADER.ImageBase
+                        offset = self.pe.get_offset_from_rva(reloc.rva)
+                        original_file[offset:offset+8] = new_data.to_bytes(8,byteorder='little')
+                f.seek(0)
+                f.write(original_file)
+                f.close()
+
+
             entry_struct = entries.struct
             entry_struct = entry_struct.dump_dict()
-            #print(entry_struct)
 
             VirtualAddress = entry_struct['VirtualAddress']['Value']
             VirtualAddress_addr = entry_struct['VirtualAddress']['FileOffset']
             new_VirtualAddress = VirtualAddress + self.increase_size
+
             #print("new_VirtualAddress: ",hex(new_VirtualAddress))
 
             with open(self.file, 'r+b') as f:
@@ -421,6 +438,7 @@ class PEFile:
                 f.seek(0)
                 f.write(original_file)
                 f.close()
+                
 
             #for reloc in entries.entries:
                 
@@ -557,7 +575,7 @@ class PEFile:
 
 
                     offset = self.instructions[num_instr + 1].new_instruction.address - addr
-                    offset += self.increase_size
+                    #offset += self.increase_size
 
                     #print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
                     old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
@@ -639,16 +657,21 @@ if __name__ == '__main__':
     extend = PEFile(file,increase_size)
     #extend.patch_import_table()
     #time.sleep(10000)
+    
+
+    extend.patch_reloc_table()
 
     extend.patch_headers_and_sections()
     extend.patch_import_table()
-    extend.patch_reloc_table()
-    
-    extend.increase_text_section()
     extend.patch_load_config()
 
-    extend.adjust_out_text_references()
     
+
+    extend.adjust_out_text_references()
     extend.print_instructions()
 
+    extend.increase_text_section()
     extend.write_instructions()
+    
+
+
