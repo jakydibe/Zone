@@ -351,7 +351,7 @@ class Zone:
         self.instructions[index].next_instruction = instruction
         self.instructions[index +1].prev_instruction = instruction
 
-        instruction.previous_instruction = self.instructions[index]
+        instruction.prev_instruction = self.instructions[index]
         instruction.next_instruction = self.instructions[index +1]
 
         self.instructions.insert(index,instruction)
@@ -558,9 +558,9 @@ class Zone:
                         #instr.update_address(num_bytes)    
                     #self.update_old_instructions(instr)              
                     change_num += 1
-                    if change_num == 1:
-                        #break
-                        continue
+                    if change_num == 15:
+                        break
+                        #continue
     def adjust_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
             for reloc in entries.entries:
@@ -623,8 +623,8 @@ class Zone:
 
 if __name__ == '__main__':
 
-    #file = 'hello_world.exe'
-    file = "C:\\Users\\jakyd\\Downloads\\rufus-4.3 - Copy.exe"
+    file = 'hello_world.exe'
+    #file = "C:\\Users\\jakyd\\Downloads\\rufus-4.3 - Copy.exe"
     zone = Zone(file)
 
     zone.print_instructions()
@@ -656,4 +656,3 @@ if __name__ == '__main__':
     zone.write_pe_file()
  
 
-#1f4e
