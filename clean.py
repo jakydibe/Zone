@@ -58,6 +58,14 @@ from capstone import x86_const
 #     # Altrimenti, restituisci il valore trovato
 #     return int(match.group(1), 16)
 
+#strutturare un dizionario per essere piu' performante
+#dizionario del tipo [indirizzo_originale: istruzione]---> per patchare le jump
+#un altro dizionario del tipo: []
+
+
+
+
+
 import re
 
 def estrai_valore(instruzione):
@@ -137,6 +145,9 @@ class Zone:
         self.jump_table = []
         self.start_end_table = []
 
+        self.instr_dict = {}
+
+
 
         self.original_entry_point = self.pe.OPTIONAL_HEADER.AddressOfEntryPoint
         self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
@@ -177,7 +188,13 @@ class Zone:
 
                 print("CICLO\n")
                 for i in self.cs.disasm(self.raw_code[begin-self.base_address:end], begin):
-                    self.instructions.append(Instruction(i,i,i,None,None))
+
+                    instruction = Instruction(i,i,i,None,None) 
+                    self.instructions.append(instruction)
+
+
+                    self.instr_dict[i.address] = instruction
+
                     stringa = f"{hex(i.address)} {i.bytes} {i.size}  {i.mnemonic}  {i.op_str}\n"
                     last_address = i.address
                     last_size = i.size
@@ -340,62 +357,11 @@ class Zone:
         self.instructions.insert(index,instruction)
 
 
-    # def update_label_table(self):
-    #     restart = False
-    #     finished = False
-    #     while finished == False:
-    #         restart = False
+#per aggiustare le istruzioni:
+#1)iterare in cerca di jump: e estrarre il valore 
+#2)controllare se nel mio dizionario esiste qualcosa con chiave il valore estratto
+#3)in tal caso ri assemblare l' istruzione cambiando il valore a dict[valore].new_instruction.address
 
-    #         for instr in self.instructions:
-
-
-    #             if restart == True:
-    #                 break
-    #             if instr.original_instruction.address in self.label_table:
-                    
-    #                 for num_instr,instr2 in enumerate(self.instructions):
-    #                     inside_jmp_table = self.check_if_inside_jmp_table(instr2.original_instruction.address)
-
-    #                     if inside_jmp_table == True:
-    #                         continue
-    #                     if restart == True:
-    #                         break
-
-                                
-    #                     if instr2.original_instruction.address == self.label_table[instr.original_instruction.address].original_instruction.address:
-
-
-    #                         new_addr = instr.new_instruction.address
-
-    #                         new_str = f"{instr2.new_instruction.mnemonic} {hex(new_addr)}"
-                            
-    #                         asm,_ = self.ks.asm(new_str,instr2.new_instruction.address)
-    #                         asm = bytearray(asm)
-
-    #                         if(len(asm) < instr2.new_instruction.size):
-    #                             restart = True
-    #                             print("Indirizzo: ",hex(instr2.new_instruction.address))
-    #                             print('Istruzione: ',instr2.new_instruction.mnemonic,instr2.new_instruction.op_str)
-    #                             print("lunghezza asm: ",len(asm))
-    #                             print("lunghezza instr2.new_instruction: ",instr2.new_instruction.size)
-    #                             nop_num = instr2.new_instruction.size - len(asm)
-    #                     ###################DA AGGIUSTARE################################
-    #                             for i in range(nop_num):
-    #                                 asm.append(0x90)
-    #                             for x,i in enumerate(self.cs.disasm(asm, instr2.new_instruction.address)):
-    #                                 if x == 0:
-    #                                     instr2.new_instruction = i
-    #                                 else:
-    #                                     insr = Instruction(i,i,i,None,None)
-    #                                     self.insert_instruction(num_instr + x, insr)
-    #                             # for i in self.cs.disasm(asm,instr2.new_instruction.address):
-    #                             #     instr.new_instruction = i
-    #                         elif(len(asm) == instr2.new_instruction.size):
-    #                             for i in self.cs.disasm(asm,instr2.new_instruction.address):
-    #                                 instr2.new_instruction = i
-    #                         else:
-    #                             print("SOSPETTO: len(asm) > instr2.new_instruction.size")
-    #         finished = True
 
     def update_label_table(self):
         for num_instr,instr in enumerate(self.instructions):
@@ -408,30 +374,35 @@ class Zone:
                     continue
                 addr = estrai_valore(instr.original_instruction.op_str)
                 if addr in self.label_table:
-                    for instr2 in self.instructions:
-                        if instr2.original_instruction.address == addr:
-                            new_str = f"{instr.new_instruction.mnemonic} {hex(instr2.new_instruction.address)}"
-                            asm,_ = self.ks.asm(new_str,instr.new_instruction.address)
-                            asm = bytearray(asm)
-                            if(len(asm) < instr.new_instruction.size):
-                                print("Indirizzo: ",hex(instr.new_instruction.address))
-                                print('Istruzione: ',instr.new_instruction.mnemonic,instr.new_instruction.op_str)
-                                print("lunghezza asm: ",len(asm))
-                                nop_num = instr.new_instruction.size - len(asm)
-                                for i in range(nop_num):
-                                    asm.append(0x90)
-                                for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
-                                    if x == 0:
+                #     for instr2 in self.instructions:
+                    try:
+                        if self.instr_dict[addr] is not None:
+                            instr2 = self.instr_dict[addr]
+                            if instr2.original_instruction.address == addr:
+                                new_str = f"{instr.new_instruction.mnemonic} {hex(instr2.new_instruction.address)}"
+                                asm,_ = self.ks.asm(new_str,instr.new_instruction.address)
+                                asm = bytearray(asm)
+                                if(len(asm) < instr.new_instruction.size):
+                                    print("Indirizzo: ",hex(instr.new_instruction.address))
+                                    print('Istruzione: ',instr.new_instruction.mnemonic,instr.new_instruction.op_str)
+                                    print("lunghezza asm: ",len(asm))
+                                    nop_num = instr.new_instruction.size - len(asm)
+                                    for i in range(nop_num):
+                                        asm.append(0x90)
+                                    for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
+                                        if x == 0:
+                                            instr.new_instruction = i
+                                        else:
+                                            insr = Instruction(i,i,i,None,None)
+                                            self.insert_instruction(num_instr + x, insr)
+                                elif(len(asm) == instr.new_instruction.size):
+                                    for i in self.cs.disasm(asm,instr.new_instruction.address):
                                         instr.new_instruction = i
-                                    else:
-                                        insr = Instruction(i,i,i,None,None)
-                                        self.insert_instruction(num_instr + x, insr)
-                            elif(len(asm) == instr.new_instruction.size):
-                                for i in self.cs.disasm(asm,instr.new_instruction.address):
-                                    instr.new_instruction = i
-                            else:
-                                print("SOSPETTO: len(asm) > instr2.new_instruction.size")
-                            break   
+                                else:
+                                    print("SOSPETTO: len(asm) > instr2.new_instruction.size")
+                    except Exception as e:
+                        continue
+
 
 
     def adjust_out_text_references(self):
@@ -588,22 +559,27 @@ class Zone:
                     #self.update_old_instructions(instr)              
                     change_num += 1
                     if change_num == 1:
-                        break
-
+                        #break
+                        continue
     def adjust_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
             for reloc in entries.entries:
                 data = self.pe.get_qword_at_rva(reloc.rva)
                 data = data - self.pe.OPTIONAL_HEADER.ImageBase
                 #print(hex(reloc.rva), reloc.type,hex(data))#, reloc.value)
-                for instr in self.instructions:
-                    if instr.original_instruction.address == data:
+
+                # for instr in self.instructions:
+                #     if instr.original_instruction.address == data:
+                try:
+                    if self.instr_dict[data] is not None:
+                        instr = self.instr_dict[data]
                         # print("Trovato un reloc che punta ad un'istruzione")
                         # print(hex(reloc.rva), reloc.type,hex(data))
                         #rint("nella reloc: ",hex(data))
                         #print("nella istruzione: ",hex(instr.new_instruction.address))
                         self.pe.set_qword_at_rva(reloc.rva, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
-                        break
+                except Exception as e:
+                    continue
         self.pe.write(file)
 
 
@@ -648,7 +624,7 @@ class Zone:
 if __name__ == '__main__':
 
     #file = 'hello_world.exe'
-    file = 'C:\\Users\\jak\\Downloads\\PE-bear_0.6.7.3_qt4_x86_win_vs10\\PE-bear_patched.exe'
+    file = "C:\\Users\\jakyd\\Downloads\\rufus-4.3 - Copy.exe"
     zone = Zone(file)
 
     zone.print_instructions()
