@@ -348,15 +348,44 @@ class Zone:
 
 
     def insert_instruction(self,index,instruction):
-        self.instructions[index].next_instruction = instruction
-        self.instructions[index +1].prev_instruction = instruction
+        self.instructions[index - 1].next_instruction = instruction
+        self.instructions[index].prev_instruction = instruction
 
-        instruction.prev_instruction = self.instructions[index]
-        instruction.next_instruction = self.instructions[index +1]
+        instruction.prev_instruction = self.instructions[index - 1]
+        instruction.next_instruction = self.instructions[index]
 
         self.instructions.insert(index,instruction)
 
 
+# tutte le jumps piu' piccole di 7 byte vengono portate a 7 byte
+    def pad_jumps(self):
+
+        bytes_needed = 0
+        for num_instr,instr in enumerate(self.instructions):
+            try:
+                if instr.new_instruction.mnemonic == '.byte':
+                    continue
+                if (x86_const.X86_GRP_JUMP in  instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
+                    max_length = 7
+                    if len(instr.new_instruction.bytes) < max_length:
+                        nop_num = max_length - len(instr.new_instruction.bytes)
+                        bytes_needed += nop_num
+
+                        asm = bytearray(instr.new_instruction.bytes)
+                        for i in range(nop_num):
+                            asm.append(0x90)
+                        for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
+                            if x == 0:
+                                instr.new_instruction = i
+                            else:
+                                insr = Instruction(i,i,i,None,None)
+                                self.insert_instruction(num_instr + x, insr)
+            except Exception as e:
+                print("Errore: ",e)
+                continue
+        print("#########################################")
+        print("BYTES ADDEDD for JUMPS Padding: ",hex(bytes_needed))
+        print("#########################################")
 #per aggiustare le istruzioni:
 #1)iterare in cerca di jump: e estrarre il valore 
 #2)controllare se nel mio dizionario esiste qualcosa con chiave il valore estratto
@@ -364,44 +393,65 @@ class Zone:
 
 
     def update_label_table(self):
-        for num_instr,instr in enumerate(self.instructions):
-            if instr.new_instruction.mnemonic == '.byte':
-                continue
 
-            if (x86_const.X86_GRP_JUMP in  instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
-
-                if 'ptr' in instr.new_instruction.op_str:
+        re_iterate = True
+        while re_iterate == True:
+            re_iterate = False
+            for num_instr,instr in enumerate(self.instructions):
+                if instr.new_instruction.mnemonic == '.byte':
                     continue
-                addr = estrai_valore(instr.original_instruction.op_str)
-                if addr in self.label_table:
-                #     for instr2 in self.instructions:
-                    try:
-                        if self.instr_dict[addr] is not None:
-                            instr2 = self.instr_dict[addr]
-                            if instr2.original_instruction.address == addr:
-                                new_str = f"{instr.new_instruction.mnemonic} {hex(instr2.new_instruction.address)}"
-                                asm,_ = self.ks.asm(new_str,instr.new_instruction.address)
-                                asm = bytearray(asm)
-                                if(len(asm) < instr.new_instruction.size):
-                                    print("Indirizzo: ",hex(instr.new_instruction.address))
-                                    print('Istruzione: ',instr.new_instruction.mnemonic,instr.new_instruction.op_str)
-                                    print("lunghezza asm: ",len(asm))
-                                    nop_num = instr.new_instruction.size - len(asm)
-                                    for i in range(nop_num):
-                                        asm.append(0x90)
-                                    for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
-                                        if x == 0:
-                                            instr.new_instruction = i
-                                        else:
-                                            insr = Instruction(i,i,i,None,None)
-                                            self.insert_instruction(num_instr + x, insr)
-                                elif(len(asm) == instr.new_instruction.size):
-                                    for i in self.cs.disasm(asm,instr.new_instruction.address):
-                                        instr.new_instruction = i
-                                else:
-                                    print("SOSPETTO: len(asm) > instr2.new_instruction.size")
-                    except Exception as e:
+
+                if (x86_const.X86_GRP_JUMP in  instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
+
+                    if 'ptr' in instr.new_instruction.op_str:
                         continue
+                    addr = estrai_valore(instr.original_instruction.op_str)
+                    if addr in self.label_table:
+                    #     for instr2 in self.instructions:
+                        try:
+                            if self.instr_dict[addr] is not None:
+                                instr2 = self.instr_dict[addr]
+                                if instr2.original_instruction.address == addr:
+                                    new_str = f"{instr.new_instruction.mnemonic} {hex(instr2.new_instruction.address)}"
+                                    asm,_ = self.ks.asm(new_str,instr.new_instruction.address)
+                                    asm = bytearray(asm)
+                                    if(len(asm) < instr.new_instruction.size):
+                                        print("Indirizzo: ",hex(instr.new_instruction.address))
+                                        print('Istruzione: ',instr.new_instruction.mnemonic,instr.new_instruction.op_str)
+                                        print("lunghezza asm: ",len(asm))
+                                        nop_num = instr.new_instruction.size - len(asm)
+                                        for i in range(nop_num):
+                                            asm.append(0x90)
+                                        for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
+                                            if x == 0:
+                                                instr.new_instruction = i
+                                            else:
+                                                insr = Instruction(i,i,i,None,None)
+                                                self.insert_instruction(num_instr + x, insr)
+                                    elif(len(asm) == instr.new_instruction.size):
+                                        for i in self.cs.disasm(asm,instr.new_instruction.address):
+                                            instr.new_instruction = i
+                                    else:
+                                        re_iterate = True
+                                        print(f" {hex(instr.new_instruction.address)} SOSPETTO: len(asm) > instr2.new_instruction.size")
+
+                                        for i in self.cs.disasm(asm,instr.new_instruction.address):
+                                            instr.new_instruction = i
+                                        original_length = len(instr.new_instruction.bytes)
+
+                                        self.update_instr()
+                                        instr2 = self.instr_dict[addr]
+                                        new_str = f"{instr.new_instruction.mnemonic} {hex(instr2.new_instruction.address)}"
+                                        asm,_ = self.ks.asm(new_str,instr.new_instruction.address)
+                                        asm = bytearray(asm)
+
+                                        for i in self.cs.disasm(asm,instr.new_instruction.address):
+                                            instr.new_instruction = i
+
+                                        if len(asm) != original_length:
+                                            print('e che cazzo pero')
+                        except Exception as e:
+                            continue
 
 
 
@@ -558,7 +608,7 @@ class Zone:
                         #instr.update_address(num_bytes)    
                     #self.update_old_instructions(instr)              
                     change_num += 1
-                    if change_num == 15:
+                    if change_num == 60:
                         break
                         #continue
     def adjust_reloc_table(self):
@@ -629,12 +679,14 @@ if __name__ == '__main__':
 
     zone.print_instructions()
 
-    
+
     zone.create_jmp_table()
     zone.print_jmp_table()
 
-    zone.create_label_table()
+    #zone.pad_jumps()
 
+
+    zone.create_label_table()
 
     zone.equal_instructions()
     zone.update_instr()
