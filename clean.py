@@ -32,6 +32,7 @@ import pefile
 import time
 import lief
 import os
+import random
 from capstone import x86_const
 
 # def estrai_valore(stringa):
@@ -230,14 +231,19 @@ class Zone:
 
     def update_instr(self):
         for x,i in enumerate(self.instructions):
-            if x == 0:
+            try:
+                if x == 0:
+                    continue
+                addr = i.prev_instruction.new_instruction.address + len(i.prev_instruction.new_instruction.bytes)
+
+
+                for n in self.cs.disasm(i.new_instruction.bytes,addr):
+                    i.old_instruction = i.new_instruction
+                    i.new_instruction = n
+            except Exception as e:
+                print("Errore: ",e)
+                print('Indirizzo: ',hex(i.new_instruction.address))
                 continue
-            addr = i.prev_instruction.new_instruction.address + len(i.prev_instruction.new_instruction.bytes)
-
-
-            for n in self.cs.disasm(i.new_instruction.bytes,addr):
-                i.old_instruction = i.new_instruction
-                i.new_instruction = n
 
     def find_section_via_raw(self,raw_address):
         for section in self.pe.sections:
@@ -523,9 +529,11 @@ class Zone:
                                 else:
                                     insr = Instruction(i,i,i,None,None)
                                     self.insert_instruction(num_instr + x, insr)
-                    else:
+                    elif len(asm) == len(instr.new_instruction.bytes):
                         for i in self.cs.disasm(asm, instr.new_instruction.address):
                             instr.new_instruction = i
+                    else:
+                        print(f"{hex(instr.new_instruction.address)} SOSPETTO: len(asm) > instr2.new_instruction.size in out_refs rip+")
 
                 elif ('rip -' in instr.new_instruction.op_str):
                     #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
@@ -575,9 +583,11 @@ class Zone:
                                 else:
                                     insr = Instruction(i,i,i,None,None)
                                     self.insert_instruction(num_instr + x, insr)
-                    else:
+                    elif len(asm) == len(instr.new_instruction.bytes):
                         for i in self.cs.disasm(asm, instr.new_instruction.address):
                             instr.new_instruction = i
+                    else:
+                        print(f"{hex(instr.new_instruction.address)} SOSPETTO: len(asm) > instr2.new_instruction.size in out_refs rip-")
             else:
                 print("dentro adjust_out_text_references(), instr e' None")
 
@@ -586,8 +596,48 @@ class Zone:
     def update_old_instructions(self,instr):
         instr.old_instruction = instr.new_instruction
 
+
+    #faccio il bogus control flow,
+    #1) divido il codice in blocchi di (3-15) istruzioni e aggiungo alla fine di ogni blocco un jmp al blocco successivo
+    #2) shufflo i blocchi
+
+    def ultra_bogus_cf(self):
+        start = 0
+        end = len(self.instructions)
+        blocks = []
+
+        while start <= end:
+            block_size = random.randint(3,15)
+            block = self.instructions[start:start+block_size]
+            start += block_size
+            
+            address = self.instructions[start+block_size].new_instruction.address
+            #offset =(indirizzo_a cui saltare) - (ultima istruzione + la sua size + 7(len di jmp qword ptr))
+            offset = address - (block[-1].new_instruction.address + block[-1].new_instruction.size + 7)
+
+            jmp_instr_str = f"jmp  qword ptr [rip + {hex(offset)}]"
+            jmp_instr_arr,_ = self.ks.asm(jmp_instr_str,block[-1].new_instruction.address)
+
+            jmp_instr_arr = bytearray(jmp_instr_arr)
+
+            for i in self.cs.disasm(jmp_instr_arr,block[-1].new_instruction.address):
+                jmp = Instruction(i,i,i,block[-1],self.instructions[start+block_size])
+                self.insert_instruction(start,jmp)
+                block.append(jmp)
+
+            blocks.append(block)
+
+        random.shuffle(blocks)
+        instr_list = []
+        for block in blocks:
+            for instr in block:
+                instr_list.append(instr)
+        self.instructions = instr_list
+
+
     def equal_instructions(self):
         change_num = 0
+        bytes_added = 0
         for instr in self.instructions:
 
             if(instr.old_instruction.id == x86_const.X86_INS_XOR and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_REG):
@@ -606,11 +656,15 @@ class Zone:
                         print("nuova istruzione: ", i.mnemonic, i.op_str)
                         instr.new_instruction = i
                         #instr.update_address(num_bytes)    
-                    #self.update_old_instructions(instr)              
+                    #self.update_old_instructions(instr)             
+                    bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes)) 
                     change_num += 1
                     if change_num == 60:
                         break
                         #continue
+        print("##########################################")
+        print("BYTES ADDED: ",hex(bytes_added))
+        print("##########################################")
     def adjust_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
             for reloc in entries.entries:
@@ -674,7 +728,7 @@ class Zone:
 if __name__ == '__main__':
 
     file = 'hello_world.exe'
-    #file = "C:\\Users\\jakyd\\Downloads\\rufus-4.3 - Copy.exe"
+    #file = "C:\\Users\\jak\\Downloads\\PE-bear_0.6.7.3_qt4_x86_win_vs10\\PE-bear - Copia.exe"
     zone = Zone(file)
 
     zone.print_instructions()
@@ -687,13 +741,16 @@ if __name__ == '__main__':
 
 
     zone.create_label_table()
-
+####################################
     zone.equal_instructions()
+    #zone.ultra_bogus_cf()
+    zone.print_instructions()
+
+#####################################
     zone.update_instr()
 
     zone.update_label_table()
 
-    zone.print_instructions()
 
     zone.adjust_out_text_references()
 
