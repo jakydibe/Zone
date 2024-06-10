@@ -148,7 +148,7 @@ class Zone:
 
         self.instr_dict = {}
 
-
+        self.increase_size = 0x2000
 
         self.original_entry_point = self.pe.OPTIONAL_HEADER.AddressOfEntryPoint
         self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
@@ -402,6 +402,7 @@ class Zone:
 
         re_iterate = True
         while re_iterate == True:
+            self.update_instr()
             re_iterate = False
             for num_instr,instr in enumerate(self.instructions):
                 if instr.new_instruction.mnemonic == '.byte':
@@ -445,7 +446,6 @@ class Zone:
                                             instr.new_instruction = i
                                         original_length = len(instr.new_instruction.bytes)
 
-                                        self.update_instr()
                                         instr2 = self.instr_dict[addr]
                                         new_str = f"{instr.new_instruction.mnemonic} {hex(instr2.new_instruction.address)}"
                                         asm,_ = self.ks.asm(new_str,instr.new_instruction.address)
@@ -660,11 +660,13 @@ class Zone:
                     bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes)) 
                     change_num += 1
                     if change_num == 60:
-                        break
-                        #continue
+                        #break
+                        continue
         print("##########################################")
         print("BYTES ADDED: ",hex(bytes_added))
         print("##########################################")
+
+
     def adjust_reloc_table(self):
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
             for reloc in entries.entries:
@@ -700,6 +702,9 @@ class Zone:
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
         
+        length = self.original_code_length
+
+        new_bytes = new_bytes[:length]
         # gap = self.pe.OPTIONAL_HEADER.SectionAlignment - (len(new_bytes) % self.pe.OPTIONAL_HEADER.SectionAlignment)
 
         # gap_bytes = (bytearray([0 for _ in range(gap)]))
@@ -708,6 +713,7 @@ class Zone:
 
         #indirizzo dove viene salvato l'entry point
         entry_point_addr = self.pe.DOS_HEADER.e_lfanew + 0x28
+        
         with open(file, "r+b") as f:
 
             original_file = bytearray(f.read())
@@ -747,7 +753,7 @@ if __name__ == '__main__':
     zone.print_instructions()
 
 #####################################
-    zone.update_instr()
+    #zone.update_instr()
 
     zone.update_label_table()
 
