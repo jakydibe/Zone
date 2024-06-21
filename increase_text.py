@@ -152,6 +152,7 @@ class PEFile:
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
 
         self.instructions = []
+        
 
         self.jump_table = []
         self.start_end_table = []
@@ -646,15 +647,8 @@ class PEFile:
             f.write(original_file)
             f.close()
 
-
-if __name__ == '__main__':
-    file = "hello_world.exe"
-
-    increase_size = 0x2000
-    # text_section = get_section(pe,b'.text\x00\x00\x00')
-
-    # next_section = get_section(pe,b'.rdata\x00\x00')
-    extend = PEFile(file,increase_size)
+def increase_text_final(size,file):
+    extend = PEFile(file,size)
     #extend.patch_import_table()
     #time.sleep(10000)
     
@@ -672,6 +666,14 @@ if __name__ == '__main__':
 
     extend.increase_text_section()
     extend.write_instructions()
+
+if __name__ == '__main__':
+    file = "hello_world.exe"
+
+    # text_section = get_section(pe,b'.text\x00\x00\x00')
+    increase_text_final(0x7000,file)
+    # next_section = get_section(pe,b'.rdata\x00\x00')
+
     
 
 
