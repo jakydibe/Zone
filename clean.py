@@ -34,6 +34,7 @@ import lief
 import os
 import random
 from capstone import x86_const
+import increase_text
 
 # def estrai_valore(stringa):
 #     # Usa un'espressione regolare per trovare il valore tra "rip +" e "]"
@@ -139,6 +140,7 @@ class Zone:
 
         self.pe_lief = lief.parse(file)
 
+        self.push_mov = False
 
         self.label_table = []
         self.instructions = []
@@ -157,6 +159,7 @@ class Zone:
 
         self.rdata_section = get_section(self.pe, '.rdata\x00\x00')
 
+        self.reg_list = ['rax', 'rbx', 'rcx', 'rdx', 'rsi', 'rdi', 'rbp', 'rsp', 'r8', 'r9', 'r10', 'r11', 'r12', 'r13', 'r14', 'r15']
 
         self.data_directories = self.pe.OPTIONAL_HEADER.DATA_DIRECTORY
 
@@ -645,44 +648,60 @@ class Zone:
     #2) shufflo i blocchi
 
     def ultra_bogus_cf(self):
-        start = 0
-        end = len(self.instructions)
-        blocks = []
+        for num_instr,instr in enumerate(self.instructions):
+            try:
+                if instr.new_instruction.mnemonic == '.byte':
+                    continue
+                #checko che non sia dentro una jmp table della .text
+                if self.check_if_inside_jmp_table(instr.original_instruction.address) == True:
+                    continue
+                if 'ret' in self.instructions[num_instr+1].new_instruction.mnemonic:
+                    continue
 
-        while start <= end:
-            block_size = random.randint(3,15)
-            block = self.instructions[start:start+block_size]
-            
-            address = self.instructions[start+block_size].new_instruction.address
-            #offset =(indirizzo_a cui saltare) - (ultima istruzione + la sua size + 7(len di jmp qword ptr))
-            address = self.instructions[start+block_size].new_instruction.address + 2
+                probability = random.randint(0,100)
+                if probability < 15:
+                    #asm = bytearray([0xeb,0x00])
+                    #asm, _ = self.ks.asm("",(instr.new_instruction.address + instr.new_instruction.size))
+                    asm = bytearray([0xEB,0x00])
+                    for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size )):
+                        insr = Instruction(i,i,i,None,None)
+                        self.insert_instruction(num_instr + 1 , insr)
 
-            jmp_instr_str = f"jmp  {hex(address)}"
-            jmp_instr_arr,_ = self.ks.asm(jmp_instr_str,(block[-1].new_instruction.address + 2))
-
-            jmp_instr_arr = bytearray(jmp_instr_arr)
-
-            for i in self.cs.disasm(jmp_instr_arr,block[-1].new_instruction.address  + len(jmp_instr_arr)):
-                jmp = Instruction(i,i,i,block[-1],self.instructions[start+block_size])
-                self.insert_instruction(start+block_size,jmp)
-                block.append(jmp)
-
-            blocks.append(block)
-            start += block_size
+            except Exception as e:
+                print("Errore in ultra_bogus_cf(): ",e)
+                continue
 
 
-        #random.shuffle(blocks)
-        instr_list = []
-        for block in blocks:
-            for instr in block:
-                instr_list.append(instr)
-        self.instructions = instr_list
+    #for testing purposes on other file (bcuz it still doesn't work)
+    def one_equal_instruction(self):
+        for num_instr,instr in enumerate(self.instructions):
+            #substitue xor reg,rex with mov reg,0x0
+            if(instr.old_instruction.id == x86_const.X86_INS_XOR and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_REG):
+                if instr.old_instruction.operands[0].reg == instr.old_instruction.operands[1].reg:
+                    print("ADDRESS DEL PRIMO XOR EAX,EAX: ", hex(instr.old_instruction.address))
+                    str_instr = f"mov {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},0x0"
+                    #str_instr = f"sub eax,eax"
 
+                    asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
+
+                    bytes_arr = bytearray(asm)
+
+
+                    for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                        print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                        print("nuova istruzione: ", i.mnemonic, i.op_str)
+                        instr.new_instruction = i
+                        #instr.update_address(num_bytes)    
+                    #self.update_old_instructions(instr)             
+                    bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes)) 
+                    change_num += 1
+                    if change_num == 2:
+                        break
 
     def equal_instructions(self):
         change_num = 0
         bytes_added = 0
-        for instr in self.instructions:
+        for num_instr,instr in enumerate(self.instructions):
             #substitue xor reg,rex with mov reg,0x0
             if(instr.old_instruction.id == x86_const.X86_INS_XOR and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_REG):
                 if instr.old_instruction.operands[0].reg == instr.old_instruction.operands[1].reg:
@@ -737,6 +756,30 @@ class Zone:
                     #break
                     continue
             #transform push r/m8/32 in (mov rax, r/m8/32; push rax)
+            elif (self.push_mov == True and instr.old_instruction.id == x86_const.X86_INS_PUSH):
+                if (instr.old_instruction.operands[0].type == x86_const.X86_OP_REG):
+                    print("ADDRESS DEL PRIMO PUSH: ", hex(instr.old_instruction.address))
+                    str_instr = f"mov rax,{instr.old_instruction.op_str}"
+                    asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
+                    bytes_arr = bytearray(asm)
+                    for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                        print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                        print("nuova istruzione: ", i.mnemonic, i.op_str)
+                        instr.new_instruction = i
+                    str_instr2 = f"push {instr.old_instruction.op_str}"
+                    addr = instr.old_instruction.address + len(bytes_arr)
+                    asm, _ = self.ks.asm(str_instr2, addr)
+                    bytes_arr = bytearray(asm)
+                    for i in self.cs.disasm(bytes_arr,addr):
+                        insr = Instruction(i,i,i,None,None)
+                        self.insert_instruction(num_instr + 1, insr)
+
+                    bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes))
+                    change_num += 1
+                    if change_num == 2:
+                        #break
+                        continue
+
         print("##########################################")
         print("BYTES ADDED: ",hex(bytes_added))
         print("##########################################")
@@ -812,6 +855,7 @@ if __name__ == '__main__':
     file = 'hello_world.exe'
     #file = "C:\\Users\\jak\\Downloads\\PE-bear_0.6.7.3_qt4_x86_win_vs10\\PE-bear - Copia.exe"
     #file = 'C:\\Users\\jak\\Desktop\\reverse.exe'
+    increase_text.increase_text_final(0x7000,file)
     zone = Zone(file)
 
     zone.print_instructions()
@@ -825,9 +869,10 @@ if __name__ == '__main__':
 
     zone.create_label_table()
 ####################################
-    zone.equal_instructions()
-    zone.insert_random_nop()
-    #zone.ultra_bogus_cf()
+    #zone.equal_instructions()
+    #
+    #zone.insert_random_nop()
+    zone.ultra_bogus_cf()
 #####################################
 
     #zone.update_address()
