@@ -511,7 +511,7 @@ class Zone:
         self.instructions.insert(index,instruction)
                 
 
-    def  insert_random_nop(self):
+    def insert_random_nop(self):
 
         inserted_nops = 0
         for num_instr,instr in enumerate(self.instructions):
@@ -528,9 +528,9 @@ class Zone:
                     continue
 
 
-                if inserted_nops >= 35:
-                    break
-                    # continue
+                # if inserted_nops >= 35:
+                #     break
+                #     # continue
                 
                 # le nop sono:  NOP, 
                 #               XCHG REG,REG,   ----> PER ORA NON FUNZIONA
@@ -556,7 +556,7 @@ class Zone:
 
 
                 probability = random.randint(0,100)
-                if probability < 10:
+                if probability <= 10:
 
                     operazione = random.choice(self.no_ops_templates)
                     nop_num = random.randint(1,2)
@@ -584,7 +584,7 @@ class Zone:
 
                     if operazione == 'push':
                         nop_num = 1
-                        asm, _ = self.ks.asm(f'pop {reg}; push {reg}', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'push {reg}; pop {reg}', instr.new_instruction.address + instr.new_instruction.size)
 
 
                     if operazione == 'inc':
