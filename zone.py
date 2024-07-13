@@ -50,7 +50,7 @@ class Zone:
         self.reg_lists = [self.reg_list64,self.reg_list32,self.reg_list16,self.reg_list8,self.reg_list8h]
 
 
-        self.no_ops_templates = ['nop','sub','add','mov','lea','push','or','xor','and','inc','sar','shr','shl','rcl','rcr']
+        self.no_ops_templates = ['nop','sub','add','mov','lea','push','or','xor','and','inc','sar','shr','shl','rcl','rcr', 'jmp']
 
         self.file = file
 
@@ -59,6 +59,8 @@ class Zone:
         
         self.push_mov = False
         self.pe = pefile.PE(file)
+
+        self.instr_blocks = []
 
 
         # lista di tuple (istruzione, indirizzo) per tutte le jmp/call che puntano a indirizzi dentro la .text
@@ -619,6 +621,12 @@ class Zone:
                     if operazione == 'or':
                         asm, _ = self.ks.asm(f'pushf;or {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
+                    if operazione == 'jmp':
+                        # bytearray(b'f\x9c') 2  pushf 
+                        # bytearray(b'f\x9d') 2  popf 
+                        asm = bytearray([0xEB,0x00])
+
+                        asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
                     # inserisco una jmp al prossimo indirizzo
                     # if operazione == 'jmp':
                     #     asm = bytearray([0xEB,0x00])
@@ -627,9 +635,11 @@ class Zone:
                     # asm, _ = self.ks.asm("nop", instr.new_instruction.address + instr.new_instruction.size)
                     # asm, _ = self.ks.asm(f'or {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
 
+                    # asm = bytearray([0xEB,0x00])
 
-                    # for n in range(nop_num):
-                
+                    # # for n in range(nop_num):
+                    # asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
+
                     asm = bytearray(asm)
                     for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size )):
                         insr = Instruction(i,i,i,None,None)
@@ -642,6 +652,66 @@ class Zone:
 
                 print(f"{operazione} {reg}")
                 continue
+
+
+    def bogus_cf(self):
+
+        # inserire random 
+        # asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
+        start = 0
+        end = len(self.instructions)
+        blocks = []
+        block = []
+        block_num = 0
+        for num_instr,instr in enumerate(self.instructions):
+            try:
+
+                # new_entry_point = self.original_entry_point
+
+                # if instr.new_instruction.address >= new_entry_point:
+                #     break
+                if instr.new_instruction.mnemonic == '.byte':
+                    continue
+                #checko che non sia dentro una jmp table della .text
+                if self.check_if_inside_jmp_table(instr.original_instruction.address) == True:
+                    continue
+
+                if instr.new_instruction.mnemonic == 'pushf' or instr.new_instruction.mnemonic == 'popf':
+                    continue
+
+                probability = random.randint(0,100)
+                block.append(instr)
+                if probability > 10:
+                    continue
+
+                asm = bytearray(b'f\x9c') + bytearray([0xEB,0x00]) + bytearray(b'f\x9d')
+                asm = bytearray(asm)
+                for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size )):
+                    insr = Instruction(i,i,i,None,None)
+                    insr.address_history.append(i.address)
+
+                    self.insert_instruction(num_instr + 1 + x, insr)
+                    if x == 0 or x == 1:
+                        block.append(insr)
+
+                    else:
+                        block = []
+                        block.append(insr)
+                        block_num += 1
+                        blocks.append(block)
+
+            except Exception as e:
+                print("Errore in bogus_cf(): ",e)
+                continue
+        
+        self.instr_blocks = blocks
+                
+    def print_blocks(self):
+        with open('blocks.txt', 'r+') as f:
+            for n,block in enumerate(self.instr_blocks):
+                for instr in block:
+                    stringa = f"{n} :  {hex(instr.new_instruction.address)} {instr.new_instruction.mnemonic} {instr.new_instruction.op_str}\n"
+                    f.write(stringa)
 
 
     def write_pe_file(self):
@@ -675,9 +745,10 @@ class Zone:
             print(f"LEN NUOVO_FILE: {len(original_file)}")
 
             f.seek(0)
-            f.write(original_file)        
+            f.write(original_file)       
+        
 
-    
+
 
 
     def update_old_instructions(self,instr):
@@ -884,19 +955,20 @@ class Zone:
 
 if __name__ == "__main__":
 
-    increase_text.increase_text_final(0x7000,sys.argv[1])
+    increase_text.increase_text_final(0x18000,sys.argv[1])
 
     zone = Zone(sys.argv[1])
 
     zone.create_jmp_table()
     zone.create_label_table()
     zone.equal_instructions()
-    zone.insert_random_nop()
-
+    # zone.insert_random_nop()
+    zone.bogus_cf()
     # zone.update_dict()
-
+    zone.print_blocks()
 
     zone.update_label_table()
+    zone.print_instructions()
     zone.adjust_out_text_references()
 
     zone.adjust_reloc_table()
