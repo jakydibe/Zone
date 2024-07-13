@@ -519,14 +519,16 @@ class Zone:
 
                 new_entry_point = self.original_entry_point
 
-                if instr.new_instruction.address >= new_entry_point:
-                    break
+                # if instr.new_instruction.address >= new_entry_point:
+                #     break
                 if instr.new_instruction.mnemonic == '.byte':
                     continue
                 #checko che non sia dentro una jmp table della .text
                 if self.check_if_inside_jmp_table(instr.original_instruction.address) == True:
                     continue
 
+                if instr.new_instruction.mnemonic == 'pushf' or instr.new_instruction.mnemonic == 'popf':
+                    continue
 
                 # if inserted_nops >= 35:
                 #     break
@@ -567,54 +569,55 @@ class Zone:
 
     # ['','','','','','','','','','','','','','','']
 
+
                     if operazione == 'nop':
-                        asm, _ = self.ks.asm('nop', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm('pushf;nop; popf', instr.new_instruction.address + instr.new_instruction.size)
 
                     if operazione == 'sub':
-                        asm, _ = self.ks.asm(f'sub {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;sub {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'add':
-                        asm, _ = self.ks.asm(f'add {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;add {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'mov':
-                        asm, _ = self.ks.asm(f'mov {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;mov {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
 
                     if operazione == 'lea':
-                        asm, _ = self.ks.asm(f'lea {reg},[{reg}+0]', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;lea {reg},[{reg}+0]; popf', instr.new_instruction.address + instr.new_instruction.size)
 
                     if operazione == 'push':
                         nop_num = 1
-                        asm, _ = self.ks.asm(f'push {reg}; pop {reg}', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;push {reg}; pop {reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
 
 
                     if operazione == 'inc':
                         nop_num = 1
-                        asm, _ = self.ks.asm(f'dec {reg}; inc {reg}', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;dec {reg}; inc {reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'sar':
-                        asm, _ = self.ks.asm(f'sar {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;sar {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'shr':
-                        asm, _ = self.ks.asm(f'shr {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;shr {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'shl':
-                        asm, _ = self.ks.asm(f'shl {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;shl {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'rcl':
-                        asm, _ = self.ks.asm(f'rcl {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;rcl {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'rcr':
-                        asm, _ = self.ks.asm(f'rcr {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;rcr {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'xor':
-                        asm, _ = self.ks.asm(f'xor {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;xor {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
 
                     if operazione == 'and':
-                        asm, _ = self.ks.asm(f'and {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;and {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
 
                     
                     if operazione == 'or':
-                        asm, _ = self.ks.asm(f'or {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushf;or {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     # inserisco una jmp al prossimo indirizzo
                     # if operazione == 'jmp':
