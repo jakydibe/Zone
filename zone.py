@@ -1,365 +1,812 @@
+# planning del refactoring
+# 1) disassemblare 
+#   1.1) creare la lista dinamica di istruzioni
+#   1.2) creare il dizionario di istruzioni
+# 
+# 
+# 
+# 
+# 
+# 
+# 
 from capstone import *   #e' un disassembler
 from keystone import *   #e' un assembler
 import sys
 import pefile
 import time
+import lief
 import os
-import re
+import random
 from capstone import x86_const
-
-#da guardare: 0x1949
-
-
-def get_base_address(pe):
-    return pe.OPTIONAL_HEADER.BaseOfCode
-
-def get_entry_point(pe):
-    return pe.OPTIONAL_HEADER.AddressOfEntryPoint
-
-def get_size_of_image(pe):
-    return pe.OPTIONAL_HEADER.SizeOfImage
-
-def get_text_section(pe, address):
-    #return pe.O
-    for section in pe.sections:
-        if section.contains_rva(address):
-            print(section.Name, hex(section.VirtualAddress),hex(section.Misc_VirtualSize), section.SizeOfRawData )
-            return section
-          
-def get_section_size(section):
-    return section.Misc_VirtualSize
-
-def estrai_valore(stringa):
-    # Usa un'espressione regolare per trovare il valore tra "rip +" e "]"
-    match = re.search(r"rip \+ (.*?)\]", stringa)
-    
-    # Se non c'è corrispondenza, restituisci un messaggio di errore
-    if match is None:
-        return "La stringa non contiene 'rip +'"
-    
-    # Altrimenti, restituisci il valore trovato
-    return int(match.group(1), 16)
+import zone_utils
+import increase_text
 
 
-#classe che tiene conto per ogni istruzione di quella originale, della precedente e dell' attuale
-#in piu' ogni istruzione e' un oggetto come molti campi come indirizzo, opcode etc.etc.
+# una classe che rappresenta un istruzione in tutte le sue forme, attuale, vecchia, originale, precedente e prossima
 class Instruction:
-    def __init__(self,original_instr,old_instr,new_instr,previous_instr,next_instr):
-        self.original_instr = original_instr
-        self.old_instr = old_instr
-        self.new_instr = new_instr
-        self.previous_instr = previous_instr
-        self.next_instr = next_instr
+    def __init__(self,new_instruction,old_instruction,original_instruction,prev_instruction,next_instruction):
+        self.new_instruction = new_instruction
+        self.old_instruction = old_instruction
+        self.original_instruction = original_instruction
+        self.prev_instruction = prev_instruction
+        self.next_instruction = next_instruction
+        self.address_history = []
 
 
-    # def update_address(self, num_bytes):
-    #     self.new_instr.address = self.new_instr.address + num_bytes
-
-
-
-#Lables, servono ad aggiustare gli indirizzi delle jump dopo che ho modificato le istruzioni
-class lables:
-    def __init__(self, instr, label_address, jump_call):
-        self.instr = instr #istruzione jump/ call
-        self.label_address = label_address  #indirizzo a cui jumpa
-        #true is jump, false is call
-        self.jump_call = jump_call
-
-
-#classe principale
 class Zone:
-    #def __init__(self, file):
-    def __init__(self):
-        #self.file = file
+    def __init__(self, file):
+
+
+        # inizializzo il disassembler
         self.cs = Cs(CS_ARCH_X86, CS_MODE_64)
         self.cs.detail = True
+        self.cs.skipdata = True #utile per skippare dati inutili nella .text (tipo stringhe o tabelle di jump)
+
+        self.reg_list64 = ['rax','rbx','rcx','rdx','rsi','rdi','rbp','rsp','r8','r9','r10','r11','r12','r13','r14','r15']
+        self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi','ebp','esp','r8d','r9d','r10d','r11d','r12d','r13d','r14d','r15d']
+        self.reg_list16 = ['ax','bx','cx','dx','si','di','bp','sp','r8w','r9w','r10w','r11w','r12w','r13w','r14w','r15w']
+        self.reg_list8 = ['al','bl','cl','dl','sil','dil','bpl','spl','r8b','r9b','r10b','r11b','r12b','r13b','r14b','r15b']
+        self.reg_list8h = ['ah','bh','ch','dh']
+        self.reg_lists = [self.reg_list64,self.reg_list32,self.reg_list16,self.reg_list8,self.reg_list8h]
+
+
+        self.no_ops_templates = ['nop','sub','add','mov','lea','push','or','xor','and','inc','sar','shr','shl','rcl','rcr']
+
+        self.file = file
+
+        # inizializzo l'assembler
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
-        self.pe = pefile.PE("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world.exe") #eventualmente passare il file come parametro
-
-        self.label_table = []
-
-        self.new_instructions = []
-
-        self.original_entry_point = self.pe.NT_HEADERS.OPTIONAL_HEADER.AddressOfEntryPoint
-
-
-        #print(self.pe.OPTIONAL_HEADER)
-            
-
-        self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
-        self.code_section = get_text_section(self.pe, self.base_address)
-        self.code_section_size = get_section_size(self.code_section)
-
-        self.base_rdata = self.base_address + self.code_section_size
-        #
-
-        print("Base data address: 0x%x" %self.base_rdata)
-        # i bytes della .text
-        self.raw_bytes = self.code_section.get_data(self.base_address,self.code_section_size)
-        self.original_bytes_len = len(self.raw_bytes)
-
-
-        print("Base address: 0x%x" %self.base_address)
-        print(self.code_section.Name, hex(self.code_section.VirtualAddress),hex(self.code_section.Misc_VirtualSize), hex(self.code_section.SizeOfRawData))
-
-
-
-        with open("dumped_instructions.txt_orig", 'w') as f:
-        #disassemblo tutte le istruzioni e creo un oggetto Instruction per ognuna
-            for i in self.cs.disasm(self.raw_bytes, self.base_address):
-                #scrivimi tutti i campi di i (address, mnemonic, op_str)
-                #time.sleep(1000)
-                f.write(f"{hex(i.address)}:\t {i.size}\t {i.mnemonic} {i.op_str}\t {i.bytes}\n")
-
-                if i.address != self.base_address:
-                    previous_instr = self.new_instructions[-1]
-                    new_instr = Instruction(i,i,i,previous_instr,None)
-                    previous_instr.next_instr = new_instr
-                    self.new_instructions.append(new_instr)
-
-                else:
-                    new_instr = Instruction(i,i,i,None,None)
-                    self.new_instructions.append(new_instr)
-
-        # for instr in self.new_instructions:
-        #     if instr.previous_instr == None:
-        #         continue
-        #     string_instruction = instr.new_instr.mnemonic + " " + instr.new_instr.op_str
-
-        #     asm, _ = self.ks.asm(string_instruction, (instr.previous_instr.new_instr.address + instr.previous_instr.new_instr.size))
-        #     new_bytes = bytearray(asm)
-
-        #     for i in self.cs.disasm(new_bytes, (instr.previous_instr.new_instr.address + instr.previous_instr.new_instr.size)):
-        #         instr.previous_instr.new_instr = i
-        #         with open("dumped_instructions.txt_orig_aggiustato", 'a') as f:
-        #             f.write(f"{hex(i.address)}:\t {i.mnemonic} {i.op_str}\t {i.bytes}\n")
-
-
-
         
+        
+        self.pe = pefile.PE(file)
+
+
+        # lista di tuple (istruzione, indirizzo) per tutte le jmp/call che puntano a indirizzi dentro la .text
+        self.short_label_table = []
+        self.far_label_table = []
+
+        #lista dinamica globale di istruzioni
+        self.instructions = []
+
+        #lista di jump table (causate da switch-cases)
+        self.jump_table = []
+        
+        # lista di tuple (start,end) per le jump table, utile per verificare se un indirizzo e' dentro una jump table
+        self.start_end_table = []
+
+        #dizionario di istruzioni, molto utile dal punto di vista delle performance(tempo di accesso costante)
+        self.instr_dict = {}
+        self.updated_instr_dict = {}
+
+
+        # alcuni valori utili per la modifica del file presi dagli header del PE
+        self.original_entry_point = self.pe.OPTIONAL_HEADER.AddressOfEntryPoint
+        self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
+        self.code_section = zone_utils.get_text_section(self.pe, self.base_address)
+        self.code_section_size = self.code_section.Misc_VirtualSize
+
+        self.rdata_section = zone_utils.get_section(self.pe, b'.rdata\x00\x00')
+
+
+        #sono i bytes che posso inserire senza dover incrementare la .text
+        self.padding_bytes = self.rdata_section.VirtualAddress - self.code_section.VirtualAddress - self.code_section_size
+        self.added_bytes = 0
+
+        print(f"Padding bytes: {self.padding_bytes}")
+        self.data_directories = self.pe.OPTIONAL_HEADER.DATA_DIRECTORY
+
+        self.code_raw_start = self.code_section.PointerToRawData
+        print(f"Original entry point: {hex(self.original_entry_point)}")
+        print(f"Base address: {hex(self.base_address)}")
+        print(f"Code section size: {hex(self.code_section_size)}")
+
+
+        # raw bytes della sezione .text
+        self.raw_code = self.code_section.get_data(self.base_address, self.code_section_size)
+
+        # lunghezza del codice originale
+        self.original_code_length = len(self.raw_code)
+
+        self.bytes_to_add = []
+
+
+
+        #con questo ciclo apro il file instr.txt e ci scrivo le istruzioni disassemblate
+        with open('instr.txt', 'r+') as f:
+            begin = self.base_address
+            end = self.base_address + self.code_section_size
+
+
+            #con questo ciclo mi assicuro di disassemblare tutto il codice
+            while True:
+                last_address = 0
+                last_size = 0
+                print(f"begin: {hex(begin)}")
+                print(f"end: {hex(end)}")
+                time.sleep(1)
+
+                print("CICLO\n")
+                #con questo ciclo itero tutte le istruzioni e le aggiungo a self.instructions e a self.instr_dict
+                for i in self.cs.disasm(self.raw_code[begin-self.base_address:end], begin):
+                    
+                    # creo un oggetto Instruction e lo aggiungo alla lista di istruzioni
+                    instruction = Instruction(i,i,i,None,None) 
+                    instruction.address_history.append(i.address)
+                    self.instructions.append(instruction)
+
+
+                    #questo dizionario ci potro' accedere con la chiave dell' indirizzo originale
+                    self.instr_dict[i.address] = instruction
+                    #questo dizionario ci potro' accedere con la chiave dell' precedente, e' molto utile in futuro
+                    self.updated_instr_dict[i.address] = instruction
+
                 
 
-        self.create_label_table()
+                    stringa = f"{hex(i.address)} {i.bytes} {i.size}  {i.mnemonic}  {i.op_str}\n"
+                    last_address = i.address
+                    last_size = i.size
+                    f.write(stringa)
+
+                
+
+                
+                if begin >= end:
+                    break
+
+
+                begin = max(int(last_address),begin) + last_size
+
+
+        print("FINITO DI DISASSEMBLARE")
+        #self.cs.skipdata = False
+
+        #assegno i prev_instruction e next_instruction
+        for x,instr in enumerate(self.instructions):
+            instr.new_bytes = instr.new_instruction.bytes
+
+            if x == 0:
+                continue
+            instr.prev_instruction = self.instructions[x-1]
+            if x == len(self.instructions)-1:
+                continue
+            instr.next_instruction = self.instructions[x+1]
 
 
 
-#indirizzo da guardare: 0x10dd
+    def create_label_table(self):
+        print("CREO LABEL TABLE")
+        for instr in self.instructions:
+            try:
+                inside_jmp_table = self.check_if_inside_jmp_table(instr.original_instruction.address)
+                if inside_jmp_table == True:
+                    continue
+                
+                if instr.new_instruction.mnemonic == '.byte':
+                    continue
+
+                if (x86_const.X86_GRP_JUMP in instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups):
+                    if ('ptr' not in instr.new_instruction.op_str) and instr.new_instruction.operands[0].type != x86_const.X86_OP_REG:
+                        addr = zone_utils.estrai_valore(instr.new_instruction.op_str)
+                        self.short_label_table.append((instr, self.instr_dict[addr]))
+            except Exception as e:
+                print("Errore in create_label_table(): ",e)
+                continue
+
+
+        # self.short_label_table.sort()
+
+
+
+
+    def update_instr(self):
+        print("UPDATE INSTR")
+        
+        new_instr_dict = {}
+        for x,i in enumerate(self.instructions):
+            try:
+
+                if x == 0:
+                    continue
+                addr = i.prev_instruction.new_instruction.address + len(i.prev_instruction.new_instruction.bytes)
+
+                old_addr = i.old_instruction.address
+
+                for n in self.cs.disasm(i.new_instruction.bytes,addr):
+                    i.old_instruction = i.new_instruction
+
+                    new_instr_dict[i.old_instruction.address] = i
+                    i.address_history.append(n.address)
+
+                    i.new_instruction = n
+
+
+            except Exception as e:
+                print("Errore in update_instr(): ",e)
+                print('Indirizzo: ',hex(i.new_instruction.address))
+                continue
+        self.updated_instr_dict = new_instr_dict
+        with open('dict.txt', 'r+') as f:
+            for key in self.updated_instr_dict:
+                stringa = f"{hex(key)} {hex(self.updated_instr_dict[key].new_instruction.address)}\n"
+                f.write(stringa)
     def print_instructions(self):
-        with open("dumped_instructions.txt", 'w') as f:
-            
-            for instr in self.new_instructions:
+        with open('instr_2.txt', 'r+') as f:
 
-                string = "{}:\t{} \t{}\t{} \t{}\n".format(hex(instr.new_instr.address),instr.new_instr.size, instr.new_instr.mnemonic, instr.new_instr.op_str, instr.new_instr.bytes)
-                #print("{}:\t{} \t{}\t{}".format(hex(instr.new_instr.address),bytearray(instr.new_instr.bytes), instr.new_instr.mnemonic, instr.new_instr.op_str))
-                f.write(string)
+            for x,i in enumerate(self.instructions):
+                stringa  = f"{hex(i.new_instruction.address)} {i.new_instruction.bytes} {len(i.new_instruction.bytes)}  {i.new_instruction.mnemonic}  {i.new_instruction.op_str}\n"
+                f.write(stringa)
+
+    def update_label_table(self):
+        print("UPDATE LABEL TABLE")
+        re_iterate = True
+        num_iterazioni = 0
+
+        inserted_instructions = False
+        while re_iterate == True:
+            print("ITERANDO: num_iterazioni: ",num_iterazioni)
+            self.update_instr()
+            re_iterate = False
+            num_iterazioni += 1
+            # try:
+
+            for entry in self.short_label_table:
+
+                if self.check_if_inside_jmp_table(entry[0].new_instruction.address) == True:
+                    continue
+
+                if (x86_const.X86_GRP_JUMP not in entry[0].new_instruction.groups) and (x86_const.X86_GRP_CALL not in entry[0].new_instruction.groups):
+                    continue
+
+                if (entry[0].new_instruction.operands[0].type == x86_const.X86_OP_REG):
+                    continue
+                
+                if 'ptr' in entry[0].new_instruction.op_str:
+                    continue
+
+
+                index = self.instructions.index(entry[0])
+                old_jump_address = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
+
+
+                if old_jump_address == 0:
+                    print(entry[0].new_instruction.mnemonic, entry[0].new_instruction.op_str)
+                
+
+
+                jmp_addr = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
+                jmp_addr_ptr = entry[1].new_instruction.address
+
+                if jmp_addr != jmp_addr_ptr:
+                    original_length = len(entry[0].new_instruction.bytes)
+                    str_instr = f"{entry[0].new_instruction.mnemonic} {hex(jmp_addr_ptr)}"
+                    asm, _ = self.ks.asm(str_instr, entry[0].new_instruction.address)
+                    bytes_arr = bytearray(asm)
+
+                    new_length = len(bytes_arr)
+                    if original_length != new_length:
+                        # if new_length >= 6:
+                        #     print("\n\nSTRANISSIMO NEW_LENGTH >= 6!!!!!")
+                        #     print("Indirizzo: ",hex(entry[0].new_instruction.address))
+                        #     for i in self.cs.disasm(bytes_arr,entry[0].new_instruction.address):
+                        #         entry[0].new_instruction = i
+
+                        #     re_iterate = True
+                        #     # exit(0)
+                        if original_length > new_length:
+                            diff = original_length - new_length
+                            for _ in range(diff):
+                                bytes_arr.append(0x90)
+                            
+                            for x,i in enumerate(self.cs.disasm(bytes_arr,entry[0].new_instruction.address)):
+                                if x == 0:
+                                    entry[0].new_instruction = i
+                                else:
+                                    new_instr = Instruction(i,i,i,None,None)
+                                    new_instr.address_history.append(i.address)
+                                    self.insert_instruction(index+x,new_instr)
+                                    inserted_instructions = True
+                        elif new_length > original_length:
+                            re_iterate = True
+                            diff = new_length - original_length
+
+                            print("NEW_LEN > ORIG_LEN")
+                            for i in self.cs.disasm(bytes_arr,entry[0].new_instruction.address):
+                                entry[0].new_instruction = i
+
+                            new_str = f"{entry[0].new_instruction.mnemonic} {entry[1].new_instruction.address}"
+                            new_asm, _ = self.ks.asm(new_str, entry[0].new_instruction.address)
+                            new_bytes = bytearray(new_asm)
+                            for x,i in enumerate(self.cs.disasm(new_bytes,entry[0].new_instruction.address)):
+                                entry[0].new_instruction = i
+
+                    else:
+                        for i in self.cs.disasm(bytes_arr,entry[0].new_instruction.address):
+                            entry[0].new_instruction = i
+
+
+
+
+    def adjust_out_text_references(self):
+        re_iterate = True
+        inserted_instructions = False
+        while re_iterate == True:
+            re_iterate = False
+            self.update_instr()
+            for num_instr,instr in enumerate(self.instructions):
+                inside_jmp_table = self.check_if_inside_jmp_table(instr.original_instruction.address)
+                if inside_jmp_table == True:
+                    continue
+
+                if instr is not None:
+                    if ('rip +' in instr.new_instruction.op_str):
+                        #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
+                        valore_originale = zone_utils.estrai_valore(instr.original_instruction.op_str)
+                        if valore_originale == 0:
+                            continue
+                        if num_instr == len(self.instructions) - 1:
+                            continue
+                        addr = self.instructions[num_instr + 1].original_instruction.address + valore_originale
+
+                        # print("valore_originale: ",valore_originale)
+                        # print("nuovo indirizzo: ",hex(addr))
+                        #checko se l'indirizzo e'all'interno della .text
+                        if addr > self.base_address and addr < self.base_address + self.code_section_size:
+                            for i in self.instructions:
+                                if i.original_instruction.address == addr:
+                                    addr = i.new_instruction.address
+                                    print("NUOVO INDIRIZZO JUMP RIP+ : ",hex(addr))
+                                    break
+            
+                        offset = addr - self.instructions[num_instr + 1].new_instruction.address
+
+                        #print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
+                        old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
+
+                        new_string = old_string.replace(hex(valore_originale),hex(offset))
+
+
+
+                        try:
+                            asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
+                            asm = bytearray(asm)
+                        except:
+                            nuovi_bytes = offset.to_bytes(4, byteorder='little')
+                            bytes_vecchi = valore_originale.to_bytes(4, byteorder='little')
+                            asm = bytearray(instr.new_instruction.bytes.replace(bytes_vecchi,nuovi_bytes))
+                            print('vecchi bytes: ',instr.new_instruction.bytes)
+                            print('nuovi bytes: ',asm)
+
+
+
+                        if(len(asm) < len(instr.new_instruction.bytes)):
+                            if(instr.new_instruction.bytes[0] == 0x48 and (len(instr.new_instruction.bytes) - len(asm) == 1)):
+                                # print("cosa strana")
+                                # print("Indirizzo: ",hex(instr.new_instruction.address))
+
+                                asm.insert(0,0x48)
+                                for i in self.cs.disasm(asm, instr.new_instruction.address):
+                                    instr.new_instruction = i
+                            else:                     
+                                ##########DA IMPLEMENTARE################
+                                # print("Indirizzo: ",hex(instr.new_instruction.address))
+                                # print('nuova lunghezza asm: ',len(asm))
+                                # print('vecchia lunghezza instr.new_instruction: ',instr.new_instruction.size)
+                                nop_num = instr.new_instruction.size - len(asm)
+                                for i in range(nop_num):
+                                    asm.append(0x90)
+                                for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
+                                    if x == 0:
+                                        instr.new_instruction = i
+                                    else:
+                                        insr = Instruction(i,i,i,None,None)
+                                        insr.address_history.append(i.address)
+                                        self.insert_instruction(num_instr + x, insr)
+                                        inserted_instructions = True
+                        elif len(asm) == len(instr.new_instruction.bytes):
+                            for i in self.cs.disasm(asm, instr.new_instruction.address):
+                                instr.new_instruction = i
+                        else:
+                            print(f"{hex(instr.new_instruction.address)} SOSPETTO: len(asm) > instr2.new_instruction.size in out_refs rip+")
+                            re_iterate = True
+
+                    elif ('rip -' in instr.new_instruction.op_str):
+                        #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
+                        valore_originale = zone_utils.estrai_valore(instr.original_instruction.op_str)
+                        # print("valore_originale: ",valore_originale)
+                        if valore_originale == 0:
+                            continue
+                        addr = self.instructions[num_instr + 1].original_instruction.address - valore_originale
+
+                        #checko se l'indirizzo e'all'interno della .text
+                        if addr > self.base_address and addr < self.base_address + self.code_section_size:
+                            for i in self.instructions:
+                                if i.original_instruction.address == addr:
+                                    addr = i.new_instruction.address
+                                    break
+
+                        offset = self.instructions[num_instr + 1].new_instruction.address - addr
+
+                        #print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
+                        old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
+
+                        new_string = old_string.replace(hex(valore_originale),hex(offset))
+
+                        asm, _ = self.ks.asm(new_string, instr.new_instruction.address)
+                        asm = bytearray(asm)
+
+                        if(len(asm) < len(instr.new_instruction.bytes)):
+                            #checka il problema del bytes 0x48 che ks non lo assembla molto spesso
+                            if(instr.new_instruction.bytes[0] == 0x48 and (len(instr.new_instruction.bytes) - len(asm) == 1)):
+                                # print("cosa strana")
+                                # print("Indirizzo: ",hex(instr.new_instruction.address))
+
+                                asm.insert(0,0x48)
+                                for i in self.cs.disasm(asm, instr.new_instruction.address):
+                                    instr.new_instruction = i
+                            else:                     
+                                ##########DA IMPLEMENTARE################
+                                # print("Indirizzo: ",hex(instr.new_instruction.address))
+                                # print('nuova lunghezza asm: ',len(asm))
+                                # print('vecchia lunghezza instr.new_instruction: ',instr.new_instruction.size)
+                                nop_num = instr.new_instruction.size - len(asm)
+                                for i in range(nop_num):
+                                    asm.append(0x90)
+                                for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address)):
+                                    if x == 0:
+                                        instr.new_instruction = i
+                                    else:
+                                        insr = Instruction(i,i,i,None,None)
+                                        insr.address_history.append(i.address)
+                                        self.insert_instruction(num_instr + x, insr)
+                                        inserted_instructions = True
+                        elif len(asm) == len(instr.new_instruction.bytes):
+                            for i in self.cs.disasm(asm, instr.new_instruction.address):
+                                instr.new_instruction = i
+                        else:
+                            print(f"{hex(instr.new_instruction.address)} SOSPETTO: len(asm) > instr2.new_instruction.size in out_refs rip-")
+                            re_iterate = True
+                else:
+                    print("dentro adjust_out_text_references(), instr e' None")
 
 
     def locate_by_address(self, address):
-        for instr in self.new_instructions:
-            if instr.original_instr.address == address:
-                return instr
+        instr = self.instr_dict[address]            
+        if instr.original_instruction.address == address:
+            return instr
         return None
 
-    def generate_binary_code(self):
-        code = b''
-        for instruction in self.new_instructions:
-            code += instruction.new_instr.bytes
-        return code
-    
+    def adjust_reloc_table(self):
+        for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
+            for reloc in entries.entries:
+                data = self.pe.get_qword_at_rva(reloc.rva)
+                # print("data: ",hex(data))
 
-        # new_entry = self.locate_by_address(self.original_entry_point).new_instr.address
-        # self.pe.NT_HEADERS.OPTIONAL_HEADER.AddressOfEntryPoint = self.original_entry_point
-        # print("New entry point: 0x%x" %new_entry)
+                data = data - self.pe.OPTIONAL_HEADER.ImageBase
+                # print(hex(reloc.rva), reloc.type,hex(data))#, reloc.value)
 
-        # self.code_section.Misc_VirtualSize = len(new_bytes)
-        # self.code_section.Misc_PhysicalAddress = len(new_bytes)
-        # self.code_section.Misc = len(new_bytes)
+                # for instr in self.instructions:
+                #     if instr.original_instruction.address == data:
+                # try:
 
+                if data not in self.instr_dict:
+                    continue
+
+                if self.instr_dict[data] is not None:
+                    # print("RELOC: ",hex(reloc.rva))
+                    instr = self.instr_dict[data]
+
+                    self.pe.set_qword_at_rva(reloc.rva, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
+                # except Exception as e:
+                #     print("Errore in adjust_reloc_table(): ",e)
+                #     continue
+        self.pe.write(self.file)
+
+    def insert_instruction(self,index,instruction):
+        self.instructions[index - 1].next_instruction = instruction
+        self.instructions[index].prev_instruction = instruction
+
+        instruction.prev_instruction = self.instructions[index - 1]
+        instruction.next_instruction = self.instructions[index]
+
+        self.instructions.insert(index,instruction)
+                
+
+    def  insert_random_nop(self):
+
+        inserted_nops = 0
+        for num_instr,instr in enumerate(self.instructions):
+            try:
+                if instr.new_instruction.mnemonic == '.byte':
+                    continue
+                #checko che non sia dentro una jmp table della .text
+                if self.check_if_inside_jmp_table(instr.original_instruction.address) == True:
+                    continue
+
+
+                # if inserted_nops >= 10:
+                #     break
+                #     # continue
+                
+                # le nop sono:  NOP, 
+                #               XCHG REG,REG,   ----> PER ORA NON FUNZIONA
+                #               SUB REG,0x0,    ----> FUNZIONA
+                #               ADD REG,0x0,    ----> messa
+                #               MOV REG, REG, 
+                #               LEA REG, [REG+0],
+                #               PUSH REG ----------- POP REG  ---> funziona (ESEGUIRE SOLO 1 volta, nop_num = 1)
+                #               OR REG, REG
+                #               XOR REG, 0x0
+                #               AND REG, REG
+                #               INC REG ----------- DEC REG
+                #               DEC REG ----------- INC REG
+                #               SAR REG, 0x0
+                #               SHR REG, 0x0
+                #               SHL REG, 0x0
+                #               RCL REG, 0x0
+                #               RCR REG, 0x0 
+                asm = None
+                operazione = None
+                reg_list = None
+                reg = None
+
+
+                probability = random.randint(0,100)
+                if probability < 10:
+
+                    operazione = random.choice(self.no_ops_templates)
+                    nop_num = random.randint(1,2)
+
+                    reg_list = random.choice(self.reg_lists)
+
+                    reg = random.choice(reg_list)
+
+    # ['','','','','','','','','','','','','','','']
+
+                    if operazione == 'nop':
+                        asm, _ = self.ks.asm('nop', instr.new_instruction.address + instr.new_instruction.size)
+
+                    if operazione == 'sub':
+                        asm, _ = self.ks.asm(f'sub {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'add':
+                        asm, _ = self.ks.asm(f'add {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'mov':
+                        asm, _ = self.ks.asm(f'mov {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
+
+                    # if operazione == 'lea':
+                    #     asm, _ = self.ks.asm(f'lea {reg},[{reg}+0]', instr.new_instruction.address + instr.new_instruction.size)
+
+                    # if operazione == 'push':
+                    #     nop_num = 1
+                    #     asm, _ = self.ks.asm(f'pop {reg}; push {reg}', instr.new_instruction.address + instr.new_instruction.size)
+
+
+                    # if operazione == 'inc':
+                    #     nop_num = 1
+                    #     asm, _ = self.ks.asm(f'dec {reg}; inc {reg}', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'sar':
+                        asm, _ = self.ks.asm(f'sar {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'shr':
+                        asm, _ = self.ks.asm(f'shr {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'shl':
+                        asm, _ = self.ks.asm(f'shl {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'rcl':
+                        asm, _ = self.ks.asm(f'rcl {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'rcr':
+                        asm, _ = self.ks.asm(f'rcr {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    if operazione == 'xor':
+                        asm, _ = self.ks.asm(f'xor {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
+
+                    if operazione == 'and':
+                        asm, _ = self.ks.asm(f'and {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
+
+                    
+                    if operazione == 'or':
+                        asm, _ = self.ks.asm(f'or {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
+                    
+                    # inserisco una jmp al prossimo indirizzo
+                    # if operazione == 'jmp':
+                    #     asm = bytearray([0xEB,0x00])
+
+
+                    asm, _ = self.ks.asm("nop", instr.new_instruction.address + instr.new_instruction.size)
+                    # asm, _ = self.ks.asm(f'or {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
+
+
+                    for n in range(nop_num):
+                    
+                        asm = bytearray(asm)
+                        for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size + n)):
+                            insr = Instruction(i,i,i,None,None)
+                            insr.address_history.append(i.address)
+
+                            self.insert_instruction(num_instr + 1 + n, insr)
+                    inserted_nops += 1
+            except Exception as e:
+                print("Errore in insert_random_nop(): ",e)
+
+                print(f"{operazione} {reg}")
+                continue
+
+
+    def write_pe_file(self):
+        new_bytes = b''
+        for i in self.instructions:
+            new_bytes += i.new_instruction.bytes
+        
+        length = self.original_code_length
+
+        new_bytes = new_bytes[:length]
         # gap = self.pe.OPTIONAL_HEADER.SectionAlignment - (len(new_bytes) % self.pe.OPTIONAL_HEADER.SectionAlignment)
 
-        # new_bytes += b'\x90' * gap
-        # self.pe.set_bytes_at_offset(self.pe.OPTIONAL_HEADER.BaseOfCode, new_bytes)
+        # gap_bytes = (bytearray([0 for _ in range(gap)]))
+        # new_bytes += gap_bytes
+        new_entry_point = self.locate_by_address(self.original_entry_point).new_instruction.address
+        
 
-        # self.pe.write("C:\\Users\\jakyd\\Desktop\\tesi\\tesi\\hello_world_patched.exe")
-#relocate_image()
-    def write_pe_text_section(self):
+        #indirizzo dove viene salvato l'entry point
+        entry_point_addr = self.pe.DOS_HEADER.e_lfanew + 0x28
+        
+        with open(self.file, "r+b") as f:
 
-        #new_bytes = self.generate_binary_code()
-        new_bytes = b''
-        for instr in self.new_instructions:
-            new_bytes += instr.new_instr.bytes
+            original_file = bytearray(f.read())
+            print(f"LEN ORIGINAL_FILE: {len(original_file)}")
+            new_bytes = bytearray(new_bytes)
 
-        with open("dumped_instructions2.txt", 'w') as f:
-            for i in self.cs.disasm(new_bytes, self.base_address):
-                #print(f"{i.address}: {i.mnemonic} {i.op_str}")
-                f.write(f"{hex(i.address)}:\t {i.size}\t {i.mnemonic} {i.op_str}\t {i.bytes}\n")
+            #riscrivo la .text
+            original_file[self.code_raw_start : self.code_raw_start + len(new_bytes)] = new_bytes
+            #scrivo l' entry point
+            original_file[entry_point_addr: entry_point_addr + 4] = new_entry_point.to_bytes(4, byteorder='little')
+            print(f"LEN NUOVO_FILE: {len(original_file)}")
 
-        new_entry_point = self.locate_by_address(self.pe.OPTIONAL_HEADER.AddressOfEntryPoint)
-
-        print(f"LUNGHEZZA NEW_BYTES: {hex(len(new_bytes))}")
-
-        with open("hello_world_patched.exe", "r+b") as f:
-            original_file = f.read()
-            #f.seek(self.pe.OPTIONAL_HEADER.BaseOfCode)
-            modified_file = original_file[:0x400] + new_bytes + original_file[0x400+len(new_bytes):]
-
-            modified_file = modified_file[:0x120] + new_entry_point.new_instr.address.to_bytes(4, byteorder='little') + modified_file[0x124:]
             f.seek(0)
+            f.write(original_file)        
 
-            f.write(modified_file)
-
-
-    #crea la lable table
-    def create_label_table(self):
-        tmp_table = []
-        #itera tutte le istruzioni in cerca di JMP/CALL (di tutti i tipi perche' x86_GRP)
-        for instr in self.new_instructions:
-            if (x86_const.X86_GRP_JUMP in instr.new_instr.groups or x86_const.X86_GRP_CALL in instr.new_instr.groups): 
-                #se l' operando e' un IMM salva l'imm
-                if (instr.new_instr.operands[0].type == x86_const.X86_OP_IMM):
-                    jump_call = False
-                    if x86_const.X86_GRP_JUMP in instr.new_instr.groups:
-                        jump_call = True
-                    label = lables(instr, instr.new_instr.operands[0].imm, jump_call)
-
-                    tmp_table.append(label)#altrimenti salva l' indirizzo di mem
-                elif (instr.new_instr.operands[0].type == x86_const.X86_OP_MEM):
-                    jump_call = False
-                    if x86_const.X86_GRP_JUMP in instr.new_instr.groups:
-                        jump_call = True
-                    label = lables(instr, instr.new_instr.operands[0].mem.disp, jump_call)
-                    tmp_table.append(label)
-
-        self.label_table = tmp_table
-        #print(self.label_table)
-
-
-#questa funzione assembla tutte le istruzioni successive ad una in seguito ad una modifica
-#semplicemente incrementa gli indirizzi delle istruzioni di + num_bytes
-    def increase_addresses(self,starting_addr,num_bytes):
-        for instr in self.new_instructions:
-            if instr.new_instr.address > starting_addr:
-                # if instr.new_instr.address >= self.base_rdata:
-                #     break
-                #PROBABILMENTE QUESTE TOCCA TOGLIERE IL COMMENTO
-                # string_instruction = instr.new_instr.mnemonic + " " + instr.new_instr.op_str
-                # asm, _ = self.ks.asm(instr.new_instr.bytes, (instr.new_instr.address + num_bytes))
-                # new_bytes = bytearray(asm)
-
-                    
-                new_bytes = instr.old_instr.bytes
-
-
-
-
-                for i in self.cs.disasm(new_bytes, (instr.new_instr.address + num_bytes)):
-
-                        #i.size = 1
-                    if i.size != instr.new_instr.size:
-                        print("ERRORE: ", hex(instr.new_instr.address))
-                        print("SIZE OLD: ", instr.new_instr.size)
-                        print("SIZE NEW: ", i.size)
-                        print("I: ", i.mnemonic)
-                        print("I: ", i.op_str)
-                        print("I: ", i.bytes)
-                        print("I: ", i.size)
-                        print("I: ", i.address)
-                        exit(1)
-
-                    instr.new_instr = i
-                
-                if 'rip + ' in instr.new_instr.op_str:
-                    offset_new = hex(estrai_valore(instr.new_instr.op_str))
-                    new_address = instr.new_instr.address + estrai_valore(instr.new_instr.op_str)
-                    old_address = instr.original_instr.address + estrai_valore(instr.original_instr.op_str)
-
-                    if old_address < self.code_section.VirtualAddress + self.code_section.SizeOfRawData:
-                        continue
-                    if old_address != new_address:
-                        offset_aggiustato = hex(old_address - instr.new_instr.address)
-                        string = instr.new_instr.mnemonic + ' ' +  instr.new_instr.op_str
-                        string = string.replace(f"rip + {offset_new}", f"rip + {offset_aggiustato}")
-                        #print(f"offset_new: {offset_new}, offset_aggiustato: {offset_aggiustato}")
-                        #print("istruzione: ", instr.new_instr.mnemonic, instr.new_instr.op_str)
-
-                        #print("string: ", string)
-                        asm, _ = self.ks.asm(string, instr.new_instr.address)
-
-                        new_bytes = bytearray(asm)
-                        for n in self.cs.disasm(new_bytes, instr.new_instr.address):
-                            instr.new_instr = n
-                        
-            #sommo num_bytes alle istruzioni dei jump
-
-
-    #aggiorna i vari indirizzi di jump grazie alla lable table
-    #POSSIBILE ERRORE::: EVENTUALMENTE CHECKARE SE IL JUMP E' ALLA SEZIONE .TEXT, magari se jumpa ad altra roba non devo aumentare l'indirizzo
-    def update_jumps(self):
-        for label in self.label_table:
-            for instr in self.new_instructions:
-                #se c'e' un istruzione il cui precedente indirizzo compare nella label_table aggiornala
-                if instr.old_instr.address == label.label_address:
-
-                    if label.label_address > (self.code_section.VirtualAddress + self.code_section.SizeOfRawData):
-                        continue
-                    label.label_address = instr.new_instr.address
-
-                    addr = hex(label.label_address)
-                    str_instr = f"{label.instr.new_instr.mnemonic} {addr}"
-                    
-                    asm, _ = self.ks.asm(str_instr, label.instr.new_instr.address)
-                    new_bytes = bytearray(asm)
-
-                    for i in self.new_instructions:
-                        if i.new_instr.address == label.instr.new_instr.address:
-                            for n in self.cs.disasm(new_bytes, i.new_instr.address):
-                                i.new_instr = n              
-                            break
+    
 
 
     def update_old_instructions(self,instr):
-        #for instr in self.new_instructions:
-        instr.old_instr = instr.new_instr
+        instr.old_instruction = instr.new_instruction
 
-    #semplice prova di modifica delle istruzioni
-    # xor eax,eax --> mov eax,0
+    def insert_instruction(self,index,instruction):
+        try:
+            self.instructions[index - 1].next_instruction = instruction
+            self.instructions[index].prev_instruction = instruction
+
+
+
+            instruction.prev_instruction = self.instructions[index - 1]
+            instruction.next_instruction = self.instructions[index]
+
+            self.instructions.insert(index,instruction)
+        except Exception as e:
+            print("Errore in insert_instruction(): ",e)
+            print("Indirizzo: ",hex(instruction.new_instruction.address))
+
+
+        
+    def convert_raw_to_rva(self,raw_address,section):
+        return raw_address + section.VirtualAddress - section.PointerToRawData
+    
+    def check_if_inside_jmp_table(self,address):
+        inside_jmp_table = False
+        for jmp in self.start_end_table:
+            if address >= jmp[0] and address <= jmp[1]:
+                inside_jmp_table = True
+
+        return inside_jmp_table
+
+
+    def create_jmp_table(self):
+        print("CREO JUMP TABLE")
+        for instr in self.instructions:
+            if instr.old_instruction.id == x86_const.X86_INS_JMP and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG:
+                if instr.prev_instruction.new_instruction.mnemonic == 'add' and instr.prev_instruction.prev_instruction.new_instruction.mnemonic == 'mov':
+                    indirizzo_jmp_table = zone_utils.estrai_valore(instr.prev_instruction.prev_instruction.new_instruction.op_str)
+                    self.jump_table.append(indirizzo_jmp_table)
+
+        self.jump_table.sort()
+
+        for n,i in enumerate(self.jump_table):
+            start = i
+            end = 0
+            x = 0
+            if n != len(self.jump_table) - 1:
+                while (i + x*4 < self.jump_table[n+1]):
+                    addr = self.pe.get_dword_at_rva(i + x*4)
+                    is_an_instruction = False
+                    for instr in self.instructions:
+                        if instr.original_instruction.address == addr:
+                            is_an_instruction = True
+                            break
+                    if is_an_instruction == False:
+                        break
+                    x += 1           
+                end = i + x*4 
+            self.start_end_table.append((start,end))
+
+    def adjust_jmp_table(self):
+
+        for n,i in enumerate(self.jump_table):
+            x = 0
+            if n != len(self.jump_table) - 1:
+                while (i + x*4 < self.jump_table[n+1]):
+                    addr = self.pe.get_dword_at_rva(i + x*4)
+                    is_an_instruction = False
+                    for instr in self.instructions:
+                        if instr.original_instruction.address == addr:
+                            self.pe.set_dword_at_rva(i + x*4, instr.new_instruction.address)
+                            is_an_instruction = True
+                            break
+                    if is_an_instruction == False:
+                        break
+                    x += 1
+
+        self.pe.write(self.file)
+
+
     def equal_instructions(self):
-        for instr in self.new_instructions:
+        print("EQUAL INSTRUCTIONS")
+        change_num = 0
+        bytes_added = 0
+        for instr in self.instructions:
+            #substitue xor reg,rex with mov reg,0x0
+            if(instr.old_instruction.id == x86_const.X86_INS_XOR and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_REG):
+                if instr.old_instruction.operands[0].reg == instr.old_instruction.operands[1].reg:
+                    print("ADDRESS DEL PRIMO XOR EAX,EAX: ", hex(instr.old_instruction.address))
+                    str_instr = f"mov {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},0x0"
+                    #str_instr = f"sub eax,eax"
 
-            if(instr.old_instr.id == x86_const.X86_INS_XOR and instr.old_instr.operands[0].type == x86_const.X86_OP_REG and instr.old_instr.operands[1].type == x86_const.X86_OP_REG):
+                    asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
 
-                print("ADDRESS DEL PRIMO XOR EAX,EAX: ", hex(instr.old_instr.address))
-                str_instr = f"mov {instr.old_instr.reg_name(instr.old_instr.operands[0].reg)},0x0"
-                asm, _ = self.ks.asm(str_instr, instr.old_instr.address)
-
-                bytes_arr = bytearray(asm)
-
-
-                for i in self.cs.disasm(bytes_arr,instr.new_instr.address):
-                    instr.new_instr = i
-                    #instr.update_address(num_bytes)                  
-
-                num_bytes = len(bytes_arr) - instr.old_instr.size
-
-                self.increase_addresses(instr.new_instr.address,num_bytes)
-                self.update_jumps()
-                self.update_old_instructions(instr)
+                    bytes_arr = bytearray(asm)
 
 
-                break
+                    for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                        print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                        print("nuova istruzione: ", i.mnemonic, i.op_str)
+                        instr.new_instruction = i
+                        #instr.update_address(num_bytes)    
+                    #self.update_old_instructions(instr)             
+                    bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes)) 
+                    change_num += 1
+                    if change_num == 15:
+                        continue
+                        #break
+        self.added_bytes += bytes_added
 
-#0x1010
 
-# 0x1010: bytearray(b'3\xc0')     xor     eax, eax
-# 0x1012: bytearray(b'H\x83\xc4(')        add     rsp, 0x28
-# 0x1016: bytearray(b'\xc3')      ret
 
-if __name__ == '__main__':
-     #try:
-     #exe_path = str(sys.argv[1])
 
-    zone = Zone()
+    
+
+if __name__ == "__main__":
+
+    increase_text.increase_text_final(0x7000,sys.argv[1])
+
+    zone = Zone(sys.argv[1])
+
+    zone.create_jmp_table()
+    zone.create_label_table()
     zone.equal_instructions()
-    zone.print_instructions()
-    zone.write_pe_text_section()
+    zone.insert_random_nop()
 
+    # zone.update_dict()
+
+
+    zone.update_label_table()
+    zone.adjust_out_text_references()
+
+    zone.adjust_reloc_table()
+    zone.adjust_jmp_table()
+
+    zone.write_pe_file()
+    zone.print_instructions()
+    print("FINE")
