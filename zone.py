@@ -57,7 +57,7 @@ class Zone:
         # inizializzo l'assembler
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
         
-        
+        self.push_mov = False
         self.pe = pefile.PE(file)
 
 
@@ -516,6 +516,11 @@ class Zone:
         inserted_nops = 0
         for num_instr,instr in enumerate(self.instructions):
             try:
+
+                new_entry_point = self.original_entry_point
+
+                if instr.new_instruction.address >= new_entry_point:
+                    break
                 if instr.new_instruction.mnemonic == '.byte':
                     continue
                 #checko che non sia dentro una jmp table della .text
@@ -523,9 +528,9 @@ class Zone:
                     continue
 
 
-                # if inserted_nops >= 10:
-                #     break
-                #     # continue
+                if inserted_nops >= 35:
+                    break
+                    # continue
                 
                 # le nop sono:  NOP, 
                 #               XCHG REG,REG,   ----> PER ORA NON FUNZIONA
@@ -556,9 +561,9 @@ class Zone:
                     operazione = random.choice(self.no_ops_templates)
                     nop_num = random.randint(1,2)
 
-                    reg_list = random.choice(self.reg_lists)
+                    # reg_list = random.choice(self.reg_lists)
 
-                    reg = random.choice(reg_list)
+                    reg = random.choice(self.reg_list64)
 
     # ['','','','','','','','','','','','','','','']
 
@@ -574,17 +579,17 @@ class Zone:
                     if operazione == 'mov':
                         asm, _ = self.ks.asm(f'mov {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
 
-                    # if operazione == 'lea':
-                    #     asm, _ = self.ks.asm(f'lea {reg},[{reg}+0]', instr.new_instruction.address + instr.new_instruction.size)
+                    if operazione == 'lea':
+                        asm, _ = self.ks.asm(f'lea {reg},[{reg}+0]', instr.new_instruction.address + instr.new_instruction.size)
 
-                    # if operazione == 'push':
-                    #     nop_num = 1
-                    #     asm, _ = self.ks.asm(f'pop {reg}; push {reg}', instr.new_instruction.address + instr.new_instruction.size)
+                    if operazione == 'push':
+                        nop_num = 1
+                        asm, _ = self.ks.asm(f'pop {reg}; push {reg}', instr.new_instruction.address + instr.new_instruction.size)
 
 
-                    # if operazione == 'inc':
-                    #     nop_num = 1
-                    #     asm, _ = self.ks.asm(f'dec {reg}; inc {reg}', instr.new_instruction.address + instr.new_instruction.size)
+                    if operazione == 'inc':
+                        nop_num = 1
+                        asm, _ = self.ks.asm(f'dec {reg}; inc {reg}', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'sar':
                         asm, _ = self.ks.asm(f'sar {reg},0x0', instr.new_instruction.address + instr.new_instruction.size)
@@ -616,18 +621,18 @@ class Zone:
                     #     asm = bytearray([0xEB,0x00])
 
 
-                    asm, _ = self.ks.asm("nop", instr.new_instruction.address + instr.new_instruction.size)
+                    # asm, _ = self.ks.asm("nop", instr.new_instruction.address + instr.new_instruction.size)
                     # asm, _ = self.ks.asm(f'or {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
 
 
-                    for n in range(nop_num):
-                    
-                        asm = bytearray(asm)
-                        for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size + n)):
-                            insr = Instruction(i,i,i,None,None)
-                            insr.address_history.append(i.address)
+                    # for n in range(nop_num):
+                
+                    asm = bytearray(asm)
+                    for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size )):
+                        insr = Instruction(i,i,i,None,None)
+                        insr.address_history.append(i.address)
 
-                            self.insert_instruction(num_instr + 1 + n, insr)
+                        self.insert_instruction(num_instr + 1 + x, insr)
                     inserted_nops += 1
             except Exception as e:
                 print("Errore in insert_random_nop(): ",e)
@@ -753,10 +758,9 @@ class Zone:
 
 
     def equal_instructions(self):
-        print("EQUAL INSTRUCTIONS")
         change_num = 0
         bytes_added = 0
-        for instr in self.instructions:
+        for num_instr,instr in enumerate(self.instructions):
             #substitue xor reg,rex with mov reg,0x0
             if(instr.old_instruction.id == x86_const.X86_INS_XOR and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_REG):
                 if instr.old_instruction.operands[0].reg == instr.old_instruction.operands[1].reg:
@@ -777,10 +781,98 @@ class Zone:
                     #self.update_old_instructions(instr)             
                     bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes)) 
                     change_num += 1
-                    if change_num == 15:
-                        continue
+                    if change_num == 2:
                         #break
-        self.added_bytes += bytes_added
+                        continue
+            #substitute add reg, x  with sub reg, -x
+            elif (instr.old_instruction.id == x86_const.X86_INS_ADD and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_IMM):
+                print("ADDRESS DEL PRIMO ADD: ", hex(instr.old_instruction.address))
+                str_instr = f"sub {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},{-instr.old_instruction.operands[1].imm}"
+                asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
+                bytes_arr = bytearray(asm)
+                for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                    print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                    print("nuova istruzione: ", i.mnemonic, i.op_str)
+                    instr.new_instruction = i
+                bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes))
+                change_num += 1
+                if change_num == 2:
+                    #break
+                    continue
+            #substitute sub reg, x with add reg, -x
+            elif (instr.old_instruction.id == x86_const.X86_INS_SUB and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG and instr.old_instruction.operands[1].type == x86_const.X86_OP_IMM):
+                print("ADDRESS DEL PRIMO SUB: ", hex(instr.old_instruction.address))
+                str_instr = f"add {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},{-instr.old_instruction.operands[1].imm}"
+                asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
+                bytes_arr = bytearray(asm)
+                for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                    print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                    print("nuova istruzione: ", i.mnemonic, i.op_str)
+                    instr.new_instruction = i
+                bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes))
+                change_num += 1
+                if change_num == 2:
+                    #break
+                    continue
+            #transform push r/m8/32 in (mov rax, r/m8/32; push rax)
+            elif (self.push_mov == True and instr.old_instruction.id == x86_const.X86_INS_PUSH):
+                if (instr.old_instruction.operands[0].type == x86_const.X86_OP_REG):
+                    print("ADDRESS DEL PRIMO PUSH: ", hex(instr.old_instruction.address))
+                    str_instr = f"mov rax,{instr.old_instruction.op_str}"
+                    asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
+                    bytes_arr = bytearray(asm)
+                    for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                        print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                        print("nuova istruzione: ", i.mnemonic, i.op_str)
+                        instr.new_instruction = i
+                    str_instr2 = f"push {instr.old_instruction.op_str}"
+                    addr = instr.old_instruction.address + len(bytes_arr)
+                    asm, _ = self.ks.asm(str_instr2, addr)
+                    bytes_arr = bytearray(asm)
+                    for i in self.cs.disasm(bytes_arr,addr):
+                        insr = Instruction(i,i,None,None,None)
+                        self.insert_instruction(num_instr + 1, insr)
+
+                    bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes))
+                    change_num += 1
+                    if change_num == 2:
+                        #break
+                        continue
+            # trasforma inc reg in add reg,1
+            elif (instr.old_instruction.id == x86_const.X86_INS_INC and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG):
+                print("ADDRESS DEL PRIMO INC: ", hex(instr.old_instruction.address))
+                str_instr = f"add {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},1"
+                asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
+                bytes_arr = bytearray(asm)
+                for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                    print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                    print("nuova istruzione: ", i.mnemonic, i.op_str)
+                    instr.new_instruction = i
+                bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes))
+                change_num += 1
+                if change_num == 2:
+                    #break
+                    continue
+            # trasforma dec reg in sub reg,1
+            elif (instr.old_instruction.id == x86_const.X86_INS_DEC and instr.old_instruction.operands[0].type == x86_const.X86_OP_REG):
+                print("ADDRESS DEL PRIMO DEC: ", hex(instr.old_instruction.address))
+                str_instr = f"sub {instr.old_instruction.reg_name(instr.old_instruction.operands[0].reg)},1"
+                asm, _ = self.ks.asm(str_instr, instr.old_instruction.address)
+                bytes_arr = bytearray(asm)
+                for i in self.cs.disasm(bytes_arr,instr.new_instruction.address):
+                    print("vecchia istruzione: ", instr.old_instruction.mnemonic, instr.old_instruction.op_str)
+                    print("nuova istruzione: ", i.mnemonic, i.op_str)
+                    instr.new_instruction = i
+                bytes_added += (len(bytes_arr) - len(instr.old_instruction.bytes))
+                change_num += 1
+                if change_num == 2:
+                    #break
+                    continue
+            # trasforma and reg
+
+        print("##########################################")
+        print("BYTES ADDED: ",hex(bytes_added))
+        print("##########################################")
 
 
 
