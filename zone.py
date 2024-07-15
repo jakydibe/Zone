@@ -21,8 +21,10 @@ from capstone import x86_const
 import zone_utils
 import increase_text
 
+# traducimi i commenti in inglese
 
 # una classe che rappresenta un istruzione in tutte le sue forme, attuale, vecchia, originale, precedente e prossima
+# a class that represents an instruction in all its forms, current, old, original, previous and next
 class Instruction:
     def __init__(self,new_instruction,old_instruction,original_instruction,prev_instruction,next_instruction):
         self.new_instruction = new_instruction
@@ -34,14 +36,22 @@ class Instruction:
 
 
 class Zone:
+
     def __init__(self, file):
 
 
         # inizializzo il disassembler
-        self.cs = Cs(CS_ARCH_X86, CS_MODE_64)
+        # initialize the disassembler
+        self.cs = Cs(CS_ARCH_X86, CS_MODE_64)  #pip install capstone==5.0.0.post1 ONLY INSTALL THIS VERSION. ON OTHER VERSIONS IT DOES NOT WAR skipdataK
         self.cs.detail = True
-        self.cs.skipdata = True #utile per skippare dati inutili nella .text (tipo stringhe o tabelle di jump)
 
+        #utile per skippare dati inutili nella .text (tipo stringhe o tabelle di jump)
+        # useful for skipping useless data in the .text (like strings or jump
+        self.cs.skipdata = True 
+
+
+
+        #list of registers 
         self.reg_list64 = ['rax','rbx','rcx','rdx','rsi','rdi','rbp','rsp','r8','r9','r10','r11','r12','r13','r14','r15']
         self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi','ebp','esp','r8d','r9d','r10d','r11d','r12d','r13d','r14d','r15d']
         self.reg_list16 = ['ax','bx','cx','dx','si','di','bp','sp','r8w','r9w','r10w','r11w','r12w','r13w','r14w','r15w']
@@ -49,39 +59,50 @@ class Zone:
         self.reg_list8h = ['ah','bh','ch','dh']
         self.reg_lists = [self.reg_list64,self.reg_list32,self.reg_list16,self.reg_list8,self.reg_list8h]
 
-
+        # list of all the possible nop instructions
         self.no_ops_templates = ['nop','sub','add','mov','lea','push','or','xor','and','inc','sar','shr','shl','rcl','rcr', 'jmp']
 
         self.file = file
 
         # inizializzo l'assembler
+        # initialize the assembler
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
         
+        # i don't remember
         self.push_mov = False
+
         self.pe = pefile.PE(file)
 
+        # blocks for future implementation of bogus control flow
         self.instr_blocks = []
 
 
         # lista di tuple (istruzione, indirizzo) per tutte le jmp/call che puntano a indirizzi dentro la .text
+        # list of tuples (instruction, address) for all the jmp/call that point to addresses inside the .text, (I use only short for now)
         self.short_label_table = []
         self.far_label_table = []
 
         #lista dinamica globale di istruzioni
+        # dynamic global list of instructions
         self.instructions = []
 
         #lista di jump table (causate da switch-cases)
+        # list of jump tables (caused by switch-cases)
         self.jump_table = []
         
         # lista di tuple (start,end) per le jump table, utile per verificare se un indirizzo e' dentro una jump table
+        # list of tuples (start,end) for the jump tables, useful to check if an address is inside a jump table
         self.start_end_table = []
 
         #dizionario di istruzioni, molto utile dal punto di vista delle performance(tempo di accesso costante)
+        #  dictionary of instructions, very useful from a performance point of view (constant access time)
         self.instr_dict = {}
+        # ductionary like instr_dict but with key updated to the old_instruction(not the original)
         self.updated_instr_dict = {}
 
 
         # alcuni valori utili per la modifica del file presi dagli header del PE
+
         self.original_entry_point = self.pe.OPTIONAL_HEADER.AddressOfEntryPoint
         self.base_address = self.pe.OPTIONAL_HEADER.BaseOfCode
         self.code_section = zone_utils.get_text_section(self.pe, self.base_address)
@@ -91,12 +112,15 @@ class Zone:
 
 
         #sono i bytes che posso inserire senza dover incrementare la .text
+        # these are the bytes that I can insert without having to increase the .text (Right now i don't use this)
         self.padding_bytes = self.rdata_section.VirtualAddress - self.code_section.VirtualAddress - self.code_section_size
         self.added_bytes = 0
 
         print(f"Padding bytes: {self.padding_bytes}")
         self.data_directories = self.pe.OPTIONAL_HEADER.DATA_DIRECTORY
 
+        #indirizzo dell'entry point
+        # address of the entry point
         self.code_raw_start = self.code_section.PointerToRawData
         print(f"Original entry point: {hex(self.original_entry_point)}")
         print(f"Base address: {hex(self.base_address)}")
@@ -114,6 +138,7 @@ class Zone:
 
 
         #con questo ciclo apro il file instr.txt e ci scrivo le istruzioni disassemblate
+        # just write instructions to .txt for debugging
         with open('instr.txt', 'r+') as f:
             begin = self.base_address
             end = self.base_address + self.code_section_size
@@ -129,9 +154,11 @@ class Zone:
 
                 print("CICLO\n")
                 #con questo ciclo itero tutte le istruzioni e le aggiungo a self.instructions e a self.instr_dict
+                # with this cycle i disassemble all instructions and create the global self.instructions list and the self.instr_dicts
                 for i in self.cs.disasm(self.raw_code[begin-self.base_address:end], begin):
                     
                     # creo un oggetto Instruction e lo aggiungo alla lista di istruzioni
+                    # new,old,original = i. prev and next will be assigned later
                     instruction = Instruction(i,i,i,None,None) 
                     instruction.address_history.append(i.address)
                     self.instructions.append(instruction)
@@ -140,10 +167,11 @@ class Zone:
                     #questo dizionario ci potro' accedere con la chiave dell' indirizzo originale
                     self.instr_dict[i.address] = instruction
                     #questo dizionario ci potro' accedere con la chiave dell' precedente, e' molto utile in futuro
+                    # this dictionary can be accessed with the key of the previous address, it is very useful in the future
                     self.updated_instr_dict[i.address] = instruction
 
                 
-
+                    # just to write to file
                     stringa = f"{hex(i.address)} {i.bytes} {i.size}  {i.mnemonic}  {i.op_str}\n"
                     last_address = i.address
                     last_size = i.size
@@ -163,6 +191,7 @@ class Zone:
         #self.cs.skipdata = False
 
         #assegno i prev_instruction e next_instruction
+        # assign prev_instruction and next_instruction
         for x,instr in enumerate(self.instructions):
             instr.new_bytes = instr.new_instruction.bytes
 
@@ -175,10 +204,13 @@ class Zone:
 
 
 
+    # Per ogni istruzione JMP o CALL riferite ad elementi dentro la .text creo una tabella di label del tipo (istruzione,indirizzo a cui salto)
+    # For each JMP or CALL instruction referring to elements inside the .text I create a label table of the type (instruction, address to which I jump)
     def create_label_table(self):
         print("CREO LABEL TABLE")
         for instr in self.instructions:
             try:
+                # always check if the instruction is inside a jump table, and skip it if it is
                 inside_jmp_table = self.check_if_inside_jmp_table(instr.original_instruction.address)
                 if inside_jmp_table == True:
                     continue
@@ -199,7 +231,8 @@ class Zone:
 
 
 
-
+    # after every change in the instructions list, I have to update the instr_dict
+    # the update is made simply by iterating over the instructions list and updating the instr_dict and updating addresses of instructions
     def update_instr(self):
         print("UPDATE INSTR")
         
@@ -216,6 +249,7 @@ class Zone:
                 for n in self.cs.disasm(i.new_instruction.bytes,addr):
                     i.old_instruction = i.new_instruction
 
+                    # also remember to update the dictionary
                     new_instr_dict[i.old_instruction.address] = i
                     i.address_history.append(n.address)
 
@@ -226,11 +260,15 @@ class Zone:
                 print("Errore in update_instr(): ",e)
                 print('Indirizzo: ',hex(i.new_instruction.address))
                 continue
+        # also remember to update the dictionary
         self.updated_instr_dict = new_instr_dict
         with open('dict.txt', 'r+') as f:
             for key in self.updated_instr_dict:
                 stringa = f"{hex(key)} {hex(self.updated_instr_dict[key].new_instruction.address)}\n"
                 f.write(stringa)
+
+
+    # just print the instructions to a file
     def print_instructions(self):
         with open('instr_2.txt', 'r+') as f:
 
@@ -238,97 +276,113 @@ class Zone:
                 stringa  = f"{hex(i.new_instruction.address)} {i.new_instruction.bytes} {len(i.new_instruction.bytes)}  {i.new_instruction.mnemonic}  {i.new_instruction.op_str}\n"
                 f.write(stringa)
 
+    # this is some serious fucked up stuff
+    # patch all JMP and CALL after some modifications
     def update_label_table(self):
         print("UPDATE LABEL TABLE")
+
+        # if during patching some JMP or CALL becomes bigger (example 3 byte --> 5 byte)
+        #   i need to re iterate the all patching process
         re_iterate = True
         num_iterazioni = 0
 
         inserted_instructions = False
         while re_iterate == True:
             print("ITERANDO: num_iterazioni: ",num_iterazioni)
+            # always update instructions beforse patching them, otherwise instructions addresses will be broken
             self.update_instr()
             re_iterate = False
             num_iterazioni += 1
             # try:
 
+            # iterate the list of jmp/call instructions
             for entry in self.short_label_table:
+                try:
 
-                if self.check_if_inside_jmp_table(entry[0].new_instruction.address) == True:
-                    continue
+                    # various checks 
+                    if self.check_if_inside_jmp_table(entry[0].new_instruction.address) == True:
+                        continue
 
-                if (x86_const.X86_GRP_JUMP not in entry[0].new_instruction.groups) and (x86_const.X86_GRP_CALL not in entry[0].new_instruction.groups):
-                    continue
+                    if (x86_const.X86_GRP_JUMP not in entry[0].new_instruction.groups) and (x86_const.X86_GRP_CALL not in entry[0].new_instruction.groups):
+                        continue
 
-                if (entry[0].new_instruction.operands[0].type == x86_const.X86_OP_REG):
-                    continue
-                
-                if 'ptr' in entry[0].new_instruction.op_str:
-                    continue
-
-
-                index = self.instructions.index(entry[0])
-                old_jump_address = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
+                    if (entry[0].new_instruction.operands[0].type == x86_const.X86_OP_REG):
+                        continue
+                    # check if it is a jmp to far stuff (improbable), do not patch it here because it is patched in adjust_out_text_reference()
+                    if 'ptr' in entry[0].new_instruction.op_str:
+                        continue
 
 
-                if old_jump_address == 0:
-                    print(entry[0].new_instruction.mnemonic, entry[0].new_instruction.op_str)
-                
+                    index = self.instructions.index(entry[0])
+                    # extract the jmp address from the string (yea i love python, so easy)
+                    old_jump_address = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
 
 
-                jmp_addr = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
-                jmp_addr_ptr = entry[1].new_instruction.address
+                    if old_jump_address == 0:
+                        print(entry[0].new_instruction.mnemonic, entry[0].new_instruction.op_str)
+                    
 
-                if jmp_addr != jmp_addr_ptr:
-                    original_length = len(entry[0].new_instruction.bytes)
-                    str_instr = f"{entry[0].new_instruction.mnemonic} {hex(jmp_addr_ptr)}"
-                    asm, _ = self.ks.asm(str_instr, entry[0].new_instruction.address)
-                    bytes_arr = bytearray(asm)
 
-                    new_length = len(bytes_arr)
-                    if original_length != new_length:
-                        # if new_length >= 6:
-                        #     print("\n\nSTRANISSIMO NEW_LENGTH >= 6!!!!!")
-                        #     print("Indirizzo: ",hex(entry[0].new_instruction.address))
-                        #     for i in self.cs.disasm(bytes_arr,entry[0].new_instruction.address):
-                        #         entry[0].new_instruction = i
+                    jmp_addr = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
+                    jmp_addr_ptr = entry[1].new_instruction.address
 
-                        #     re_iterate = True
-                        #     # exit(0)
-                        if original_length > new_length:
-                            diff = original_length - new_length
-                            for _ in range(diff):
-                                bytes_arr.append(0x90)
-                            
-                            for x,i in enumerate(self.cs.disasm(bytes_arr,entry[0].new_instruction.address)):
-                                if x == 0:
+                    # check if the jmp address is right
+                    if jmp_addr != jmp_addr_ptr:
+                        original_length = len(entry[0].new_instruction.bytes)
+
+                        # assemblate with a string the new instruction
+                        str_instr = f"{entry[0].new_instruction.mnemonic} {hex(jmp_addr_ptr)}"
+                        asm, _ = self.ks.asm(str_instr, entry[0].new_instruction.address)
+                        bytes_arr = bytearray(asm)
+
+                        new_length = len(bytes_arr)
+                        # check if the new assembled instruction is different in size from the old one
+                        if original_length != new_length:
+                            # if the new size is lower just insert NOPs to pad
+                            if original_length > new_length:
+                                diff = original_length - new_length
+                                for _ in range(diff):
+                                    bytes_arr.append(0x90)
+                                
+                                for x,i in enumerate(self.cs.disasm(bytes_arr,entry[0].new_instruction.address)):
+                                    if x == 0:
+                                        entry[0].new_instruction = i
+                                    else:
+                                        new_instr = Instruction(i,i,i,None,None)
+                                        new_instr.address_history.append(i.address)
+                                        self.insert_instruction(index+x,new_instr)
+                                        inserted_instructions = True
+                            # if the new size is bigger re-iterate this function
+                            elif new_length > original_length:
+                                re_iterate = True
+                                diff = new_length - original_length
+
+                                print("NEW_LEN > ORIG_LEN")
+                                for i in self.cs.disasm(bytes_arr,entry[0].new_instruction.address):
                                     entry[0].new_instruction = i
-                                else:
-                                    new_instr = Instruction(i,i,i,None,None)
-                                    new_instr.address_history.append(i.address)
-                                    self.insert_instruction(index+x,new_instr)
-                                    inserted_instructions = True
-                        elif new_length > original_length:
-                            re_iterate = True
-                            diff = new_length - original_length
 
-                            print("NEW_LEN > ORIG_LEN")
+                                new_str = f"{entry[0].new_instruction.mnemonic} {entry[1].new_instruction.address}"
+                                new_asm, _ = self.ks.asm(new_str, entry[0].new_instruction.address)
+                                new_bytes = bytearray(new_asm)
+                                for x,i in enumerate(self.cs.disasm(new_bytes,entry[0].new_instruction.address)):
+                                    entry[0].new_instruction = i
+
+                        # if not different just patch the instruction
+                        else:
                             for i in self.cs.disasm(bytes_arr,entry[0].new_instruction.address):
                                 entry[0].new_instruction = i
-
-                            new_str = f"{entry[0].new_instruction.mnemonic} {entry[1].new_instruction.address}"
-                            new_asm, _ = self.ks.asm(new_str, entry[0].new_instruction.address)
-                            new_bytes = bytearray(new_asm)
-                            for x,i in enumerate(self.cs.disasm(new_bytes,entry[0].new_instruction.address)):
-                                entry[0].new_instruction = i
-
-                    else:
-                        for i in self.cs.disasm(bytes_arr,entry[0].new_instruction.address):
-                            entry[0].new_instruction = i
+                except Exception as e:
+                    print("Errore in update_label_table(): ",e)
+                    continue
 
 
 
-
+    # this also is some serious fucked up stuff
+    # this function patched all the jmp/call/mov or all the instructions which have references to some very far addresses
+    # these instructions all have this structure:   INSR  OP1, QWORD/DWORD PTR [REG + 0xNUM],
+    # i will only patch the instructions with REG = RIP
     def adjust_out_text_references(self):
+        # same as before, if instructions become bigger i have to re-iterate
         re_iterate = True
         inserted_instructions = False
         while re_iterate == True:
@@ -340,18 +394,23 @@ class Zone:
                     continue
 
                 if instr is not None:
+                    # 
                     if ('rip +' in instr.new_instruction.op_str):
-                        #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
+
+                        # extract the offset
                         valore_originale = zone_utils.estrai_valore(instr.original_instruction.op_str)
                         if valore_originale == 0:
                             continue
                         if num_instr == len(self.instructions) - 1:
                             continue
+
+                        # calculate the address that is pointing (RIP + offset)
                         addr = self.instructions[num_instr + 1].original_instruction.address + valore_originale
 
-                        # print("valore_originale: ",valore_originale)
-                        # print("nuovo indirizzo: ",hex(addr))
+
                         #checko se l'indirizzo e'all'interno della .text
+                        #  check if the address is inside the .text 
+                        # MAYBE THIS CHECK IS WRONG, I SHOULD PATCH ALSO IF IT IS INSIDE .TEXT
                         if addr > self.base_address and addr < self.base_address + self.code_section_size:
                             for i in self.instructions:
                                 if i.original_instruction.address == addr:
@@ -359,11 +418,13 @@ class Zone:
                                     print("NUOVO INDIRIZZO JUMP RIP+ : ",hex(addr))
                                     break
             
+                        # calculate the new offset i need to insert in the instruction
                         offset = addr - self.instructions[num_instr + 1].new_instruction.address
 
-                        #print(f"valore vecchio: {hex(valore_originale)}, addr nuovo: {hex(new_addr)}")
                         old_string = instr.new_instruction.mnemonic + ' ' + instr.new_instruction.op_str
 
+                        # rimpiazzo il nuovo offset con il vecchio offset nella stringa e assemblo
+                        # replace the new offset with the old offset in the string and assemble
                         new_string = old_string.replace(hex(valore_originale),hex(offset))
 
 
@@ -379,20 +440,18 @@ class Zone:
                             print('nuovi bytes: ',asm)
 
 
-
+                        # always check if the new instruction is bigger than the old one
                         if(len(asm) < len(instr.new_instruction.bytes)):
+                            
+                            # this check is caused by the fact that keystone does not assemble the 0x48 byte very often, it is something about x64 arch. i do not remember
                             if(instr.new_instruction.bytes[0] == 0x48 and (len(instr.new_instruction.bytes) - len(asm) == 1)):
-                                # print("cosa strana")
-                                # print("Indirizzo: ",hex(instr.new_instruction.address))
+
 
                                 asm.insert(0,0x48)
                                 for i in self.cs.disasm(asm, instr.new_instruction.address):
                                     instr.new_instruction = i
                             else:                     
                                 ##########DA IMPLEMENTARE################
-                                # print("Indirizzo: ",hex(instr.new_instruction.address))
-                                # print('nuova lunghezza asm: ',len(asm))
-                                # print('vecchia lunghezza instr.new_instruction: ',instr.new_instruction.size)
                                 nop_num = instr.new_instruction.size - len(asm)
                                 for i in range(nop_num):
                                     asm.append(0x90)
@@ -411,6 +470,7 @@ class Zone:
                             print(f"{hex(instr.new_instruction.address)} SOSPETTO: len(asm) > instr2.new_instruction.size in out_refs rip+")
                             re_iterate = True
 
+                    # same stuff but for jump at addressess before
                     elif ('rip -' in instr.new_instruction.op_str):
                         #print(hex(instr.original_instruction.address),instr.original_instruction.mnemonic,instr.original_instruction.op_str)
                         valore_originale = zone_utils.estrai_valore(instr.original_instruction.op_str)
@@ -471,24 +531,25 @@ class Zone:
                     print("dentro adjust_out_text_references(), instr e' None")
 
 
+    # a simple function that given the original address will return the new address
     def locate_by_address(self, address):
         instr = self.instr_dict[address]            
         if instr.original_instruction.address == address:
             return instr
         return None
 
+    #  a function that will patch the RELOC_TABLE of the PE file
+    # https://0xrick.github.io/win-internals/pe7/ read this to understand why we need to patch the reloc table
     def adjust_reloc_table(self):
+        # iterate every table
         for entries in self.pe.DIRECTORY_ENTRY_BASERELOC:
+            # iterate evry entry (every address to reloc)
             for reloc in entries.entries:
                 data = self.pe.get_qword_at_rva(reloc.rva)
                 # print("data: ",hex(data))
 
                 data = data - self.pe.OPTIONAL_HEADER.ImageBase
-                # print(hex(reloc.rva), reloc.type,hex(data))#, reloc.value)
 
-                # for instr in self.instructions:
-                #     if instr.original_instruction.address == data:
-                # try:
 
                 if data not in self.instr_dict:
                     continue
@@ -498,11 +559,10 @@ class Zone:
                     instr = self.instr_dict[data]
 
                     self.pe.set_qword_at_rva(reloc.rva, instr.new_instruction.address + self.pe.OPTIONAL_HEADER.ImageBase)
-                # except Exception as e:
-                #     print("Errore in adjust_reloc_table(): ",e)
-                #     continue
+
         self.pe.write(self.file)
 
+    # a function that given an index and an instruction will insert the new instruction in self.instructions
     def insert_instruction(self,index,instruction):
         self.instructions[index - 1].next_instruction = instruction
         self.instructions[index].prev_instruction = instruction
@@ -513,6 +573,7 @@ class Zone:
         self.instructions.insert(index,instruction)
                 
 
+    # function that randomly inserts some do-nothing operations
     def insert_random_nop(self):
 
         inserted_nops = 0
@@ -532,10 +593,7 @@ class Zone:
                 if instr.new_instruction.mnemonic == 'pushf' or instr.new_instruction.mnemonic == 'popf':
                     continue
 
-                # if inserted_nops >= 35:
-                #     break
-                #     # continue
-                
+
                 # le nop sono:  NOP, 
                 #               XCHG REG,REG,   ----> PER ORA NON FUNZIONA
                 #               SUB REG,0x0,    ----> FUNZIONA
@@ -558,19 +616,21 @@ class Zone:
                 reg_list = None
                 reg = None
 
-
+                # just a random probability to insert a nop
                 probability = random.randint(0,100)
                 if probability <= 10:
 
+                    # choose a random NOP operation
                     operazione = random.choice(self.no_ops_templates)
+                    # choose a random number of NOPs to insert
                     nop_num = random.randint(1,2)
 
-                    # reg_list = random.choice(self.reg_lists)
-
+                    # choose a random register to do the nop
                     reg = random.choice(self.reg_list64)
 
-    # ['','','','','','','','','','','','','','','']
-
+# IMPORTANT : Why there is pushf; nop; popf in every instruction?
+# BECAUSE even if these operations do nothing they still fuck up the CPU flags, therefore you need to save them and restore
+# maybe this is bad solution because it can be easily signatured (?) 
 
                     if operazione == 'nop':
                         asm, _ = self.ks.asm('pushf;nop; popf', instr.new_instruction.address + instr.new_instruction.size)
@@ -622,23 +682,11 @@ class Zone:
                         asm, _ = self.ks.asm(f'pushf;or {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'jmp':
-                        # bytearray(b'f\x9c') 2  pushf 
-                        # bytearray(b'f\x9d') 2  popf 
+                        # stupid jmp to next instruction
                         asm = bytearray([0xEB,0x00])
 
                         asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
-                    # inserisco una jmp al prossimo indirizzo
-                    # if operazione == 'jmp':
-                    #     asm = bytearray([0xEB,0x00])
 
-
-                    # asm, _ = self.ks.asm("nop", instr.new_instruction.address + instr.new_instruction.size)
-                    # asm, _ = self.ks.asm(f'or {reg},{reg}', instr.new_instruction.address + instr.new_instruction.size)
-
-                    # asm = bytearray([0xEB,0x00])
-
-                    # # for n in range(nop_num):
-                    # asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
 
                     asm = bytearray(asm)
                     for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size )):
@@ -653,16 +701,14 @@ class Zone:
                 print(f"{operazione} {reg}")
                 continue
 
-
+# RIGHT NOW IT DOES NOT WORK, I NEED TO FIX IT
     def bogus_cf(self):
 
         # inserire random 
         # asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
         start = 0
         end = len(self.instructions)
-        blocks = []
-        block = []
-        block_num = 0
+
         for num_instr,instr in enumerate(self.instructions):
             try:
 
@@ -680,32 +726,53 @@ class Zone:
                     continue
 
                 probability = random.randint(0,100)
-                block.append(instr)
                 if probability > 10:
                     continue
 
-                asm = bytearray(b'f\x9c') + bytearray([0xEB,0x00]) + bytearray(b'f\x9d')
+                asm = bytearray(b'f\x9c') + bytearray(b'\xe9\x00\x00\x00\x00') + bytearray(b'f\x9d')
                 asm = bytearray(asm)
                 for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size )):
                     insr = Instruction(i,i,i,None,None)
                     insr.address_history.append(i.address)
 
                     self.insert_instruction(num_instr + 1 + x, insr)
-                    if x == 0 or x == 1:
-                        block.append(insr)
 
-                    else:
-                        block = []
-                        block.append(insr)
-                        block_num += 1
-                        blocks.append(block)
+            except Exception as e:
+                print("Errore in bogus_cf(): ",e)
+                continue
+
+        blocks = []
+        block = []
+        block_num = 0
+
+        for num_instr,instr in enumerate(self.instructions):
+            try:
+
+                if self.instructions[num_instr].new_instruction.mnemonic == 'popf':
+                    if self.instructions[num_instr - 1].new_instruction.mnemonic == 'jmp':
+                        if self.instructions[num_instr - 2].new_instruction.mnemonic == 'pushf':
+                            blocks.append(block)
+                            block = []
+                            block.append(instr)
+                            block_num += 1
+                else:
+                    block.append(instr)
 
             except Exception as e:
                 print("Errore in bogus_cf(): ",e)
                 continue
         
+        # faccio uno shuffle dei blocchi
+        random.shuffle(blocks)
+        # creo una nuova lista di istruzioni
+        new_instructions = []
+        for block in blocks:
+            for instr in block:
+                new_instructions.append(instr)
         self.instr_blocks = blocks
-                
+        self.instructions = new_instructions
+    
+    # a function that will print the blocks to a file
     def print_blocks(self):
         with open('blocks.txt', 'r+') as f:
             for n,block in enumerate(self.instr_blocks):
@@ -714,6 +781,7 @@ class Zone:
                     f.write(stringa)
 
 
+    # function that will write modifications to the PE file
     def write_pe_file(self):
         new_bytes = b''
         for i in self.instructions:
@@ -754,26 +822,29 @@ class Zone:
     def update_old_instructions(self,instr):
         instr.old_instruction = instr.new_instruction
 
-    def insert_instruction(self,index,instruction):
-        try:
-            self.instructions[index - 1].next_instruction = instruction
-            self.instructions[index].prev_instruction = instruction
+    # WTF? why is this function here?
+    # def insert_instruction(self,index,instruction):
+    #     try:
+    #         self.instructions[index - 1].next_instruction = instruction
+    #         self.instructions[index].prev_instruction = instruction
 
 
 
-            instruction.prev_instruction = self.instructions[index - 1]
-            instruction.next_instruction = self.instructions[index]
+    #         instruction.prev_instruction = self.instructions[index - 1]
+    #         instruction.next_instruction = self.instructions[index]
 
-            self.instructions.insert(index,instruction)
-        except Exception as e:
-            print("Errore in insert_instruction(): ",e)
-            print("Indirizzo: ",hex(instruction.new_instruction.address))
+    #         self.instructions.insert(index,instruction)
+    #     except Exception as e:
+    #         print("Errore in insert_instruction(): ",e)
+    #         print("Indirizzo: ",hex(instruction.new_instruction.address))
 
 
-        
+    # function that converts raw addressess to relative addresses
     def convert_raw_to_rva(self,raw_address,section):
         return raw_address + section.VirtualAddress - section.PointerToRawData
     
+
+    # function that checks if an instruction(given its address) is inside a jump table
     def check_if_inside_jmp_table(self,address):
         inside_jmp_table = False
         for jmp in self.start_end_table:
@@ -782,7 +853,8 @@ class Zone:
 
         return inside_jmp_table
 
-
+    # function that creates a jump table
+    # here i found the solution https://blog.es3n1n.eu/posts/obfuscator-pt-1/
     def create_jmp_table(self):
         print("CREO JUMP TABLE")
         for instr in self.instructions:
@@ -811,6 +883,7 @@ class Zone:
                 end = i + x*4 
             self.start_end_table.append((start,end))
 
+    # function that patches the jump table
     def adjust_jmp_table(self):
 
         for n,i in enumerate(self.jump_table):
@@ -830,7 +903,7 @@ class Zone:
 
         self.pe.write(self.file)
 
-
+    # function that will modify instructions to make some different instructions that does the same thing
     def equal_instructions(self):
         change_num = 0
         bytes_added = 0
@@ -955,6 +1028,7 @@ class Zone:
 
 if __name__ == "__main__":
 
+    # 1st increase the text section
     increase_text.increase_text_final(0x18000,sys.argv[1])
 
     zone = Zone(sys.argv[1])
@@ -962,12 +1036,14 @@ if __name__ == "__main__":
     zone.create_jmp_table()
     zone.create_label_table()
     zone.equal_instructions()
-    # zone.insert_random_nop()
-    zone.bogus_cf()
+    zone.insert_random_nop()
+    # zone.bogus_cf()
     # zone.update_dict()
     zone.print_blocks()
 
     zone.update_label_table()
+    zone.print_blocks()
+
     zone.print_instructions()
     zone.adjust_out_text_references()
 
