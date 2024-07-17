@@ -51,7 +51,7 @@ Currently in development, this feature will involve dividing instructions into b
 ### Tools
 
 This project utilizes two Python libraries:
-- **Capstone**: A disassembler.
+- **Capstone**: A disassembler.  **ONLY DO pip install capstone==5.0.0.post1, last relase skip_data is broken**
 - **Keystone**: An assembler.
 
 # How Instructions are Patched
