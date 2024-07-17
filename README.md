@@ -142,7 +142,7 @@ Since this is not the core of the project, I will briefly explain how I increase
 
 
 
-9. Writing modifications to the file:
+9. **Writing modifications to the file**:
 
     A. Writing a new entry point.
 
