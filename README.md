@@ -146,3 +146,8 @@ Since this is not the core of the project, I will briefly explain how I increase
 
     A. Writing a new entry point.
 
+
+# Usage
+to use it just
+1) compile you hello_world.c with **cl.exe hello_world.c**
+2) run : **python3 zone.py hello_world.exe**
