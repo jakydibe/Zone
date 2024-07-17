@@ -54,22 +54,49 @@ This project utilizes two Python libraries:
 - **Capstone**: A disassembler.
 - **Keystone**: An assembler.
 
-### Process
+# How Instructions are Patched
 
-1. **Disassemble the .text section**: Use Capstone to iterate through instructions, creating a global list of an `Instruction` struct.
-2. **Create a label table**: Identify and list all jump and call instructions.
-3. **Code modifications**: Implement equal code substitution, NOP insertions, and other techniques.
-4. **Patch jump/call instructions**: Adjust references within and outside the .text section.
-5. **Patch the relocation table**: Update hardcoded addresses used by the loader.
-6. **Write modifications to the file**: Create a new entry point if necessary.
-7. **Increase the .text section**: If heavily modified, adjust the section size and patch relevant headers.
 
-### Challenges
 
-Modifying the .text section requires:
-- Patching headers such as `SizeOfCode`, `SizeOfImage`, and entries in the `DATA_DIRECTORY`.
-- Adjusting the import table, security cookie, and references outside the .text section.
+The program searches the .text section of the file and takes all the raw code. It then disassembles all the code with Capstone and iterates through the instructions, creating a global list of a struct named `Instruction` (which I created). 
 
-## Conclusion
+This is the struct:
 
-Zone represents a significant advancement in the field of PE-obfuscation with its metamorphic engine. While challenging to develop, this tool provides a robust method for evading static analysis, paving the way for future enhancements and more sophisticated obfuscation techniques.
+# Example struct definition
+class Instruction:
+    def __init__(self, address, mnemonic, op_str):
+        self.address = address
+        self.mnemonic = mnemonic
+        self.op_str = op_str
+```
+
+Creating a global dictionary which will be `self.instr_dict[‘address’] = instruction`. It is done this way only because dictionaries are faster to use than lists.
+
+Create a list of addresses which are used for jump-tables (`self.create_jmp_table()`).
+
+I found a way to detect jump tables in this article: [Obfuscator Part 1](https://blog.es3n1n.eu/posts/obfuscator-pt-1/). Basically, jump tables are created by switch-case statements, and if I modify the addresses of my instruction, I also need to modify the addresses inside the jump tables.
+
+Create a LABEL TABLE (`self.create_label_table()`).
+
+This label table will be a list of tuples. I create the label table by iterating through all instructions and checking if they are some sort of JUMP or CALL. If they are a JUMP or a CALL, I create the tuple like this: 
+
+```python
+(JMP_INSTRUCTION, INSTRUCTION_WHERE_I_JUMP)
+```
+
+5. Do all the code modifications (equal code substitution, NOP insertions, etc.).
+
+6. Patch the JUMP/CALL and all the references.
+
+First, I patch all the jump/call instructions which typically do not have references outside of the .text section (`self.update_label_table()`). Then, I patch all the instructions (for example JMP/CALL/MOV) which have references to outside of the .text section. To know if they have such references, just search the disassembled string for something like `JMP QWORD PTR [RIP + 0x12345]`.
+
+7. Patch the RELOC TABLE:
+
+    A. Since all addresses changed and subroutine addresses changed, we need to patch the RELOC_TABLE, which is a structure used by the LOADER to modify hardcoded addresses when loading an .exe in memory.
+    
+    Check this to learn more about why we need to patch the RELOC TABLE: [PE Internals Part 7](https://0xrick.github.io/win-internals/pe7/).
+
+8. Writing modifications to the file:
+
+    A. Writing a new entry point.
+
