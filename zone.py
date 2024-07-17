@@ -1,14 +1,3 @@
-# planning del refactoring
-# 1) disassemblare 
-#   1.1) creare la lista dinamica di istruzioni
-#   1.2) creare il dizionario di istruzioni
-# 
-# 
-# 
-# 
-# 
-# 
-# 
 from capstone import *   #e' un disassembler
 from keystone import *   #e' un assembler
 import sys
@@ -21,7 +10,6 @@ from capstone import x86_const
 import zone_utils
 import increase_text
 
-# traducimi i commenti in inglese
 
 # una classe che rappresenta un istruzione in tutte le sue forme, attuale, vecchia, originale, precedente e prossima
 # a class that represents an instruction in all its forms, current, old, original, previous and next
@@ -702,7 +690,7 @@ class Zone:
                 continue
 
 # RIGHT NOW IT DOES NOT WORK, I NEED TO FIX IT
-    def bogus_cf(self):
+    def blocks_permutation(self):
 
         # inserire random 
         # asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
@@ -738,7 +726,7 @@ class Zone:
                     self.insert_instruction(num_instr + 1 + x, insr)
 
             except Exception as e:
-                print("Errore in bogus_cf(): ",e)
+                print("Errore in blocks_permutation: ",e)
                 continue
 
         blocks = []
@@ -759,7 +747,7 @@ class Zone:
                     block.append(instr)
 
             except Exception as e:
-                print("Errore in bogus_cf(): ",e)
+                print("Errore in blocks_permutation: ",e)
                 continue
         
         # faccio uno shuffle dei blocchi
@@ -1033,14 +1021,21 @@ if __name__ == "__main__":
 
     zone = Zone(sys.argv[1])
 
+
+
+# INITIALIZATION
     zone.create_jmp_table()
     zone.create_label_table()
+
+# CODE MODIFICATION
     zone.equal_instructions()
     zone.insert_random_nop()
-    # zone.bogus_cf()
+    # zone.blocks_permutation()
     # zone.update_dict()
     zone.print_blocks()
 
+
+# CODE PATCHING
     zone.update_label_table()
     zone.print_blocks()
 
@@ -1050,6 +1045,7 @@ if __name__ == "__main__":
     zone.adjust_reloc_table()
     zone.adjust_jmp_table()
 
+# WRITE MODIFICATION
     zone.write_pe_file()
     zone.print_instructions()
     print("FINE")
