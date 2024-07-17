@@ -64,6 +64,8 @@ This project utilizes two Python libraries:
 This is the struct:
 
 # Example struct definition
+```python
+
 class Instruction:
     def __init__(self,new_instruction,old_instruction,original_instruction,prev_instruction,next_instruction):
         self.new_instruction = new_instruction
@@ -71,7 +73,7 @@ class Instruction:
         self.original_instruction = original_instruction
         self.prev_instruction = prev_instruction
         self.next_instruction = next_instruction
-        self.address_history = []
+        self.address_history = [] ```
 
 Creating a global dictionary which will be `self.instr_dict[‘address’] = instruction`. It is done this way only because dictionaries are faster to use than lists.
 
