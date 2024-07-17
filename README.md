@@ -101,7 +101,48 @@ First, I patch all the jump/call instructions which typically do not have refere
     
     Check this to learn more about why we need to patch the RELOC TABLE: [PE Internals Part 7](https://0xrick.github.io/win-internals/pe7/).
 
-8. Writing modifications to the file:
+
+
+# Increasing the .text Section
+
+If the .text section has been heavily modified, we will need to increase its size because the padding between the .text section and the next section may not be sufficient.
+
+Since this is not the core of the project, I will briefly explain how I increase the .text section.
+
+## Steps to Increase the .text Section
+
+1. **Patching the RELOC_TABLE**: 
+   - Exactly the same as before, the RELOC_TABLE needs to be patched.
+
+2. **Patching Headers**:
+   - The following header values need to be patched:
+     - `SizeOfCode`
+     - `SizeOfImage`
+     - Every `VirtualAddress` inside the `DATA_DIRECTORY`
+
+   - Of the `.text` SECTION_HEADER:
+     - `SizeOfRawData`
+     - `Misc_VirtualSize`
+
+   - Of every other section:
+     - `VirtualAddress`
+     - `PointerToRawData`
+
+3. **Patching the ImportTable**:
+   - Every entry of the ImportTable needs to be patched. The ImportTable contains every function imported from external libraries.
+
+4. **Patching the Security Cookie**:
+   - The security cookie needs to be patched.
+
+5. **Patching Every Reference Outside of .text**:
+   - This is done exactly like in the main program using `self.adjust_out_of_text_references`.
+
+6. **Adding Padding**:
+   - Finally, add null bytes or `0x90` to the end of the .text section to reach the desired length.
+
+
+
+9. Writing modifications to the file:
 
     A. Writing a new entry point.
 
