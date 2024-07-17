@@ -58,25 +58,28 @@ This project utilizes two Python libraries:
 
 
 
-The program searches the .text section of the file and takes all the raw code. It then disassembles all the code with Capstone and iterates through the instructions, creating a global list of a struct named `Instruction` (which I created). 
+1. The program searches the .text section of the file and takes all the raw code.
+2. It then disassembles all the code with Capstone and iterates through the instructions, creating a global list of a struct named `Instruction` (which I created). 
 
 This is the struct:
 
 # Example struct definition
 class Instruction:
-    def __init__(self, address, mnemonic, op_str):
-        self.address = address
-        self.mnemonic = mnemonic
-        self.op_str = op_str
-```
+    def __init__(self,new_instruction,old_instruction,original_instruction,prev_instruction,next_instruction):
+        self.new_instruction = new_instruction
+        self.old_instruction = old_instruction
+        self.original_instruction = original_instruction
+        self.prev_instruction = prev_instruction
+        self.next_instruction = next_instruction
+        self.address_history = []
 
 Creating a global dictionary which will be `self.instr_dict[‘address’] = instruction`. It is done this way only because dictionaries are faster to use than lists.
 
-Create a list of addresses which are used for jump-tables (`self.create_jmp_table()`).
+3. Create a list of addresses which are used for jump-tables (`self.create_jmp_table()`).
 
 I found a way to detect jump tables in this article: [Obfuscator Part 1](https://blog.es3n1n.eu/posts/obfuscator-pt-1/). Basically, jump tables are created by switch-case statements, and if I modify the addresses of my instruction, I also need to modify the addresses inside the jump tables.
 
-Create a LABEL TABLE (`self.create_label_table()`).
+4. Create a LABEL TABLE (`self.create_label_table()`).
 
 This label table will be a list of tuples. I create the label table by iterating through all instructions and checking if they are some sort of JUMP or CALL. If they are a JUMP or a CALL, I create the tuple like this: 
 
