@@ -9,6 +9,7 @@ import random
 from capstone import x86_const
 import zone_utils
 import increase_text
+import traceback
 
 
 # una classe che rappresenta un istruzione in tutte le sue forme, attuale, vecchia, originale, precedente e prossima
@@ -321,6 +322,8 @@ class Zone:
                                 entry[0].new_instruction = i
                 except Exception as e:
                     print("Errore in update_label_table(): ",e)
+                    traceback.print_exc()
+
                     continue
 
 
@@ -647,84 +650,106 @@ class Zone:
 
                 continue
 
-# RIGHT NOW IT DOES NOT WORK, I NEED TO FIX IT
-    def blocks_permutation(self):
+    def chaos_cf(self):
 
-        # inserire random 
-        # asm = bytearray(b'f\x9c') + asm + bytearray(b'f\x9d')
-        start = 0
-        end = len(self.instructions)
+        #1) dividi il codice in blocchi di istruzioni di grandezza casuale tra 5 e 12
+        #2) alla fine di ogni blocco inserisci un jmp al blocco successivo
+        # shuffla i blocchi
 
-        for num_instr,instr in enumerate(self.instructions):
-            try:
+        single_block = []
+        # block_length = random.randint(5,10)
+        block_length = 6
+        print("BLOCK LENGTH: ",block_length)
 
-                # new_entry_point = self.original_entry_point
 
-                # if instr.new_instruction.address >= new_entry_point:
-                #     break
-                if instr.new_instruction.mnemonic == '.byte':
-                    continue
-                #checko che non sia dentro una jmp table della .text
-                if self.check_if_inside_jmp_table(instr.original_instruction.address) == True:
-                    continue
-
-                if instr.new_instruction.mnemonic == 'pushf' or instr.new_instruction.mnemonic == 'popf':
-                    continue
-
-                probability = random.randint(0,100)
-                if probability > 10:
-                    continue
-
-                asm = bytearray(b'f\x9c') + bytearray(b'\xe9\x00\x00\x00\x00') + bytearray(b'f\x9d')
-                asm = bytearray(asm)
-                for x,i in enumerate(self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size )):
-                    insr = Instruction(i,i,i,None,None)
-                    insr.address_history.append(i.address)
-
-                    self.insert_instruction(num_instr + 1 + x, insr)
-
-            except Exception as e:
-                print("Errore in blocks_permutation: ",e)
-                continue
-
-        blocks = []
-        block = []
-        block_num = 0
-
-        for num_instr,instr in enumerate(self.instructions):
-            try:
-
-                if self.instructions[num_instr].new_instruction.mnemonic == 'popf':
-                    if self.instructions[num_instr - 1].new_instruction.mnemonic == 'jmp':
-                        if self.instructions[num_instr - 2].new_instruction.mnemonic == 'pushf':
-                            blocks.append(block)
-                            block = []
-                            block.append(instr)
-                            block_num += 1
-                else:
-                    block.append(instr)
-
-            except Exception as e:
-                print("Errore in blocks_permutation: ",e)
-                continue
         
-        # faccio uno shuffle dei blocchi
+
+        skip = False
+        for num_instr,instr in enumerate(self.instructions):
+
+            tmp_instr = instr
+            
+            last_block_instr = False
+
+            if skip == True:
+                skip = False
+                continue
+            if (num_instr == len(self.instructions) - 1):
+                break
+            if (num_instr + 2) % block_length == 0 and num_instr != 0:
+                
+                # inserisco un jmp al blocco successivo
+                address = instr.new_instruction.address + instr.new_instruction.size + 2
+
+                asm, _ = self.ks.asm(f'jmp {address}', instr.new_instruction.address + instr.new_instruction.size)
+                # asm = bytearray(b'\xeb\x00')
+                asm = bytearray(asm)
+                for i in self.cs.disasm(asm, instr.new_instruction.address + instr.new_instruction.size):
+
+                    new_jmp = Instruction(i,i,i,instr.new_instruction,instr.next_instruction)
+
+                    
+
+                    #inserisci istruzione nella lista
+                    self.insert_instruction(num_instr +1,new_jmp)
+                    #aggiungi alla label table
+                    self.short_label_table.append((new_jmp,new_jmp.next_instruction))
+
+
+                    tmp_instr = new_jmp
+                    skip = True
+
+                last_block_instr = True
+            
+            
+            single_block.append(tmp_instr)
+
+            if last_block_instr == True:
+                self.instr_blocks.append(single_block)
+                single_block = []
+
+        # shuffla i blocchi ma non il primo
+
+    def shuffle_blocks(self):
+        
+        blocks = self.instr_blocks[1:]
         random.shuffle(blocks)
-        # creo una nuova lista di istruzioni
+
+        self.instr_blocks = [self.instr_blocks[0]] + blocks
+
+        # riscrivi le istruzioni
+        #  aggiorno tutte le istruzioni
+
+        # 
         new_instructions = []
-        for block in blocks:
+        for block in self.instr_blocks:
             for instr in block:
                 new_instructions.append(instr)
-        self.instr_blocks = blocks
+
         self.instructions = new_instructions
-    
+
+        for x,instr in enumerate(self.instructions):
+            if x == 0:
+                instr.next_instruction = self.instructions[x+1]
+
+            elif x == len(self.instructions) - 1:
+                instr.prev_instruction = self.instructions[x-1]
+
+            else:
+                instr.prev_instruction = self.instructions[x-1]
+                instr.next_instruction = self.instructions[x+1]
+
     # a function that will print the blocks to a file
     def print_blocks(self):
         with open('blocks.txt', 'r+') as f:
             for n,block in enumerate(self.instr_blocks):
+                f.write("###############################\n")
                 for instr in block:
+                    
                     stringa = f"{n} :  {hex(instr.new_instruction.address)} {instr.new_instruction.mnemonic} {instr.new_instruction.op_str}\n"
                     f.write(stringa)
+
+
 
 
     # function that will write modifications to the PE file
@@ -768,21 +793,7 @@ class Zone:
     def update_old_instructions(self,instr):
         instr.old_instruction = instr.new_instruction
 
-    # WTF? why is this function here?
-    # def insert_instruction(self,index,instruction):
-    #     try:
-    #         self.instructions[index - 1].next_instruction = instruction
-    #         self.instructions[index].prev_instruction = instruction
 
-
-
-    #         instruction.prev_instruction = self.instructions[index - 1]
-    #         instruction.next_instruction = self.instructions[index]
-
-    #         self.instructions.insert(index,instruction)
-    #     except Exception as e:
-    #         print("Errore in insert_instruction(): ",e)
-    #         print("Indirizzo: ",hex(instruction.new_instruction.address))
 
 
     # function that converts raw addressess to relative addresses
@@ -1000,10 +1011,15 @@ if __name__ == "__main__":
     zone.create_label_table()
 
 # CODE MODIFICATION
-    zone.equal_instructions()
-    zone.insert_random_nop()
+    #zone.equal_instructions()
+    #zone.insert_random_nop()
 
-    zone.print_blocks()
+    zone.chaos_cf()
+    
+    # zone.update_label_table()
+
+    # zone.shuffle_blocks()
+
 
 
 # CODE PATCHING
