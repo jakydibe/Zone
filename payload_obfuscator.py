@@ -227,6 +227,11 @@ class Zone:
 
     # this is some serious fucked up stuff
     # patch all JMP and CALL after some modifications
+
+
+
+
+
     def update_label_table(self):
         print("UPDATE LABEL TABLE")
 
@@ -262,7 +267,6 @@ class Zone:
                         continue
 
 
-                    index = self.instructions.index(entry[0])
                     # extract the jmp address from the string (yea i love python, so easy)
                     old_jump_address = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
 
@@ -274,6 +278,8 @@ class Zone:
 
                     jmp_addr = zone_utils.estrai_valore(entry[0].new_instruction.op_str)
                     jmp_addr_ptr = entry[1].new_instruction.address
+                    
+                    index = self.instructions.index(entry[0])
 
                     # check if the jmp address is right
                     if jmp_addr != jmp_addr_ptr:
@@ -323,6 +329,10 @@ class Zone:
                 except Exception as e:
                     print("Errore in update_label_table(): ",e)
                     traceback.print_exc()
+
+                    print("Indirizzo: ",hex(entry[0].new_instruction.address))
+                    print("stringa: ",entry[0].new_instruction.mnemonic + entry[0].new_instruction.op_str)
+                    print("\n\n\n")
 
                     continue
 
@@ -522,6 +532,11 @@ class Zone:
         instruction.next_instruction = self.instructions[index]
 
         self.instructions.insert(index,instruction)
+
+    def eliminate_instruction(self, index):
+        self.instructions[index - 1].next_instruction = self.instructions[index + 1]
+        self.instructions[index + 1].prev_instruction = self.instructions[index - 1]
+        self.instructions.pop(index)
                 
 
     # function that randomly inserts some do-nothing operations
@@ -801,6 +816,30 @@ class Zone:
         return raw_address + section.VirtualAddress - section.PointerToRawData
     
 
+
+    
+
+    def eliminate_loop_instructions(self):
+        restart = True
+
+        while restart == True:
+            restart = False
+            for x,instr in enumerate(self.instructions):
+                if instr.new_instruction.mnemonic == 'loop':
+                    print("TROVATO LOOP")
+                    addr = zone_utils.estrai_valore(instr.new_instruction.op_str)
+
+                    self.eliminate_instruction(x)
+                    
+                    stringa = f"dec ecx;jnz {hex(addr)}"
+                    asm, _ = self.ks.asm(stringa, instr.new_instruction.address)
+                    bytes_arr = bytearray(asm)
+                    for n,i in enumerate(self.cs.disasm(bytes_arr,instr.new_instruction.address)):
+                        new_instr = Instruction(i,i,i,None,None)
+                        self.insert_instruction(x+n,new_instr)
+                    restart = True
+                    break
+
     # function that checks if an instruction(given its address) is inside a jump table
     def check_if_inside_jmp_table(self,address):
         inside_jmp_table = False
@@ -1005,6 +1044,7 @@ if __name__ == "__main__":
     zone = Zone(sys.argv[1])
 
 
+    zone.eliminate_loop_instructions()
 
 # INITIALIZATION
     zone.create_jmp_table()
@@ -1018,7 +1058,7 @@ if __name__ == "__main__":
     
     # zone.update_label_table()
 
-    # zone.shuffle_blocks()
+    zone.shuffle_blocks()
 
 
 
