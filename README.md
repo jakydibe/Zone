@@ -1,4 +1,4 @@
-# Zone: A PE-Obfuscator with Metamorphic Engine
+# Zone: A Payload-Obfuscator with Metamorphic Engine
 
 ## Overview
 
