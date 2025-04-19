@@ -94,8 +94,20 @@ class Zone:
         # ductionary like instr_dict but with key updated to the old_instruction(not the original)
         self.updated_instr_dict = {}
 
+        self.payload_size = 0
 
+        self.stub_address = 0
+        self.stub_size = 0
+        self.mem_address = 0
+        self.counter_address = 0
+        self.instr_mapping = []
 
+        self.stub2_address = 0
+        self.stub2_bytearr = 0
+        self.stub2_size = 0
+
+        self.init_address = 0
+        self.wrap_instruction_num = 5
 
 
         with open(self.file, "rb") as f:
@@ -173,7 +185,7 @@ class Zone:
                 if instr.new_instruction.mnemonic == '.byte':
                     continue
                 # checka se JUMP/CALL/LOOP
-                if (x86_const.X86_GRP_JUMP in instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups) or (instr.new_instruction.mnemonic == 'loop'):
+                if (x86_const.X86_GRP_JUMP in instr.new_instruction.groups) or (x86_const.X86_GRP_CALL in instr.new_instruction.groups) or (instr.new_instruction.mnemonic == 'loop') or (instr.new_instruction.mnemonic == 'jrcxz'):
                     if ('ptr' not in instr.new_instruction.op_str) and instr.new_instruction.operands[0].type != x86_const.X86_OP_REG:
                         if instr.new_instruction.mnemonic == 'jrcxz':
                             print("JRCXZ")
@@ -580,14 +592,31 @@ class Zone:
 
     # a function that given an index and an instruction will insert the new instruction in self.instructions
     def insert_instruction(self,index,instruction):
-        self.instructions[index - 1].next_instruction = instruction
-        self.instructions[index].prev_instruction = instruction
+        try:
+            if index == 0:
+                self.instructions[0].prev_instruction = instruction
+                instruction.next_instruction = self.instructions[0]
+                self.instructions.insert(0,instruction)
+                return
 
-        instruction.prev_instruction = self.instructions[index - 1]
-        instruction.next_instruction = self.instructions[index]
+            if index >= len(self.instructions):
+                self.instructions[-1].next_instruction = instruction
+                instruction.prev_instruction = self.instructions[-1]
+                self.instructions.append(instruction)
+                return            
+            self.instructions[index - 1].next_instruction = instruction
+            self.instructions[index].prev_instruction = instruction
 
-        self.instructions.insert(index,instruction)
+            instruction.prev_instruction = self.instructions[index - 1]
+            instruction.next_instruction = self.instructions[index]
 
+            self.instructions.insert(index,instruction)
+        except Exception as e:
+            print("Errore in insert_instruction(): ",e)
+            print("Indirizzo: ",hex(instruction.new_instruction.address))
+            print("stringa: ",instruction.new_instruction.mnemonic + '  ' + instruction.new_instruction.op_str)
+            print("index: ",index)
+            
     def eliminate_instruction(self, index):
         self.instructions[index - 1].next_instruction = self.instructions[index + 1]
         self.instructions[index + 1].prev_instruction = self.instructions[index - 1]
@@ -925,7 +954,7 @@ class Zone:
 
                         self.eliminate_instruction(x)
                         
-                        stringa = f"dec rcx;jne {hex(addr)}"
+                        stringa = f"pushf;dec rcx;jne {hex(addr)};popf;"
                         asm, _ = self.ks.asm(stringa, instr.new_instruction.address)
                         bytes_arr = bytearray(asm)
                         for n,i in enumerate(self.cs.disasm(bytes_arr,instr.new_instruction.address)):
@@ -933,7 +962,30 @@ class Zone:
                             self.insert_instruction(x+n,new_instr)
                             if i.mnemonic == 'jne':
                                 self.short_label_table.append((new_instr,self.instr_dict[addr]))
+
+                        
+                        pointed_instr = self.instr_dict[addr]
+                        pointed_instr_str = f"pushf;popf;{pointed_instr.new_instruction.mnemonic} {pointed_instr.new_instruction.op_str}"
+
+                        pointed_instr_index = self.instructions.index(pointed_instr)
+                        asm, _ = self.ks.asm(pointed_instr_str, pointed_instr.new_instruction.address)
+                        bytes_arr = bytearray(asm)
+
+                        # self.eliminate_instruction(pointed_instr_index)
+                        old_addr = pointed_instr.new_instruction.address
+                        for n,i in enumerate(self.cs.disasm(bytes_arr,pointed_instr.new_instruction.address)):
+                            if n == 1:
+                                pointed_instr.new_instruction = i
+                                continue
+                            new_instr = Instruction(i,i,i,None,None)
+                            self.insert_instruction(pointed_instr_index+n,new_instr)
+                            if i.mnemonic == 'jmp':
+                                self.short_label_table.append((new_instr,self.instructions[pointed_instr_index + n + 1]))
+                    # # readjust the je
                         restart = True
+                        
+
+
                         # break
         except Exception as e:
             print("Errore in eliminate_loop_instructions(): ",e)
@@ -946,19 +998,40 @@ class Zone:
             restart = False
             for x,instr in enumerate(self.instructions):
                 if instr.new_instruction.mnemonic == 'jrcxz':
-                    print("TROVATO LOOP")
+                    print("TROVATO JRCXZ")
                     addr = zone_utils.estrai_valore(instr.new_instruction.op_str)
 
                     self.eliminate_instruction(x)
-                    
-                    stringa = f"dec rcx;jne {hex(addr)}"
+
+                    stringa = f"pushf;cmp rcx, 0x0;je {addr};popf"
                     asm, _ = self.ks.asm(stringa, instr.new_instruction.address)
                     bytes_arr = bytearray(asm)
                     for n,i in enumerate(self.cs.disasm(bytes_arr,instr.new_instruction.address)):
+                        
                         new_instr = Instruction(i,i,i,None,None)
                         self.insert_instruction(x+n,new_instr)
-                        if i.mnemonic == 'jne':
+                        if i.mnemonic == 'je':
                             self.short_label_table.append((new_instr,self.instr_dict[addr]))
+                    # modifica l'istruzione jmp che punta a jrcxz
+
+                    pointed_instr = self.instr_dict[addr]
+                    pointed_instr_str = f"jmp {pointed_instr.new_instruction.address + 2 + 2 + 2};pushf;popf;{pointed_instr.new_instruction.mnemonic} {pointed_instr.new_instruction.op_str}"
+
+                    pointed_instr_index = self.instructions.index(pointed_instr)
+                    asm, _ = self.ks.asm(pointed_instr_str, pointed_instr.new_instruction.address)
+                    bytes_arr = bytearray(asm)
+
+                    # self.eliminate_instruction(pointed_instr_index)
+                    old_addr = pointed_instr.new_instruction.address
+                    for n,i in enumerate(self.cs.disasm(bytes_arr,pointed_instr.new_instruction.address)):
+                        if n == 2:
+                            pointed_instr.new_instruction = i
+                            continue
+                        new_instr = Instruction(i,i,i,None,None)
+                        self.insert_instruction(pointed_instr_index+n,new_instr)
+                        if i.mnemonic == 'jmp':
+                            self.short_label_table.append((new_instr,self.instructions[pointed_instr_index + n + 1]))
+                    # readjust the je
                     restart = True
                     # break
 
@@ -971,6 +1044,7 @@ class Zone:
                 inside_jmp_table = True
 
         return inside_jmp_table
+    
 
     # function that creates a jump table
     # here i found the solution https://blog.es3n1n.eu/posts/obfuscator-pt-1/
@@ -1025,6 +1099,291 @@ class Zone:
                     x += 1
 
         self.pe.write(self.file)
+
+
+    def check_unused_registers(self):
+        unused_regs = []
+        for reg in self.reg_list64:
+            unused_regs.append(reg)
+        
+        for instr in self.instructions:
+            instr_str = f"{instr.new_instruction.mnemonic} {instr.new_instruction.op_str}"
+            for reg in self.reg_list64:
+                if reg in instr_str:
+                    if reg in unused_regs:
+                        unused_regs.remove(reg)
+        print("UNUSED REGISTERS: ",unused_regs)
+        return unused_regs
+    def estimate_stub_address(self):
+        original_size = 0
+        instruction_num = 0
+        for instr in self.instructions:
+            original_size += len(instr.new_instruction.bytes)
+            instruction_num += 1
+
+        probable_addr = original_size + (1 + 5 + 5 + 5) * instruction_num    
+        probable_addr = probable_addr + (100 - (probable_addr % 100)) + 0x100
+
+        print("EStimated stub address: ",probable_addr)
+        return probable_addr
+        
+    def brain_adjust(self):
+        self.stub_address = self.estimate_stub_address()
+
+
+        bytes_added = 0
+
+        re_iterate = True
+        actual_index = 0
+        counter = 0
+        while re_iterate == True:
+            try:
+                re_iterate = False
+                for x,instr in enumerate(self.instructions):
+                    if x < actual_index:
+                        continue
+                    
+                    if x == 0:
+                        actual_index += 1
+                        continue
+                    
+                    if instr.new_instruction.mnemonic == 'jrcxz':
+                        asm1 = "pop rax"
+                        asm1, _ = self.ks.asm(asm1,instr.new_instruction.address + bytes_added)
+                        asm1 = bytearray(asm1)
+
+                        asm2 = bytearray(instr.new_instruction.bytes)
+                        asm3 = f"push {hex(0x3e8 + actual_index)}"
+
+                        asm3, _ = self.ks.asm(asm3,instr.new_instruction.address + bytes_added)
+
+                        asm4 = f"jmp {hex(self.stub_address)}"
+                        asm4, _ = self.ks.asm(asm4,instr.new_instruction.address + bytes_added)
+                        asm4 = bytearray(asm4)
+                        continue
+                    original_length = len(instr.new_instruction.bytes)
+                    new_str = f"pop rax;lea rsp, [rsp + 8];{instr.new_instruction.mnemonic} {instr.new_instruction.op_str};push {hex(0x3e8 + counter)};jmp {hex(self.stub_address)}"
+                    
+                    asm, _ = self.ks.asm(new_str,instr.new_instruction.address + bytes_added)
+                    asm = bytearray(asm)
+                    counter += 1
+
+                    for x2,i in enumerate(self.cs.disasm(asm,instr.new_instruction.address + bytes_added)):
+                        re_iterate = True
+                        if x2 == 2:
+                            actual_index += 1
+                            continue
+                            
+                        new_instr = Instruction(i,i,i,None,None)
+                        self.insert_instruction(x+x2, new_instr)
+                        actual_index += 1
+                    bytes_added += (len(asm) - original_length)
+                    break
+            except Exception as e:
+                print("Errore in brain_adjust(): ",e)
+                print("new_str: ",new_str)
+                traceback.print_exc()
+                re_iterate = False
+                continue
+        payload_size = 0
+        for instr in self.instructions:
+            payload_size += len(instr.new_instruction.bytes)
+        print("OBFUSCATED PAYLOAD SIZE: ",payload_size)
+
+        self.payload_size = payload_size
+    def re_adjust_brain(self):
+        for x,instr in enumerate(self.instructions):
+            if instr.new_instruction.address >= self.stub_address:
+                return
+            if x % self.wrap_instruction_num != 0:
+                continue
+            elif instr.new_instruction.mnemonic == 'nop':
+                continue
+            elif instr.new_instruction.mnemonic == 'jmp':
+                new_str = f"{instr.new_instruction.mnemonic} {self.stub_address}"
+                asm, _ = self.ks.asm(new_str,instr.new_instruction.address)
+                asm = bytearray(asm)
+                for i in self.cs.disasm(asm,instr.new_instruction.address):
+                    instr.new_instruction = i
+            else:
+                print("Errore strano, non tornano i conti non c'e' una JMP ogni tre istruzioni")
+    def estimate_stub_size(self):
+        stub_str = f'''
+        push rax;
+        push rcx;
+        mov rcx, [rsp + 0x10]
+        pushf;
+        sub rcx, 0x3e8;
+        inc rcx;
+        mov rax, [rip + 0x25];
+        mov rcx, [rax + 0x1000 - 5 + rcx * 8];
+        sub rcx, 0x5
+        add rax, rcx
+        popf;
+        pop rcx;
+        jmp rax;
+        '''
+        asm, _ = self.ks.asm(stub_str,self.stub_address)
+        bytes_arr = bytearray(asm)
+        return len(bytes_arr)     
+
+    def estimate_stub2_size(self):
+        stub2_str = f'''
+        pop r11;
+        mov [r11 - 5 + 0x1000], r11;
+        push r11;
+        jmp r11;
+        '''
+        asm, _ = self.ks.asm(stub2_str,self.stub_address)
+        bytes_arr = bytearray(asm)
+        return len(bytes_arr)       
+
+    def brain_obfuscator(self):
+        # salva indirizzi di inizio blocco e poi shuffla i blocchi
+        calc_base_str = f"call 0x1000"
+        asm, _ = self.ks.asm(calc_base_str,0x0)
+        bytes_arr = bytearray(asm)
+        for x,i in enumerate(self.cs.disasm(bytes_arr,0x0)):
+            insr = Instruction(i,i,i,None,None)
+            self.insert_instruction(0,insr)
+
+        # self.update_instr()
+
+
+        self.brain_adjust()
+        counter = 0
+
+
+        self.update_label_table()
+
+        unused_regs = self.check_unused_registers()
+
+        random_unused_reg = random.choice(unused_regs)
+
+
+        # estimated_stub_addr = self.estimate_stub_address()
+
+        self.payload_size = 0
+        for instr in self.instructions:
+            self.payload_size += len(instr.new_instruction.bytes)
+        
+        
+        print("Estimated stub address: ",self.stub_address)
+        print("Payload SIZE: ", self.payload_size)
+        nop_sled_size = self.stub_address - self.payload_size
+
+        print("NOP SLED SIZE: ",nop_sled_size)
+
+        instr_number = len(self.instructions)
+
+        for i in range(nop_sled_size):
+            nop = bytearray([0x90])
+
+            for instr in self.cs.disasm(nop, self.payload_size + i):
+                insr = Instruction(instr,instr,instr,None,None)
+                self.insert_instruction(instr_number + i, insr)
+                instr_number += 1
+
+        instruction_num = 0
+        for x,instr in enumerate(self.instructions):
+            if x == 0:
+                continue
+            if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "rax" and x % self.wrap_instruction_num == 1:
+                self.instr_mapping.append((x,instr.new_instruction.address))
+            instruction_num += 1
+        
+        # write map to file
+
+        self.stub_size = self.estimate_stub_size()
+        self.stub2_size = self.estimate_stub2_size()
+        print("STUB SIZE: ",self.stub_size)
+
+
+
+
+        mem_size_on_disk = instruction_num * 4
+
+        self.stub2_address = self.stub_address + self.stub_size
+        self.stub2_address = self.stub2_address + (0x10 - (self.stub2_address % 0x10))
+
+        
+
+        self.mem_address = self.stub2_address + self.stub2_size
+        self.mem_address = self.mem_address + (100 - (self.mem_address % 100)) + 0x100
+
+        self.init_address = self.stub2_address + self.stub2_size + 0x1
+
+        print("MEMORY ADDRESS: ",hex(self.mem_address))
+        padding = self.mem_address - self.stub_address - self.stub_size
+        print("PADDING SIZE: ",padding)
+
+        # self.stub2_address = self.counter_address + 0x10
+        # self.stub2_address = self.stub2_address + (0x10 - (self.stub2_address % 0x10))
+
+
+
+
+        stub_str = f'''
+        push rax;
+        push rcx;
+        mov rcx, [rsp + 0x10]
+        pushf;
+        sub rcx, 0x3e8;
+        inc rcx;
+        mov rax, [rip + 0x25];
+        mov rcx, [rax + {self.mem_address} - 5 + rcx * 8];
+        sub rcx, 0x5
+        add rax, rcx
+        popf;
+        pop rcx;
+        jmp rax;
+        '''
+
+        stub2_str = f'''
+        pop {random_unused_reg};
+        mov [{random_unused_reg} - 5 + {self.init_address}], {random_unused_reg};
+        push {random_unused_reg};
+        jmp {random_unused_reg};
+        '''
+
+
+        asm, _ = self.ks.asm(stub_str,self.stub_address)
+
+        bytes_arr = bytearray(asm)
+        for x,i in enumerate(self.cs.disasm(bytes_arr,self.stub_address)):
+            insr = Instruction(i,i,i,None,None)
+            self.insert_instruction(instr_number + x , insr)
+            instr_number += 1
+
+        nop_sled_size2 = self.stub2_address - (self.stub_address + self.stub_size)
+
+        print("NOP SLED SIZE 2: ",nop_sled_size2)
+
+        print("STUB2 ADDRESS: ",hex(self.stub2_address))
+        for i in range(nop_sled_size2):
+            nop = bytearray([0x90])
+            for instr in self.cs.disasm(nop, (self.stub_address + self.stub_size + i)):
+                insr = Instruction(instr,instr,instr,None,None)
+                self.insert_instruction(instr_number + i, insr)
+                instr_number += 1
+
+        asm2, _ = self.ks.asm(stub2_str,self.stub2_address)
+        bytes_arr2 = bytearray(asm2)
+
+        for x,i in enumerate(self.cs.disasm(bytes_arr2,self.stub2_address)):
+            insr = Instruction(i,i,i,None,None)
+            self.insert_instruction(instr_number + x , insr)
+            instr_number += 1
+
+        new_first_instr_str = f"call {self.stub2_address}"
+        asm3, _ = self.ks.asm(new_first_instr_str,0x0)
+        bytes_arr3 = bytearray(asm3)
+        for x,i in enumerate(self.cs.disasm(bytes_arr3,0x0)):
+            self.instructions[0].new_instruction = i
+            
+
+        self.re_adjust_brain()
+
 
     # function that will modify instructions to make some different instructions that does the same thing
     def equal_instructions(self):
@@ -1140,6 +1499,27 @@ class Zone:
         print("BYTES ADDED: ",hex(bytes_added))
         print("##########################################")
 
+    def write_strange_file(self):
+        new_bytes = b''
+        for x,i in enumerate(self.instructions):
+            new_bytes += i.new_instruction.bytes
+
+        padding1 = self.mem_address - len(new_bytes)
+        # add 
+        new_bytes += bytearray([0x90 for _ in range(padding1)])
+
+        # create a bytearray of the instruction map
+        map_bytes = b''
+        for x,i in enumerate(self.instr_mapping):
+            map_bytes += i[1].to_bytes(8, byteorder='little')
+
+        new_bytes += map_bytes
+        
+
+        # non modificare il file esistente, creano uno nuovo
+        with open('new_payload.bin', 'wb') as f:
+            f.seek(0)
+            f.write(new_bytes)
     
     def write_file(self):
         new_bytes = b''
@@ -1152,39 +1532,63 @@ class Zone:
             f.write(new_bytes)
 
 
+def eliminate_instr(type, file):
+    if file == None:
+        zone = Zone(sys.argv[1])
+    else:
+        zone = Zone(file)
+    zone.create_jmp_table()
+    zone.create_label_table()
 
-def start():
-        # 1st increase the text sectiona
+    if type == 'loop':
+        zone.eliminate_loop_instructions()
+        
+    elif type == 'jrcxz':
+        zone.eliminate_jrcxz_instructions()
+    
+    zone.update_label_table()
+    zone.write_file()
 
-    zone = Zone(sys.argv[1])
-
-
-    zone.eliminate_loop_instructions()
-    # zone.eliminate_jrcxz_instructions()
+def start(file):
+    # 1st increase the text sectiona
+    if file == None:
+        zone = Zone(sys.argv[1])
+    else:
+        zone = Zone(file)
+    
+    brain_activate = True
     
 
 # INITIALIZATION
     zone.create_jmp_table()
     zone.create_label_table()
+    
+    # zone.eliminate_jrcxz_instructions()
+
+    # zone.update_label_table()
+    # zone.eliminate_loop_instructions()
+    
 
 # CODE MODIFICATION
-    zone.equal_instructions()
-    zone.insert_random_nop()
+    # zone.equal_instructions()
+    # zone.insert_random_nop()
 
     # zone.chaos_cf()
     # zone.shuffle_blocks()
 
-    
+
     # zone.update_label_table()
 
-
+    if brain_activate == True:
+        zone.brain_obfuscator()
     # while check == False:
     # check = zone.check_jcrxz_ok()
 
 
 
 # CODE PATCHING
-    zone.update_label_table()
+    if brain_activate == False:
+        zone.update_label_table()
     zone.print_blocks()
 
     zone.print_instructions()
@@ -1194,10 +1598,18 @@ def start():
     # zone.adjust_jmp_table()
 
 # WRITE MODIFICATION
-    zone.write_file()
+    if brain_activate == True:
+        zone.write_strange_file()
+    else:
+        zone.write_file()
     zone.print_instructions()
     print("FINE")
     
 
 if __name__ == "__main__":
-    start()
+    eliminate_instr('loop', None)
+    eliminate_instr('jrcxz', "new_payload.bin")
+    # eliminate_instr('jrcxz', None)
+
+    start("new_payload.bin")
+    # start(sys.argv[1])
