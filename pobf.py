@@ -46,8 +46,10 @@ class Zone:
 
 
         #list of registers 
-        self.reg_list64 = ['rax','rbx','rcx','rdx','rsi','rdi','rbp','rsp','r8','r9','r10','r11','r12','r13','r14','r15']
-        self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi','ebp','esp','r8d','r9d','r10d','r11d','r12d','r13d','r14d','r15d']
+        self.reg_list64 = ['rax','rbx','rcx','rdx','rsi','rdi','r8','r9','r10','r11','r12','r13','r14','r15']
+        # self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi','ebp','esp','r8d','r9d','r10d','r11d','r12d','r13d','r14d','r15d']
+        self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi']
+
         self.reg_list16 = ['ax','bx','cx','dx','si','di','bp','sp','r8w','r9w','r10w','r11w','r12w','r13w','r14w','r15w']
         self.reg_list8 = ['al','bl','cl','dl','sil','dil','bpl','spl','r8b','r9b','r10b','r11b','r12b','r13b','r14b','r15b']
         self.reg_list8h = ['ah','bh','ch','dh']
@@ -62,7 +64,6 @@ class Zone:
         # initialize the assembler
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
         
-        # i don't remember
         self.push_mov = False
 
 
@@ -109,6 +110,8 @@ class Zone:
         self.init_address = 0
         self.wrap_instruction_num = 5
 
+        self.bogus_probability = 20
+        self.last_chosen_reg = None
 
         with open(self.file, "rb") as f:
             self.raw_code = f.read()
@@ -1113,6 +1116,14 @@ class Zone:
                     if reg in unused_regs:
                         unused_regs.remove(reg)
         print("UNUSED REGISTERS: ",unused_regs)
+
+        # DEBUG PURPOSE
+        unused_regs = []
+
+
+        if len(unused_regs) == 0:
+            print("NO UNUSED REGISTERS, using rbp")
+            unused_regs.append('rbp')
         return unused_regs
     def estimate_stub_address(self):
         original_size = 0
@@ -1236,9 +1247,57 @@ class Zone:
         '''
         asm, _ = self.ks.asm(stub2_str,self.stub_address)
         bytes_arr = bytearray(asm)
-        return len(bytes_arr)       
+        return len(bytes_arr)
+
+    def shuffle_brain_blocks(self):
+        counter = 0
+
+        blocks = []
+        block = []
+
+        for x,instr in enumerate(self.instructions):
+            if instr.new_instruction.mnemonic == 'pop' and instr.new_instruction.op_str == 'rax':
+                if instr.next_instruction.new_instruction.mnemonic == "lea":
+                    block.append(instr)
+                    continue
+            if x == len(self.instructions) - 1:
+                block.append(instr)
+                blocks.append(block)
+                block = []
+                continue
+            if instr.new_instruction.mnemonic == 'jmp' and instr.next_instruction.new_instruction.mnemonic == 'pop' and instr.next_instruction.new_instruction.op_str == 'rax':
+                block.append(instr)
+                blocks.append(block)
+                block = []
+                continue
+            block.append(instr)
+
+        firstBlock = blocks[0]
+        blocks = blocks[1:]
+
+        random.shuffle(blocks)
+        blocks = [firstBlock] + blocks
+
+        new_instructions = []
+        for block in blocks:
+            for instr in block:
+                new_instructions.append(instr)
+
+        self.instructions = new_instructions       
+
+        for x,instr in enumerate(self.instructions):
+            if x == 0:
+                instr.next_instruction = self.instructions[x+1]
+
+            elif x == len(self.instructions) - 1:
+                instr.prev_instruction = self.instructions[x-1]
+
+            else:
+                instr.prev_instruction = self.instructions[x-1]
+                instr.next_instruction = self.instructions[x+1]
 
     def brain_obfuscator(self):
+        brain_shuffle = True
         # salva indirizzi di inizio blocco e poi shuffla i blocchi
         calc_base_str = f"call 0x1000"
         asm, _ = self.ks.asm(calc_base_str,0x0)
@@ -1251,7 +1310,10 @@ class Zone:
 
 
         self.brain_adjust()
-        counter = 0
+
+
+        if brain_shuffle == True:
+            self.shuffle_brain_blocks()
 
 
         self.update_label_table()
@@ -1289,8 +1351,32 @@ class Zone:
             if x == 0:
                 continue
             if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "rax" and x % self.wrap_instruction_num == 1:
+                
                 self.instr_mapping.append((x,instr.new_instruction.address))
             instruction_num += 1
+
+        for x,instr in enumerate(self.instructions):
+            index  = 0
+            if x == 0:
+                continue
+            if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "rax" and x % self.wrap_instruction_num == 1:
+                for instr2 in self.instructions[x:x+5]:
+                    if instr2.new_instruction.mnemonic == "push" and instr2.next_instruction.new_instruction.mnemonic == "jmp":
+                        print("push found")
+                        index = int(instr2.new_instruction.op_str,16) - 0x3e8
+                        print("index: ",index)
+                        self.instr_mapping[index] = (index,instr.new_instruction.address)
+        # sort instr_mapping by index
+        self.instr_mapping.sort(key=lambda x: x[0])
+
+        # print instr mapping to a file
+        with open('instr_mapping.txt', 'w') as f:
+            for entry in self.instr_mapping:
+                f.write(f"{entry[0]} {hex(entry[1])}\n")
+            
+            f.close()
+
+        
         
         # write map to file
 
@@ -1311,17 +1397,19 @@ class Zone:
         self.mem_address = self.stub2_address + self.stub2_size
         self.mem_address = self.mem_address + (100 - (self.mem_address % 100)) + 0x100
 
-        self.init_address = self.stub2_address + self.stub2_size + 0x1
+        self.init_address = self.stub2_address + self.stub2_size + 0x10
 
         print("MEMORY ADDRESS: ",hex(self.mem_address))
         padding = self.mem_address - self.stub_address - self.stub_size
         print("PADDING SIZE: ",padding)
+        print("init address: ",hex(self.init_address))
 
         # self.stub2_address = self.counter_address + 0x10
         # self.stub2_address = self.stub2_address + (0x10 - (self.stub2_address % 0x10))
 
 
-
+        init_addr_offset = self.init_address - (self.stub_address + 0x1a) 
+        print("INIT ADDR OFFSET: ",init_addr_offset)    
 
         stub_str = f'''
         push rax;
@@ -1330,7 +1418,7 @@ class Zone:
         pushf;
         sub rcx, 0x3e8;
         inc rcx;
-        mov rax, [rip + 0x25];
+        mov rax, [rip + {init_addr_offset}];
         mov rcx, [rax + {self.mem_address} - 5 + rcx * 8];
         sub rcx, 0x5
         add rax, rcx
@@ -1380,10 +1468,136 @@ class Zone:
         bytes_arr3 = bytearray(asm3)
         for x,i in enumerate(self.cs.disasm(bytes_arr3,0x0)):
             self.instructions[0].new_instruction = i
-            
-
         self.re_adjust_brain()
 
+    def generate_assembly_tautology(self):
+    # List of common registers (excluding esp/ebp for simplicity)
+        # registers = random.choice(self.reg_list32)
+        # print("REGISTERS: ",registers)
+        # choose between 32 and 64 bit registers
+        # reg_list = random.choice([self.reg_list32,self.reg_list64])
+        reg = random.choice(self.reg_list64)
+        while True:
+            if reg != self.last_chosen_reg:
+                break
+            reg = random.choice(self.reg_list64)
+        self.last_chosen_reg = reg
+        print("REG: ",reg)
+        # Generate a random immediate value (for example, between 0 and 255)
+        imm = random.randint(0, 255)
+        
+        # Choose a random pattern (from 1 to 15)
+        pattern = random.randint(1,12)
+        code = ""
+
+        # per testing
+        
+        if pattern == 1:
+            # Pattern 1: mov reg, imm; cmp reg, imm
+            code = f"pushf;push {reg};mov {reg}, {imm};cmp {reg}, {imm};pop {reg};popf"
+        elif pattern == 2:
+            # Pattern 2: cmp reg, reg
+            code = f"pushf;cmp {reg}, {reg};popf"
+        elif pattern == 3:
+            # Pattern 3: mov reg, imm; add reg, 0; cmp reg, imm
+            code = f"pushf;push {reg};mov {reg}, {imm};add {reg}, 0;cmp {reg}, {imm}; pop {reg};popf"
+        elif pattern == 4:
+            # Pattern 4: mov reg, imm; sub reg, 0; cmp reg, imm
+            code = f"pushf;push {reg};mov {reg}, {imm};sub {reg}, 0;cmp {reg}, {imm}; pop {reg};popf"
+        elif pattern == 5:
+            # Pattern 5: push imm; pop reg; cmp reg, imm
+            code = f"pushf;push {reg};push {imm};pop {reg};cmp {reg}, {imm}; pop {reg};popf"
+        elif pattern == 6:
+            # Pattern 6: sub reg, reg; cmp reg, 0
+            code = f"pushf;push {reg};sub {reg}, {reg};cmp {reg}, 0; pop {reg};popf"
+        elif pattern == 7:
+            # Pattern 7: xor reg, reg; cmp reg, 0
+            code = f"pushf;push {reg}; xor {reg}, {reg};cmp {reg}, 0; pop {reg};popf"
+        elif pattern == 8:
+            # Pattern 9: mov reg, imm; neg reg; neg reg; cmp reg, imm
+            code = f"pushf;push {reg}; mov {reg}, {imm};neg {reg};neg {reg};cmp {reg}, {imm}; pop {reg};popf"
+        elif pattern == 9:
+            # Pattern 10: mov reg, imm; or reg, 0; cmp reg, imm
+            code = f"pushf;push {reg}; mov {reg}, {imm};or {reg}, 0;cmp {reg}, {imm}; pop {reg};popf"
+        elif pattern == 10:
+            # Pattern 11: mov reg, imm; and reg, 0xFFFFFFFF; cmp reg, imm
+            code = f"pushf;push {reg};mov {reg}, {imm};and {reg}, 0xffffffffffffffff;cmp {reg}, {imm}; pop {reg};popf"
+        elif pattern == 11:
+            # Pattern 12: mov reg, imm; lea reg, [{reg}+0]; cmp reg, imm
+            code = f"pushf;push {reg};mov {reg}, {imm};lea {reg}, [{reg}+0];cmp {reg}, {imm}; pop {reg};popf"
+        elif pattern == 12:
+            # Pattern 13: mov reg, imm; test reg, reg
+            code = f"pushf;push {reg};mov {reg}, {imm};test {reg}, {reg}; pop {reg};popf"
+        else:
+            code = "nop"
+        
+        return code          
+
+    def bogus_control_flow(self):
+        # SOLUZIONE ULTRA TEMPORANEA
+        last_modification = 0
+        re_iterate = True
+        inserted_instr = 0
+
+        while re_iterate == True:
+            re_iterate = False
+
+            self.update_instr()
+            self.update_label_table()
+            
+            for num_instr,instr in enumerate(self.instructions):
+                probability = random.randint(0,100)
+
+                # print("NUM_INSTR: ",num_instr)
+                # print("LAST_MODIFICATION: ",last_modification)
+                # print("INSERTED_INSTR: ",inserted_instr)
+                if num_instr < (last_modification + inserted_instr):
+                    continue
+                if probability < self.bogus_probability:
+                    re_iterate = True
+                    inserted_instr = 0
+
+                    # trash_block = bytearray()
+
+                    block_size = random.randint(5,10)
+
+                    # appendi popf come pr
+                    # for i in range(block_size):
+                    #     trash_block.append(0x90)
+                    try:
+                        code = self.generate_assembly_tautology()
+
+                        if code == "nop":
+                            continue
+                        asm, _ = self.ks.asm(code, instr.new_instruction.address + instr.new_instruction.size)
+                    except Exception as e:
+                        print("Errore in bogus_control_flow(): ",e)
+                        print("CODE: ",code)
+                        traceback.print_exc()
+                        continue
+                    asm = bytearray(asm)
+
+                    NOP_NUM = random.randint(2,5)
+
+                    code = code + ';je ' + hex(instr.new_instruction.address + instr.new_instruction.size + len(asm) + len(asm) + 2 + NOP_NUM*1)
+                    
+                    print("CODE: ",code)
+                    last_modification = num_instr
+
+                    asm2, _ = self.ks.asm(code, instr.new_instruction.address + instr.new_instruction.size + len(asm))
+                    asm2 = bytearray(asm2)
+                    for i in range(NOP_NUM):
+                        # random_byte = random.randint(0,255)
+                        asm2.append(0x90)
+                    tmp_inserted_instr = 0
+                    for x,i in enumerate(self.cs.disasm(asm2, instr.new_instruction.address + instr.new_instruction.size)):
+                        new_instr = Instruction(i,i,i,None,None)
+                        new_instr.address_history.append(i.address)
+                        self.insert_instruction(num_instr + x,new_instr)
+                        tmp_inserted_instr +=  1
+                    # faccio break perche' dovro' fare la reiterazione
+                    inserted_instr = tmp_inserted_instr
+                    break
 
     # function that will modify instructions to make some different instructions that does the same thing
     def equal_instructions(self):
@@ -1499,7 +1713,7 @@ class Zone:
         print("BYTES ADDED: ",hex(bytes_added))
         print("##########################################")
 
-    def write_strange_file(self):
+    def write_strange_file(self, out_file = None):
         new_bytes = b''
         for x,i in enumerate(self.instructions):
             new_bytes += i.new_instruction.bytes
@@ -1515,25 +1729,31 @@ class Zone:
 
         new_bytes += map_bytes
         
-
+        if out_file == None:
+            out_file = 'new_payload.bin'
         # non modificare il file esistente, creano uno nuovo
-        with open('new_payload.bin', 'wb') as f:
+        with open(out_file, 'wb') as f:
             f.seek(0)
             f.write(new_bytes)
     
-    def write_file(self):
+    def write_file(self, out_file = None):
         new_bytes = b''
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
 
         # non modificare il file esistente, creano uno nuovo
-        with open('new_payload.bin', 'wb') as f:
+        if out_file == None:
+            out_file = 'new_payload.bin'
+        with open(out_file, 'wb') as f:
             f.seek(0)
             f.write(new_bytes)
 
 
 def eliminate_instr(type, file):
     if file == None:
+        if len(sys.argv) < 2:
+            print_usage()
+            exit(1)
         zone = Zone(sys.argv[1])
     else:
         zone = Zone(file)
@@ -1549,15 +1769,55 @@ def eliminate_instr(type, file):
     zone.update_label_table()
     zone.write_file()
 
+def print_usage():
+    print("Usage: python pobf.py <file> <options>")
+    print("Options:")
+    print("--help                                           Show  this help message and exit")
+    print("--equal-instructions, -eq                        Modify instructions to make them equal")
+    print("--bogus-cf, -bcf                                 Add bogus control flow instructions")
+    print("--insert-nop, -nop                               Insert NOP instructions")
+    print("--instruction-block-permutation, -ibp            Permute instruction blocks")
+    print("--position-independent-instr, -pii               VM technique")
+    print("--output,-o <file>                               Output file name")
+
+
 def start(file):
-    # 1st increase the text sectiona
+
+    equal_instr = False
+    bogus_cf = False
+    insert_nop = False
+    instruction_block_permutation = False
+    position_independent_instr = False
+    
     if file == None:
+        if len(sys.argv) < 2:
+            print_usage()
+            exit(1)
         zone = Zone(sys.argv[1])
     else:
         zone = Zone(file)
     
     brain_activate = True
     
+    opt_args = sys.argv[1:]
+    output_file = None
+    for arg in opt_args:
+        if arg == "--help":
+            print_usage()
+            sys.exit(0)
+        elif arg == "--equal-instructions" or arg == "-eq":
+            equal_instr = True
+        elif arg == "--bogus-cf" or arg == "-bcf":
+            bogus_cf = True
+        elif arg == "--insert-nop" or arg == "-nop":
+            insert_nop = True
+        elif arg == "--instruction-block-permutation" or arg == "-ibp":
+            instruction_block_permutation = True
+        elif arg == "--position-independent-instr" or arg == "-pii":
+            position_independent_instr = True
+        elif arg == "--output" or arg == "-o":
+            output_file = opt_args[opt_args.index(arg) + 1]
+    print("OPT_ARGS: ", opt_args)
 
 # INITIALIZATION
     zone.create_jmp_table()
@@ -1570,16 +1830,23 @@ def start(file):
     
 
 # CODE MODIFICATION
-    # zone.equal_instructions()
-    # zone.insert_random_nop()
+    if equal_instr == True:
+        zone.equal_instructions()
+    # zone.insert_random_
+    # 
+    # 
+    # nop()
+    if instruction_block_permutation == True:
+        zone.chaos_cf()
+        zone.shuffle_blocks()
 
-    # zone.chaos_cf()
-    # zone.shuffle_blocks()
-
-
+    if bogus_cf == True:
+        zone.bogus_control_flow()
+    if insert_nop == True:
+        zone.insert_random_nop()
     # zone.update_label_table()
-
-    if brain_activate == True:
+    if position_independent_instr == True:
+    # if brain_activate == True:
         zone.brain_obfuscator()
     # while check == False:
     # check = zone.check_jcrxz_ok()
@@ -1587,21 +1854,21 @@ def start(file):
 
 
 # CODE PATCHING
-    if brain_activate == False:
+    if position_independent_instr == False:
         zone.update_label_table()
     zone.print_blocks()
 
     zone.print_instructions()
-    zone.adjust_out_text_references()
+    # zone.adjust_out_text_references()
 
     # zone.adjust_reloc_table()
     # zone.adjust_jmp_table()
 
 # WRITE MODIFICATION
-    if brain_activate == True:
-        zone.write_strange_file()
+    if position_independent_instr == True:
+        zone.write_strange_file(output_file)
     else:
-        zone.write_file()
+        zone.write_file(output_file)
     zone.print_instructions()
     print("FINE")
     
