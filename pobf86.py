@@ -48,7 +48,7 @@ class Zone:
         #list of registers 
         # self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi','ebp','esp','r8d','r9d','r10d','r11d','r12d','r13d','r14d','r15d']
         # self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi','ebp','esp']
-        self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi','ebp']
+        self.reg_list32 = ['eax','ebx','ecx','edx','esi','edi']
 
         self.reg_list16 = ['ax','bx','cx','dx','si','di','bp','sp']
         self.reg_list8 = ['al','bl','cl','dl','ah','bh','ch','dh']
@@ -110,6 +110,10 @@ class Zone:
         self.stub2_address = 0
         self.stub2_bytearr = 0
         self.stub2_size = 0
+
+        self.init_address = 0
+        self.wrap_instruction_num = 5
+
 
         with open(self.file, "rb") as f:
             self.raw_code = f.read()
@@ -1366,7 +1370,23 @@ class Zone:
     # 1) randomically shuffling every instruction
     # 2) a map that holds the new address and the chronologically ordered instructions
     # 3) A stub that jumps manually to every instruction executing in the correct order
+    def check_unused_registers(self):
+        unused_regs = []
+        for reg in self.reg_list32:
+            unused_regs.append(reg)
+        
+        for instr in self.instructions:
+            instr_str = f"{instr.new_instruction.mnemonic} {instr.new_instruction.op_str}"
+            for reg in self.reg_list32:
+                if reg in instr_str:
+                    if reg in unused_regs:
+                        unused_regs.remove(reg)
+        print("UNUSED REGISTERS: ",unused_regs)
 
+        if len(unused_regs) == 0:
+            print("NO UNUSED REGISTERS, using ebp")
+            unused_regs.append('ebp')
+        return unused_regs
     def estimate_stub_address(self):
         original_size = 0
         instruction_num = 0
@@ -1374,8 +1394,8 @@ class Zone:
             original_size += len(instr.new_instruction.bytes)
             instruction_num += 1
 
-        probable_addr = original_size + (5 + 5 + 1 + 1) * instruction_num    
-        probable_addr = probable_addr + (100 - (probable_addr % 100))
+        probable_addr = original_size + (1 + 4 + 5 + 5) * instruction_num    
+        probable_addr = probable_addr + (100 - (probable_addr % 100)) + 0x100
 
         print("EStimated stub address: ",probable_addr)
         return probable_addr
@@ -1383,34 +1403,61 @@ class Zone:
     def brain_adjust(self):
         self.stub_address = self.estimate_stub_address()
 
+
         bytes_added = 0
 
         re_iterate = True
         actual_index = 0
+        counter = 0
         while re_iterate == True:
-            re_iterate = False
-            for x,instr in enumerate(self.instructions):
-                if x < actual_index:
-                    continue
-                
-                original_length = len(instr.new_instruction.bytes)
-                new_str = f"popf;popad;{instr.new_instruction.mnemonic} {instr.new_instruction.op_str};push {0x3e8 + x};jmp {self.stub_address}"
-                
-                asm, _ = self.ks.asm(new_str,instr.new_instruction.address + bytes_added)
-                asm = bytearray(asm)
-
-
-                for x2,i in enumerate(self.cs.disasm(asm,instr.new_instruction.address + bytes_added)):
-                    re_iterate = True
-                    if x2 == 0:
+            try:
+                re_iterate = False
+                for x,instr in enumerate(self.instructions):
+                    if x < actual_index:
+                        continue
+                    
+                    if x == 0:
                         actual_index += 1
                         continue
-                        
-                    new_instr = Instruction(i,i,i,None,None)
-                    self.insert_instruction(x+x2, new_instr)
-                    actual_index += 1
-                break
+                    
+                    if instr.new_instruction.mnemonic == 'jrcxz':
+                        asm1 = "pop eax"
+                        asm1, _ = self.ks.asm(asm1,instr.new_instruction.address + bytes_added)
+                        asm1 = bytearray(asm1)
 
+                        asm2 = bytearray(instr.new_instruction.bytes)
+                        asm3 = f"push {hex(0x3e8 + actual_index)}"
+
+                        asm3, _ = self.ks.asm(asm3,instr.new_instruction.address + bytes_added)
+
+                        asm4 = f"jmp {hex(self.stub_address)}"
+                        asm4, _ = self.ks.asm(asm4,instr.new_instruction.address + bytes_added)
+                        asm4 = bytearray(asm4)
+                        continue
+                    original_length = len(instr.new_instruction.bytes)
+                    new_str = f"pop eax;lea esp, [esp + 4];{instr.new_instruction.mnemonic} {instr.new_instruction.op_str};push {hex(0x3e8 + counter)};jmp {hex(self.stub_address)}"
+                    
+                    asm, _ = self.ks.asm(new_str,instr.new_instruction.address + bytes_added)
+                    asm = bytearray(asm)
+                    counter += 1
+
+                    for x2,i in enumerate(self.cs.disasm(asm,instr.new_instruction.address + bytes_added)):
+                        re_iterate = True
+                        if x2 == 2:
+                            actual_index += 1
+                            continue
+                            
+                        new_instr = Instruction(i,i,i,None,None)
+                        self.insert_instruction(x+x2, new_instr)
+                        actual_index += 1
+                    bytes_added += (len(asm) - original_length)
+                    break
+            except Exception as e:
+                print("Errore in brain_adjust(): ",e)
+                print("new_str: ",new_str)
+                traceback.print_exc()
+                re_iterate = False
+                continue
         payload_size = 0
         for instr in self.instructions:
             payload_size += len(instr.new_instruction.bytes)
@@ -1419,7 +1466,11 @@ class Zone:
         self.payload_size = payload_size
     def re_adjust_brain(self):
         for x,instr in enumerate(self.instructions):
-            if x % 5 != 4:
+            if instr.new_instruction.address >= self.stub_address:
+                return
+            if x % self.wrap_instruction_num != 0:
+                continue
+            elif instr.new_instruction.mnemonic == 'nop':
                 continue
             elif instr.new_instruction.mnemonic == 'jmp':
                 new_str = f"{instr.new_instruction.mnemonic} {self.stub_address}"
@@ -1430,44 +1481,124 @@ class Zone:
             else:
                 print("Errore strano, non tornano i conti non c'e' una JMP ogni tre istruzioni")
     def estimate_stub_size(self):
-        stub_str = '''
-        pushad;
-        call 0x1000;
-        mov ecx, [esp + 0x20];
-        push 1;
+        stub_str = f'''
+        push eax;
+        push ecx;
+        mov ecx, [esp + 0x8]
         pushf;
         sub ecx, 0x3e8;
         inc ecx;
-        mov eax, [eax + ecx * 4];
+
+        call 0x1000
+        pop eax;
+
+        mov eax, [eax + 0x40];
+        mov ecx, [eax + {self.mem_address} - 5 + ecx * 4];
+        sub ecx, 0x5
+        add eax, ecx
+        popf;
+        pop ecx;
         jmp eax;
         '''
+
         asm, _ = self.ks.asm(stub_str,self.stub_address)
         bytes_arr = bytearray(asm)
         return len(bytes_arr)     
 
     def estimate_stub2_size(self):
         stub2_str = f'''
-        pop eax;
-        jmp eax; 
+        pop ebp;
+        mov [ebp - 5 + 0x1000], ebp;
+        push ebp;
+        jmp ebp;
         '''
-
         asm, _ = self.ks.asm(stub2_str,self.stub_address)
         bytes_arr = bytearray(asm)
-        return len(bytes_arr)       
+        return len(bytes_arr)
+
+    def shuffle_brain_blocks(self):
+        counter = 0
+
+        blocks = []
+        block = []
+
+        for x,instr in enumerate(self.instructions):
+            if instr.new_instruction.mnemonic == 'pop' and instr.new_instruction.op_str == 'eax':
+                if instr.next_instruction.new_instruction.mnemonic == "lea":
+                    block.append(instr)
+                    continue
+            if x == len(self.instructions) - 1:
+                block.append(instr)
+                blocks.append(block)
+                block = []
+                continue
+            if instr.new_instruction.mnemonic == 'jmp' and instr.next_instruction.new_instruction.mnemonic == 'pop' and instr.next_instruction.new_instruction.op_str == 'eax':
+                block.append(instr)
+                blocks.append(block)
+                block = []
+                continue
+            block.append(instr)
+
+        firstBlock = blocks[0]
+        blocks = blocks[1:]
+
+        random.shuffle(blocks)
+        blocks = [firstBlock] + blocks
+
+        new_instructions = []
+        for block in blocks:
+            for instr in block:
+                new_instructions.append(instr)
+
+        self.instructions = new_instructions       
+
+        for x,instr in enumerate(self.instructions):
+            if x == 0:
+                instr.next_instruction = self.instructions[x+1]
+
+            elif x == len(self.instructions) - 1:
+                instr.prev_instruction = self.instructions[x-1]
+
+            else:
+                instr.prev_instruction = self.instructions[x-1]
+                instr.next_instruction = self.instructions[x+1]
 
     def brain_obfuscator(self):
+        brain_shuffle = True
         # salva indirizzi di inizio blocco e poi shuffla i blocchi
+        calc_base_str = f"call 0x1000"
+        asm, _ = self.ks.asm(calc_base_str,0x0)
+        bytes_arr = bytearray(asm)
+        for x,i in enumerate(self.cs.disasm(bytes_arr,0x0)):
+            insr = Instruction(i,i,i,None,None)
+            self.insert_instruction(0,insr)
+
+        # self.update_instr()
+
+
         self.brain_adjust()
 
-        self.update_label_table_brain()
 
-        self.re_adjust_brain()
+        if brain_shuffle == True:
+            self.shuffle_brain_blocks()
 
+
+        self.update_label_table()
+
+        unused_regs = self.check_unused_registers()
+
+        random_unused_reg = random.choice(unused_regs)
 
 
         # estimated_stub_addr = self.estimate_stub_address()
-        print("Estimated stub address: ",self.stub_address)
 
+        self.payload_size = 0
+        for instr in self.instructions:
+            self.payload_size += len(instr.new_instruction.bytes)
+        
+        
+        print("Estimated stub address: ",self.stub_address)
+        print("Payload SIZE: ", self.payload_size)
         nop_sled_size = self.stub_address - self.payload_size
 
         print("NOP SLED SIZE: ",nop_sled_size)
@@ -1484,8 +1615,35 @@ class Zone:
 
         instruction_num = 0
         for x,instr in enumerate(self.instructions):
-            self.instr_mapping.append((x,instr.new_instruction.address))
+            if x == 0:
+                continue
+            if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "eax" and x % self.wrap_instruction_num == 1:
+                
+                self.instr_mapping.append((x,instr.new_instruction.address))
             instruction_num += 1
+
+        for x,instr in enumerate(self.instructions):
+            index  = 0
+            if x == 0:
+                continue
+            if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "eax" and x % self.wrap_instruction_num == 1:
+                for instr2 in self.instructions[x:x+5]:
+                    if instr2.new_instruction.mnemonic == "push" and instr2.next_instruction.new_instruction.mnemonic == "jmp":
+                        print("push found")
+                        index = int(instr2.new_instruction.op_str,16) - 0x3e8
+                        print("index: ",index)
+                        self.instr_mapping[index] = (index,instr.new_instruction.address)
+        # sort instr_mapping by index
+        self.instr_mapping.sort(key=lambda x: x[0])
+
+        # print instr mapping to a file
+        with open('instr_mapping.txt', 'w') as f:
+            for entry in self.instr_mapping:
+                f.write(f"{entry[0]} {hex(entry[1])}\n")
+            
+            f.close()
+
+        
         
         # write map to file
 
@@ -1494,9 +1652,7 @@ class Zone:
         print("STUB SIZE: ",self.stub_size)
 
 
-        print("MEMORY ADDRESS: ",hex(self.mem_address))
-        padding = self.mem_address - self.stub_address - self.stub_size
-        print("PADDING SIZE: ",padding)
+
 
         mem_size_on_disk = instruction_num * 4
 
@@ -1506,29 +1662,47 @@ class Zone:
         
 
         self.mem_address = self.stub2_address + self.stub2_size
-        self.mem_address = self.mem_address + (100 - (self.mem_address % 100))
+        self.mem_address = self.mem_address + (100 - (self.mem_address % 100)) + 0x100
+
+        self.init_address = self.stub2_address + self.stub2_size + 0x10
+
+        print("MEMORY ADDRESS: ",hex(self.mem_address))
+        padding = self.mem_address - self.stub_address - self.stub_size
+        print("PADDING SIZE: ",padding)
+        print("init address: ",hex(self.init_address))
 
         # self.stub2_address = self.counter_address + 0x10
         # self.stub2_address = self.stub2_address + (0x10 - (self.stub2_address % 0x10))
 
-        rel_mem_address = self.stub_address + 1 + 6
-        # rel_mem_address = self.mem_address - rel_mem_address
+
+        init_addr_offset = self.init_address - (self.stub_address + 0x14) 
+        print("INIT ADDR OFFSET: ",init_addr_offset)    
 
         stub_str = f'''
-        pushad;
-        call {self.stub2_address};
-        mov ecx, [esp + 0x20];
-        push 1;
+        push eax;
+        push ecx;
+        mov ecx, [esp + 0x8]
         pushf;
         sub ecx, 0x3e8;
         inc ecx;
-        mov eax, [eax + ecx * 4];
+
+        call {self.stub_address + 0x14};
+        pop eax;
+
+        mov eax, [eax + {init_addr_offset}];
+        mov ecx, [eax + {self.mem_address} - 5 + ecx * 4];
+        sub ecx, 0x5
+        add eax, ecx
+        popf;
+        pop ecx;
         jmp eax;
         '''
 
         stub2_str = f'''
-        pop eax;
-        jmp eax;
+        pop {random_unused_reg};
+        mov [{random_unused_reg} - 5 + {self.init_address}], {random_unused_reg};
+        push {random_unused_reg};
+        jmp {random_unused_reg};
         '''
 
 
@@ -1543,6 +1717,8 @@ class Zone:
         nop_sled_size2 = self.stub2_address - (self.stub_address + self.stub_size)
 
         print("NOP SLED SIZE 2: ",nop_sled_size2)
+
+        print("STUB2 ADDRESS: ",hex(self.stub2_address))
         for i in range(nop_sled_size2):
             nop = bytearray([0x90])
             for instr in self.cs.disasm(nop, (self.stub_address + self.stub_size + i)):
@@ -1557,7 +1733,15 @@ class Zone:
             insr = Instruction(i,i,i,None,None)
             self.insert_instruction(instr_number + x , insr)
             instr_number += 1
-    # function that will modify instructions to make some different instructions that does the same thing
+
+        new_first_instr_str = f"call {self.stub2_address}"
+        asm3, _ = self.ks.asm(new_first_instr_str,0x0)
+        bytes_arr3 = bytearray(asm3)
+        for x,i in enumerate(self.cs.disasm(bytes_arr3,0x0)):
+            self.instructions[0].new_instruction = i
+        self.re_adjust_brain()
+
+
     def equal_instructions(self):
         change_num = 0
         bytes_added = 0
@@ -1672,7 +1856,7 @@ class Zone:
         print("##########################################")
 
     
-    def write_strange_file(self):
+    def write_strange_file(self,output_file):
         new_bytes = b''
         for x,i in enumerate(self.instructions):
             new_bytes += i.new_instruction.bytes
@@ -1688,26 +1872,74 @@ class Zone:
 
         new_bytes += map_bytes
         
+        if output_file == None:
+            output_file = 'new_payload.bin'
 
         # non modificare il file esistente, creano uno nuovo
-        with open('new_payload.bin', 'wb') as f:
+        with open(output_file, 'wb') as f:
             f.seek(0)
             f.write(new_bytes)
     
-    def write_file(self):
+    def write_file(self, output_file):
         new_bytes = b''
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
 
         # non modificare il file esistente, creano uno nuovo
-        with open('new_payload.bin', 'wb') as f:
+        if output_file == None:
+            output_file = 'new_payload.bin'
+        with open(output_file, 'wb') as f:
             f.seek(0)
             f.write(new_bytes)
 
 
+def print_usage():
+    print("Usage: python pobf.py <file> <options>")
+    print("Options:")
+    print("--help                                           Show  this help message and exit")
+    print("--equal-instructions, -eq                        Modify instructions to make them equal")
+    print("--bogus-cf, -bcf                                 Add bogus control flow instructions")
+    print("--insert-nop, -nop                               Insert NOP instructions")
+    print("--instruction-block-permutation, -ibp            Permute instruction blocks")
+    print("--position-independent-instr, -pii               VM technique")
+    print("--output,-o <file>                               Output file name")
+
 
 def start():
         # 1st increase the text sectiona
+
+
+    equal_instr = False
+    bogus_cf = False
+    insert_nop = False
+    instruction_block_permutation = False
+    position_independent_instr = False
+    
+    if len(sys.argv) < 2:
+        print_usage()
+        sys.exit(1)
+    if "--help" in sys.argv or "-h" in sys.argv:
+        print_usage()
+        sys.exit(0)
+
+    opt_args = sys.argv[1:]
+
+    for arg in opt_args:
+        if arg == "--equal-instructions" or arg == "-eq":
+            equal_instr = True
+        elif arg == "--bogus-cf" or arg == "-bcf":
+            bogus_cf = True
+        elif arg == "--insert-nop" or arg == "-nop":
+            insert_nop = True
+        elif arg == "--instruction-block-permutation" or arg == "-ibp":
+            instruction_block_permutation = True
+        elif arg == "--position-independent-instr" or arg == "-pii":
+            position_independent_instr = True
+        elif arg == "--output" or arg == "-o":
+            output_file = opt_args[opt_args.index(arg) + 1]
+
+    
+
 
     brain_mode = True
     zone = Zone(sys.argv[1])
@@ -1723,13 +1955,20 @@ def start():
     zone.create_label_table()
 
 # CODE MODIFICATION
-    # zone.equal_instructions()
-    # zone.insert_random_nop()
+    if equal_instr == True:
+        zone.equal_instructions()
+    if insert_nop == True:
+        zone.insert_random_nop()
 
-    # zone.chaos_cf()
-    # zone.bogus_control_flow()
-    # zone.shuffle_blocks()
-    if brain_mode == True:
+    if bogus_cf == True:
+        zone.bogus_control_flow()
+
+    if instruction_block_permutation == True:
+        zone.chaos_cf()
+        zone.shuffle_blocks()
+    
+    if position_independent_instr == True:
+    # if brain_mode == True:
         zone.brain_obfuscator()
 
         # zone.update_label_table_brain()
@@ -1755,9 +1994,9 @@ def start():
 
 # WRITE MODIFICATION
     if brain_mode == True:
-        zone.write_strange_file()
+        zone.write_strange_file(output_file)
     else:
-        zone.write_file()
+        zone.write_file(output_file)
     zone.print_instructions()
     print("FINE")
     
