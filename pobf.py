@@ -41,7 +41,7 @@ class Zone:
 
         #utile per skippare dati inutili nella .text (tipo stringhe o tabelle di jump)
         # useful for skipping useless data in the .text (like strings or jump
-        self.cs.skipdata = True 
+        self.cs.skipdata = False 
 
 
 
@@ -65,7 +65,6 @@ class Zone:
         self.ks = Ks(KS_ARCH_X86, KS_MODE_64)
         
         self.push_mov = False
-
 
         # blocks for future implementation of bogus control flow
         self.instr_blocks = []
@@ -103,6 +102,8 @@ class Zone:
         self.counter_address = 0
         self.instr_mapping = []
 
+        self.pii_enabled = False
+
         self.stub2_address = 0
         self.stub2_bytearr = 0
         self.stub2_size = 0
@@ -117,6 +118,7 @@ class Zone:
             self.raw_code = f.read()
             f.close()
 
+        self.do_not_touch = []
 
         # lunghezza del codice originale
         self.original_code_length = len(self.raw_code)
@@ -210,8 +212,6 @@ class Zone:
 
         # self.short_label_table.sort()
 
-
-
     # after every change in the instructions list, I have to update the instr_dict
     # the update is made simply by iterating over the instructions list and updating the instr_dict and updating addresses of instructions
     def update_instr(self):
@@ -224,6 +224,7 @@ class Zone:
                 if x == 0:
                     continue
                 addr = i.prev_instruction.new_instruction.address + len(i.prev_instruction.new_instruction.bytes)
+
 
                 old_addr = i.old_instruction.address
 
@@ -267,6 +268,8 @@ class Zone:
     def update_label_table(self):
         print("UPDATE LABEL TABLE")
 
+        do_not_touch_instr = []
+
         # if during patching some JMP or CALL becomes bigger (example 3 byte --> 5 byte)
         #   i need to re iterate the all patching process
         re_iterate = True
@@ -284,7 +287,8 @@ class Zone:
             # iterate the list of jmp/call instructions
             for entry in self.short_label_table:
                 try:
-
+                    if entry[0] in do_not_touch_instr:
+                        continue
                     # various checks 
                     if self.check_if_inside_jmp_table(entry[0].new_instruction.address) == True:
                         continue
@@ -360,9 +364,53 @@ class Zone:
 
                         new_length = len(bytes_arr)
                         # check if the new assembled instruction is different in size from the old one
+
+
+
                         if original_length != new_length:
                             # if the new size is lower just insert NOPs to pad
                             if original_length > new_length:
+                                if self.pii_enabled == True:
+                                
+                                    print("🚨🚨NINONINO NINONINO POLIZIA DEL DEBUGGING ZIOPERA🚨🚨")
+                                    if entry[0].new_instruction.operands[0].type == x86_const.X86_OP_IMM:
+                                        offset = (entry[0].new_instruction.address + len(entry[0].new_instruction.bytes)) - entry[1].new_instruction.address
+                                        print("OPERAND: IMM")
+                                    elif entry[0].new_instruction.operands[0].type == x86_const.X86_OP_MEM:
+                                        offset = entry[1].new_instruction.address
+                                    else:
+                                        offset = entry[0].new_instruction.operands[0].imm - entry[1].new_instruction.address
+                                    opcode = entry[0].new_instruction.opcode
+                                    original_opcode = []
+                                    for byte in opcode:
+                                        if byte != 0x00:
+                                            original_opcode.append(byte)
+                                    original_op_len = len(original_opcode)
+                                    # convert original_opcode array to an int
+                                    original_opcode = int.from_bytes(original_opcode, byteorder='little')
+                                    print("original_opcode: ",original_opcode)
+                                    instr_len = len(entry[0].new_instruction.bytes)
+                                    
+                                    new_bytes = original_opcode.to_bytes(original_op_len, byteorder='little') + offset.to_bytes(instr_len - original_op_len, byteorder='little', signed=True)
+                                    bytes_arr = bytearray(new_bytes)
+                                    new_length = len(bytes_arr)
+                                    print("address: ",hex(entry[0].new_instruction.address))
+
+                                    if instr_len != new_length:
+                                        print("PII: instr_len != new_length")
+                                        print(f"instr_len: {instr_len}, new_length: {new_length}")
+                                        print("bytes_arr: ",bytes_arr)
+                                        print("original_opcode: ",original_opcode)
+                                        print("offset: ",offset)
+                                        print("old_instr: ",entry[0].new_instruction.bytes)
+                                        print("new_instr: ",bytes_arr)
+                                    else:
+                                        for x,i in enumerate(self.cs.disasm(bytes_arr,entry[0].new_instruction.address)):
+                                            entry[0].new_instruction = i
+                                            print(f"new_instr:{hex(i.address)}  {i.mnemonic} {i.op_str} ")
+                                            do_not_touch_instr.append(entry[0].new_instruction)
+                                            self.do_not_touch.append(entry[0].new_instruction)
+                                        continue
                                 diff = original_length - new_length
                                 for _ in range(diff):
                                     bytes_arr.append(0x90)
@@ -1249,13 +1297,17 @@ class Zone:
         bytes_arr = bytearray(asm)
         return len(bytes_arr)
 
+
     def shuffle_brain_blocks(self):
         counter = 0
 
         blocks = []
         block = []
 
+        # jmp_blocks = []
+
         for x,instr in enumerate(self.instructions):
+
             if instr.new_instruction.mnemonic == 'pop' and instr.new_instruction.op_str == 'rax':
                 if instr.next_instruction.new_instruction.mnemonic == "lea":
                     block.append(instr)
@@ -1275,8 +1327,19 @@ class Zone:
         firstBlock = blocks[0]
         blocks = blocks[1:]
 
+
+
+
         random.shuffle(blocks)
+
+        
+        print("Blocks shuffled correctly ")
+
+
+
         blocks = [firstBlock] + blocks
+
+
 
         new_instructions = []
         for block in blocks:
@@ -1350,7 +1413,7 @@ class Zone:
         for x,instr in enumerate(self.instructions):
             if x == 0:
                 continue
-            if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "rax" and x % self.wrap_instruction_num == 1:
+            if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "rax" and instr.next_instruction.new_instruction.mnemonic == "lea":#x % self.wrap_instruction_num == 1:
                 
                 self.instr_mapping.append((x,instr.new_instruction.address))
             instruction_num += 1
@@ -1362,10 +1425,19 @@ class Zone:
             if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "rax" and x % self.wrap_instruction_num == 1:
                 for instr2 in self.instructions[x:x+5]:
                     if instr2.new_instruction.mnemonic == "push" and instr2.next_instruction.new_instruction.mnemonic == "jmp":
-                        print("push found")
+                        # print("push found")
                         index = int(instr2.new_instruction.op_str,16) - 0x3e8
-                        print("index: ",index)
-                        self.instr_mapping[index] = (index,instr.new_instruction.address)
+                        # print("index: ",index)
+                        try:
+                            self.instr_mapping[index] = (index,instr.new_instruction.address)
+                        except Exception as e:
+                            print("self.instr_mapping: ",self.instr_mapping)
+                            print("Errore in brain_obfuscator(): ",e)
+                            print("index: ",index)
+                            print("instr2: ",instr2.new_instruction.mnemonic + '  ' + instr2.new_instruction.op_str)
+                            print("instr: ",instr.new_instruction.mnemonic + '  ' + instr.new_instruction.op_str)
+                            traceback.print_exc()
+                            continue
         # sort instr_mapping by index
         self.instr_mapping.sort(key=lambda x: x[0])
 
@@ -1847,6 +1919,7 @@ def start(file):
     # zone.update_label_table()
     if position_independent_instr == True:
     # if brain_activate == True:
+        zone.pii_enabled = True
         zone.brain_obfuscator()
     # while check == False:
     # check = zone.check_jcrxz_ok()
