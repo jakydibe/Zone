@@ -111,6 +111,10 @@ class Zone:
         self.stub2_bytearr = 0
         self.stub2_size = 0
 
+        self.do_not_touch = []
+
+        self.pii_enabled = False
+
         self.init_address = 0
         self.wrap_instruction_num = 5
 
@@ -459,6 +463,7 @@ class Zone:
         re_iterate = True
         num_iterazioni = 0
 
+        do_not_touch_instr = []
         inserted_instructions = False
         while re_iterate == True:
             print("ITERANDO: num_iterazioni: ",num_iterazioni)
@@ -505,6 +510,7 @@ class Zone:
 
                     # check if the jmp address is right
                     if jmp_addr != jmp_addr_ptr:
+
                         original_length = len(entry[0].new_instruction.bytes)
 
                         # assemblate with a string the new instruction
@@ -550,6 +556,49 @@ class Zone:
                         if original_length != new_length:
                             # if the new size is lower just insert NOPs to pad
                             if original_length > new_length:
+                                if self.pii_enabled == True:
+                                
+                                    print("🚨🚨NINONINO NINONINO POLIZIA DEL DEBUGGING ZIOPERA🚨🚨")
+                                    if entry[0].new_instruction.operands[0].type == x86_const.X86_OP_IMM:
+                                        offset = (entry[0].new_instruction.address + len(entry[0].new_instruction.bytes)) - entry[1].new_instruction.address
+                                        print("OPERAND: IMM")
+                                    elif entry[0].new_instruction.operands[0].type == x86_const.X86_OP_MEM:
+                                        offset = entry[1].new_instruction.address
+                                    else:
+                                        offset = entry[0].new_instruction.operands[0].imm - entry[1].new_instruction.address
+                                    opcode = entry[0].new_instruction.opcode
+                                    original_opcode = []
+                                    for byte in opcode:
+                                        if byte != 0x00:
+                                            original_opcode.append(byte)
+                                    original_op_len = len(original_opcode)
+                                    # convert original_opcode array to an int
+                                    original_opcode = int.from_bytes(original_opcode, byteorder='little')
+                                    print("original_opcode: ",original_opcode)
+                                    instr_len = len(entry[0].new_instruction.bytes)
+                                    
+                                    new_bytes = original_opcode.to_bytes(original_op_len, byteorder='little') + offset.to_bytes(instr_len - original_op_len, byteorder='little', signed=True)
+                                    bytes_arr = bytearray(new_bytes)
+                                    new_length = len(bytes_arr)
+                                    print("address: ",hex(entry[0].new_instruction.address))
+
+                                    if instr_len != new_length:
+                                        print("PII: instr_len != new_length")
+                                        print(f"instr_len: {instr_len}, new_length: {new_length}")
+                                        print("bytes_arr: ",bytes_arr)
+                                        print("original_opcode: ",original_opcode)
+                                        print("offset: ",offset)
+                                        print("old_instr: ",entry[0].new_instruction.bytes)
+                                        print("new_instr: ",bytes_arr)
+                                    else:
+                                        for x,i in enumerate(self.cs.disasm(bytes_arr,entry[0].new_instruction.address)):
+                                            entry[0].new_instruction = i
+                                            print(f"new_instr:{hex(i.address)}  {i.mnemonic} {i.op_str} ")
+                                            do_not_touch_instr.append(entry[0].new_instruction)
+                                            self.do_not_touch.append(entry[0].new_instruction)
+                                        continue
+
+
                                 diff = original_length - new_length
                                 for _ in range(diff):
                                     bytes_arr.append(0x90)
@@ -1629,9 +1678,9 @@ class Zone:
             if instr.new_instruction.mnemonic == "pop" and instr.new_instruction.op_str == "eax" and x % self.wrap_instruction_num == 1:
                 for instr2 in self.instructions[x:x+5]:
                     if instr2.new_instruction.mnemonic == "push" and instr2.next_instruction.new_instruction.mnemonic == "jmp":
-                        print("push found")
+                        # print("push found")
                         index = int(instr2.new_instruction.op_str,16) - 0x3e8
-                        print("index: ",index)
+                        # print("index: ",index)
                         self.instr_mapping[index] = (index,instr.new_instruction.address)
         # sort instr_mapping by index
         self.instr_mapping.sort(key=lambda x: x[0])
@@ -1894,7 +1943,7 @@ class Zone:
 
 
 def print_usage():
-    print("Usage: python pobf.py <file> <options>")
+    print("Usage: python pobf86.py <file> <options>")
     print("Options:")
     print("--help                                           Show  this help message and exit")
     print("--equal-instructions, -eq                        Modify instructions to make them equal")
@@ -1914,6 +1963,7 @@ def start():
     insert_nop = False
     instruction_block_permutation = False
     position_independent_instr = False
+    output_file = None
     
     if len(sys.argv) < 2:
         print_usage()
@@ -1960,20 +2010,25 @@ def start():
     if insert_nop == True:
         zone.insert_random_nop()
 
+
+    
+    if position_independent_instr == True:
+    # if brain_mode == True:
+        zone.pii_enabled = True
+        zone.brain_obfuscator()
+
     if bogus_cf == True:
         zone.bogus_control_flow()
 
     if instruction_block_permutation == True:
         zone.chaos_cf()
         zone.shuffle_blocks()
-    
-    if position_independent_instr == True:
-    # if brain_mode == True:
-        zone.brain_obfuscator()
 
         # zone.update_label_table_brain()
-    else:
+    
+    if position_independent_instr == False:
         zone.update_label_table()
+
 
 
     # while check == False:
