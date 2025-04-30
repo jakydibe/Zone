@@ -15,9 +15,12 @@ import vt
 API_KEYS_FILE      = "api_keys.txt"
 PROCESSED_FILE     = "processed_files.json"
 RESULTS_FILE       = "results.json"
-CONCURRENCY        = 4  # Number of concurrent tasks
+CONCURRENCY        = 6  # Number of concurrent tasks
 
-MUTATIONS_DIRECTORY = "mutations"
+
+users = ['jakyd','jakfu']
+
+MUTATIONS_DIRECTORY = "mutations/mutations"
 
 
 async def load_json_set(path: str) -> set:
@@ -67,6 +70,7 @@ class APIKeyClient:
             data = await self.client.get_json_async(
                 f"/users/{self.api_key}/overall_quotas"
             )
+      
             user = data["data"]["api_requests_daily"]["user"]
             self.remaining_quota = user["allowed"] - user["used"]
             print(f"[INFO] API key {self.api_key} has {self.remaining_quota} requests remaining.")
