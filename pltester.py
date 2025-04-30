@@ -5,6 +5,7 @@ import time
 import socket
 import subprocess
 from pathlib import Path
+import traceback
 
 def classify(name: str) -> str:
     """Classify payload by name: reverse, bind, or other"""
@@ -58,13 +59,12 @@ def test_other(tester: str, bin_path: Path, timeout: int = 5) -> bool:
         proc.terminate()
         return False
 
-    # Main testing logic
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Test raw-payload bins for basic functionality")
     parser.add_argument('--tester64', default='ploader.exe', help="Path to the x64 payload runner executable")
     parser.add_argument('--tester86', default='ploader86.exe', help="Path to the x86 payload runner executable")
-    parser.add_argument('--bins', default='new_pl/output', help="Base directory containing x64/ and x86/ subfolders")
+    parser.add_argument('--bins', default='mutations\\mutations', help="Base directory containing x64/ and x86/ subfolders")
     parser.add_argument('--bind-ip', default='0.0.0.0', help="IP to bind listeners on for reverse tests")
     parser.add_argument('--conn-ip', default='127.0.0.1', help="IP to connect to for bind tests")
     parser.add_argument('--port', type=int, default=1234, help="Port used by both bind and reverse payloads")
@@ -73,11 +73,26 @@ def main():
     args = parser.parse_args()
 
     report_path = Path(args.report_file)
-    if report_path.exists():
-        report_path.unlink()
     report_buffer = []
     results = []
     count = 0
+
+    # Read existing report to skip already tested files
+    already_tested = set()
+    if report_path.exists():
+        print(f"[*] Reading existing report to skip tested files: {report_path}")
+        with report_path.open('r') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split(',', 1)
+                arch_file_part = parts[0]
+                if '/' in arch_file_part:
+                    arch, filename = arch_file_part.split('/', 1)
+                    already_tested.add( (arch, filename) )
+                else:
+                    print(f"[!] Invalid entry in report: {line}")
 
     for arch in ('x64', 'x86'):
         tester = args.tester64 if arch == 'x64' else args.tester86
@@ -86,6 +101,11 @@ def main():
             print(f"[!] Directory {dir_path} not found, skipping {arch}")
             continue
         for bin_file in sorted(dir_path.glob('*.bin')):
+            # Skip if already tested
+            if (arch, bin_file.name) in already_tested:
+                print(f"[*] Skipping already tested {arch}/{bin_file.name}")
+                continue
+            
             kind = classify(bin_file.name)
             print(f"[*] Testing {arch}/{bin_file.name} ({kind})...")
             try:
@@ -97,6 +117,7 @@ def main():
                     ok = test_other(tester, bin_file)
                 status = 'OK' if ok else 'FAIL'
             except Exception as e:
+                traceback.print_exc()
                 status = 'ERROR'
                 error_msg = str(e)
                 print(f"    ✗ error during test: {error_msg}")

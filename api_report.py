@@ -15,12 +15,17 @@ import vt
 API_KEYS_FILE      = "api_keys.txt"
 PROCESSED_FILE     = "processed_files.json"
 RESULTS_FILE       = "results.json"
-CONCURRENCY        = 6  # Number of concurrent tasks
+CONCURRENCY        = 20  # Number of concurrent tasks
 
 
 users = ['jakyd','jakfu']
 
 MUTATIONS_DIRECTORY = "mutations/mutations"
+
+
+def beep(seconds):
+    """Make a beep sound for a given number of seconds."""
+    os.system(f"echo -n '\a'; sleep {seconds}; echo -n '\a'")  # Linux/MacOS beep
 
 
 async def load_json_set(path: str) -> set:
@@ -77,6 +82,7 @@ class APIKeyClient:
             return True
         except Exception as e:
             print(f"[ERROR] Invalid API key {self.api_key}: {e}")
+            exit(1)
             return False
 
     async def update_quota(self) -> int:
