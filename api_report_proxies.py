@@ -13,6 +13,9 @@ import asyncio
 import time
 import vt
 from typing import List, Set
+import aiohttp
+
+
 
 # ──────────── Configuration ──────────────────────────────────────────
 API_KEYS_FILE        = "api_keys.txt"
@@ -21,8 +24,10 @@ PROXY_ROTATE_EVERY   = 30                   #  ← NEW
 PORXY_ROTATE_EVERY_MINUTE = 5                #  ← NEW
 PROCESSED_FILE       = "processed_files.json"
 RESULTS_FILE         = "results.json"
-CONCURRENCY          = 15
+CONCURRENCY          = 30
 MUTATIONS_DIRECTORY  = "mutations/mutations"
+
+maximum_errors = 100
 # ──────────────────────────────────────────────────────────────────────
 
 
@@ -45,6 +50,20 @@ async def load_json_set(path: str) -> Set[str]:
     return set()
 
 
+async def proxy_alive(url: str | None, timeout=10) -> bool:
+    """Return True if the proxy (or direct) can reach VirusTotal."""
+    try:
+        connector = aiohttp.TCPConnector(ssl=False, trust_env=True)
+        async with aiohttp.ClientSession(connector=connector) as sess:
+            async with sess.head(
+                "https://www.virustotal.com", proxy=url,
+                timeout=timeout
+            ):
+                return True
+    except Exception:
+        return False
+
+
 async def load_json_list(path: str) -> list:
     if os.path.exists(path):
         try:
@@ -63,10 +82,15 @@ async def save_json(path: str, data) -> None:
 class APIKeyClient:
     def __init__(self, api_key: str):
         self.api_key = api_key
-        self.client  = vt.Client(api_key)
+
+
+        # trust_env=True lets aiohttp pick up HTTP_PROXY/HTTPS_PROXY
+        self.client  = vt.Client(api_key, trust_env=True)
         self.remaining_quota = 0
 
     async def validate(self) -> bool:
+        global maximum_errors
+
         try:
             data = await self.client.get_json_async(
                 f"/users/{self.api_key}/overall_quotas"
@@ -75,10 +99,17 @@ class APIKeyClient:
             self.remaining_quota = user["allowed"] - user["used"]
             return True
         except Exception as e:
+            maximum_errors -= 1
+            if maximum_errors <= 0:
+                print(f"[ERROR] API key {self.api_key} is invalid: {e}")
+                exit(1)
+
             print(f"[ERROR] API key {self.api_key}: {e}")
             return False          # ← don’t exit; just signal failure
 
     async def update_quota(self) -> int:
+        global maximum_errors
+
         try:
             data = await self.client.get_json_async(
                 f"/users/{self.api_key}/overall_quotas"
@@ -86,6 +117,10 @@ class APIKeyClient:
             user = data["data"]["api_requests_daily"]["user"]
             self.remaining_quota = user["allowed"] - user["used"]
         except Exception as e:
+            maximum_errors -= 1
+            if maximum_errors <= 0:
+                print(f"[ERROR] API key {self.api_key} is invalid: {e}")
+                exit(1)
             print(f"[ERROR] Quota fetch failed for {self.api_key}: {e}")
             self.remaining_quota = 0
         return self.remaining_quota
@@ -115,6 +150,10 @@ async def process_file(file_path: str,
                 client = c
                 break
         if not client:
+            maximum_errors -= 1
+            if maximum_errors <= 0:
+                print(f"[ERROR] All API keys exhausted for {file_path}.")
+                exit(1)
             print("[WARN] All API quotas exhausted for this batch.")
             return
 
@@ -184,8 +223,13 @@ async def main():
     if os.path.exists(PROXIES_FILE):
         with open(PROXIES_FILE) as f:
             proxies = [p.strip() for p in f if p.strip()]
-    if not proxies:
-        proxies = [None]  # single direct-connection placeholder
+    checked = []
+    for p in proxies or [None]:
+        if await proxy_alive(p):
+            checked.append(p)
+        else:
+            print(f"[WARN] proxy {p or 'direct'} is unreachable – skipped.")
+    proxies = checked or [None]        # always have something to use
 
     processed = await load_json_set(PROCESSED_FILE)
     results   = await load_json_list(RESULTS_FILE)

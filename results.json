@@ -8968,5 +8968,1133 @@
     "malicious": 3,
     "total_scans": 76,
     "date": "2025-04-30T13:39:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_ibp_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:29"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_eq_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:29"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_eq_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:29"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_eq_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:29"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:29"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_ibp_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:30"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_4.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:30"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:30"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_ibp_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:30"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_3.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:30"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_1.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:30"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:30"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_ibp_4.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:27:50"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:56"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:28:58"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_uuid_nop_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:32:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_tcp_eq_7.bin",
+    "malicious": 9,
+    "total_scans": 76,
+    "date": "2025-05-01T15:32:16"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_1.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:32:22"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:10"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:10"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:10"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:11"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:11"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:11"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_5.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:11"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_1.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:11"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:11"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_10.bin",
+    "malicious": 9,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:31"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_10.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:31"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_bcf_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:32"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_4.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:51"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:55"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:55"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_1.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:55"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:55"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:33:56"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:34:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:34:16"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:34:32"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:34:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_10.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:34:36"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_3.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:34:53"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-05-01T15:34:58"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:35:16"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:35:20"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_4.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:41"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:41"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:41"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:41"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:42"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:44:42"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:04"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:04"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_10.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:05"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:05"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:05"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_3.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:05"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:05"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:05"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:09"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:24"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:25"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:25"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_10.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:25"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:45:26"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_ibp_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:46:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:46:33"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:46:53"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_5.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:46:53"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:46:53"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:46:53"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:16"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:36"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:37"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:37"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:37"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:37"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:57"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_4.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:47:57"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:00"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:00"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:20"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:20"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_bcf_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:20"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_10.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_1.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:21"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_3.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_nop_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:48:36"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:22"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:22"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_4.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:23"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:23"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:23"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:23"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:23"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:23"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_5.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:24"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:26"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_3.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_10.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:55"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:49:57"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:14"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:15"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttps_eq_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:35"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:36"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:38"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-05-01T15:50:38"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:38"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-05-01T15:50:38"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:38"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:39"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:40"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:41"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:58"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:59"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:59"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_eq_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:50:59"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_1.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:51:19"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:51:19"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_3.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:06"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:49"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:49"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:50"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:50"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:52:50"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:08"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:10"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_10.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:27"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:28"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:28"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_nop_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:31"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:33"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_pingback_reverse_tcp_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:34"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:51"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:51"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:53:53"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_pingback_reverse_tcp_bcf_1.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-05-01T15:53:54"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:54:12"
+  },
+  {
+    "file": "C:\\Users\\jakyd\\Desktop\\Zone\\mutations\\mutations\\x64\\windows_x64_meterpreter_reverse_winhttp_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-05-01T15:54:12"
   }
 ]
