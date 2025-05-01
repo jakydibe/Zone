@@ -1,282 +1,256 @@
 #!/usr/bin/env python3
-"""
-Submit all .bin files in a directory (and subdirectories) to VirusTotal
-asynchronously with multiple API keys, rotating to a different proxy/IP
-every N file submissions.
 
+"""
+Submit all .bin files in a directory (and subdirectories) to VirusTotal asynchronously using multiple API keys,
+with quota checking, persistent tracking of processed files and results, and rotating through a proxy list.
 Requires: pip install vt-py aiohttp
 """
-
 import os
 import json
 import asyncio
 import time
 import vt
-from typing import List, Set
 import aiohttp
 
+# Configuration
+API_KEYS_FILE       = "api_keys.txt"
+PROXIES_FILE        = "proxies.txt"
+PROCESSED_FILE      = "processed_files.json"
+RESULTS_FILE        = "results.json"
+MUTATIONS_DIRECTORY = "mutations/mutations"
+CONCURRENCY         = 15  # Number of concurrent file scans
+ROTATE_PROXY_EVERY  = 30  # requests per proxy before rotating
+ROTATE_KEY_EVERY    = 1   # requests per API key before rotating
 
 
-# ──────────── Configuration ──────────────────────────────────────────
-API_KEYS_FILE        = "api_keys.txt"
-PROXIES_FILE         = "proxies.txt"        #  ← NEW
-PROXY_ROTATE_EVERY   = 30                   #  ← NEW
-PORXY_ROTATE_EVERY_MINUTE = 5                #  ← NEW
-PROCESSED_FILE       = "processed_files.json"
-RESULTS_FILE         = "results.json"
-CONCURRENCY          = 30
-MUTATIONS_DIRECTORY  = "mutations/mutations"
-
-maximum_errors = 100
-# ──────────────────────────────────────────────────────────────────────
+def beep(seconds):
+    os.system(f"echo -n '\a'; sleep {seconds}; echo -n '\a'")
 
 
-def set_proxy_env(proxy_url: str | None) -> None:
-    for var in ("HTTP_PROXY", "HTTPS_PROXY", "http_proxy", "https_proxy"):
-        if proxy_url:
-            os.environ[var] = proxy_url
-        else:
-            os.environ.pop(var, None)
-
-
-
-async def load_json_set(path: str) -> Set[str]:
+async def load_json_set(path: str) -> set:
     if os.path.exists(path):
         try:
-            with open(path, "r") as f:
+            with open(path, 'r') as f:
                 return set(json.load(f))
-        except (ValueError, json.JSONDecodeError):
+        except (json.JSONDecodeError, ValueError):
             return set()
     return set()
-
-
-async def proxy_alive(url: str | None, timeout=10) -> bool:
-    """Return True if the proxy (or direct) can reach VirusTotal."""
-    try:
-        connector = aiohttp.TCPConnector(ssl=False, trust_env=True)
-        async with aiohttp.ClientSession(connector=connector) as sess:
-            async with sess.head(
-                "https://www.virustotal.com", proxy=url,
-                timeout=timeout
-            ):
-                return True
-    except Exception:
-        return False
 
 
 async def load_json_list(path: str) -> list:
     if os.path.exists(path):
         try:
-            with open(path, "r") as f:
+            with open(path, 'r') as f:
                 return json.load(f)
-        except (ValueError, json.JSONDecodeError):
+        except (json.JSONDecodeError, ValueError):
             return []
     return []
 
 
 async def save_json(path: str, data) -> None:
-    with open(path, "w") as f:
+    with open(path, 'w') as f:
         json.dump(data, f, indent=2)
 
 
+async def is_proxy_working(proxy: str) -> bool:
+    test_url = "https://www.virustotal.com/"
+    timeout = aiohttp.ClientTimeout(total=10)
+    proxy_url = f"http://{proxy}" if not proxy.startswith("http") else proxy
+    try:
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.get(test_url, proxy=proxy_url) as resp:
+                return resp.status == 200
+    except Exception:
+        return False
+
+
+class ProxyManager:
+    def __init__(self, proxy_file: str, rotate_every: int = ROTATE_PROXY_EVERY):
+        self.proxy_file = proxy_file
+        self.rotate_every = rotate_every
+        self.working = []
+        self._index = 0
+        self._counter = 0
+
+    async def load_and_verify(self):
+        if not os.path.exists(self.proxy_file):
+            raise FileNotFoundError(f"Proxy list file not found: {self.proxy_file}")
+
+        with open(self.proxy_file) as f:
+            candidates = [line.strip() for line in f if line.strip()]
+
+        sem = asyncio.Semaphore(100)
+        async def check(p):
+            async with sem:
+                if await is_proxy_working(p):
+                    self.working.append(p)
+        await asyncio.gather(*(check(p) for p in candidates))
+
+        if not self.working:
+            raise RuntimeError("No working proxies available")
+        print(f"[INFO] {len(self.working)} working proxies loaded.")
+
+    def get_proxy(self) -> str:
+        if self._counter >= self.rotate_every:
+            self._index = (self._index + 1) % len(self.working)
+            self._counter = 0
+            print(f"[INFO] Rotated proxy -> {self.working[self._index]}")
+        self._counter += 1
+        url = self.working[self._index]
+        return url if url.startswith("http") else f"http://{url}"
+
+
+class APIKeyManager:
+    """
+    Round-robin API key manager that rotates through vt.Clients,
+    checking and refreshing quotas as needed.
+    """
+    def __init__(self, api_keys: list, proxy_mgr: ProxyManager, rotate_every: int = ROTATE_KEY_EVERY):
+        self.clients = [APIKeyClient(k, proxy_mgr) for k in api_keys]
+        self.rotate_every = rotate_every
+        self._index = 0
+        self._counter = 0
+
+    async def initialize(self):
+        """Validate all keys and filter those with quota."""
+        valid = []
+        for client in self.clients:
+            if await client.validate() and client.remaining_quota > 0:
+                valid.append(client)
+        if not valid:
+            raise RuntimeError("No valid API keys with quota available.")
+        self.clients = valid
+        print(f"[INFO] {len(self.clients)} API keys ready for rotation.")
+
+    async def get_client(self) -> 'APIKeyClient':
+        """
+        Return the next client in round-robin with available quota.
+        Refresh quotas if needed.
+        """
+        for attempt in range(len(self.clients)):
+            if self._counter >= self.rotate_every:
+                self._index = (self._index + 1) % len(self.clients)
+                self._counter = 0
+                print(f"[INFO] Rotated API key -> {self.clients[self._index].api_key}")
+            client = self.clients[self._index]
+            await client.update_quota()
+            if client.remaining_quota > 0:
+                self._counter += 1
+                return client
+            else:
+                # skip exhausted key
+                print(f"[WARN] Key {client.api_key} exhausted, skipping.")
+                self.clients.pop(self._index)
+                if not self.clients:
+                    raise RuntimeError("All API keys exhausted.")
+                # adjust index if needed
+                self._index %= len(self.clients)
+        raise RuntimeError("No API key available with quota.")
+
+
 class APIKeyClient:
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, proxy_mgr: ProxyManager):
         self.api_key = api_key
-
-
-        # trust_env=True lets aiohttp pick up HTTP_PROXY/HTTPS_PROXY
-        self.client  = vt.Client(api_key, trust_env=True)
+        self.proxy_mgr = proxy_mgr
         self.remaining_quota = 0
 
     async def validate(self) -> bool:
-        global maximum_errors
-
+        client = vt.Client(self.api_key, proxy=self.proxy_mgr.get_proxy())
         try:
-            data = await self.client.get_json_async(
-                f"/users/{self.api_key}/overall_quotas"
-            )
+            data = await client.get_json_async(f"/users/{self.api_key}/overall_quotas")
             user = data["data"]["api_requests_daily"]["user"]
             self.remaining_quota = user["allowed"] - user["used"]
+            print(f"[INFO] Key {self.api_key} initial quota: {self.remaining_quota}")
             return True
         except Exception as e:
-            maximum_errors -= 1
-            if maximum_errors <= 0:
-                print(f"[ERROR] API key {self.api_key} is invalid: {e}")
-                exit(1)
-
-            print(f"[ERROR] API key {self.api_key}: {e}")
-            return False          # ← don’t exit; just signal failure
+            print(f"[ERROR] Validating key {self.api_key}: {e}")
+            return False
+        finally:
+            await client.close_async()
 
     async def update_quota(self) -> int:
-        global maximum_errors
-
+        client = vt.Client(self.api_key, proxy=self.proxy_mgr.get_proxy())
         try:
-            data = await self.client.get_json_async(
-                f"/users/{self.api_key}/overall_quotas"
-            )
+            data = await client.get_json_async(f"/users/{self.api_key}/overall_quotas")
             user = data["data"]["api_requests_daily"]["user"]
             self.remaining_quota = user["allowed"] - user["used"]
+            return self.remaining_quota
         except Exception as e:
-            maximum_errors -= 1
-            if maximum_errors <= 0:
-                print(f"[ERROR] API key {self.api_key} is invalid: {e}")
-                exit(1)
-            print(f"[ERROR] Quota fetch failed for {self.api_key}: {e}")
+            print(f"[ERROR] Updating quota for {self.api_key}: {e}")
             self.remaining_quota = 0
-        return self.remaining_quota
+            return 0
+        finally:
+            await client.close_async()
 
     async def scan_file(self, file_path: str):
-        with open(file_path, 'rb') as f:
-            analysis = await self.client.scan_file_async(
-                f, wait_for_completion=True
-            )
-        return analysis
+        client = vt.Client(self.api_key, proxy=self.proxy_mgr.get_proxy())
+        try:
+            with open(file_path, 'rb') as f:
+                return await client.scan_file_async(f, wait_for_completion=True)
+        finally:
+            await client.close_async()
 
 
-async def process_file(file_path: str,
-                       clients: List[APIKeyClient],
-                       processed: set,
-                       results: list,
-                       sem: asyncio.Semaphore):
+async def process_file(file_path: str, key_mgr: APIKeyManager, processed: set, results: list, sem: asyncio.Semaphore):
     async with sem:
         if file_path in processed:
             return
 
-        # pick first client with quota
-        client = None
-        for c in clients:
-            await c.update_quota()
-            if c.remaining_quota > 0:
-                client = c
-                break
-        if not client:
-            maximum_errors -= 1
-            if maximum_errors <= 0:
-                print(f"[ERROR] All API keys exhausted for {file_path}.")
-                exit(1)
-            print("[WARN] All API quotas exhausted for this batch.")
-            return
-
         try:
+            client = await key_mgr.get_client()
             analysis = await client.scan_file(file_path)
             stats = analysis.stats
-            malicious = stats.get("malicious", 0)
-            total     = sum(stats.values())
-            print(f"{file_path}: {malicious}/{total}")
+            mal = stats.get("malicious", 0)
+            tot = sum(stats.values())
+            print(f"{file_path}: {mal}/{tot} scans flagged malicious.")
 
             processed.add(file_path)
             results.append({
                 "file": file_path,
-                "malicious": malicious,
-                "total_scans": total,
+                "malicious": mal,
+                "total_scans": tot,
                 "date": time.strftime("%Y-%m-%dT%H:%M:%S")
             })
             await save_json(PROCESSED_FILE, list(processed))
-            await save_json(RESULTS_FILE,   results)
+            await save_json(RESULTS_FILE, results)
         except Exception as e:
-            print(f"[ERROR] {file_path} -> {e}")
-
-
-async def create_clients(keys: list[str]) -> list[APIKeyClient]:
-    usable = []
-    for key in keys:
-        client = APIKeyClient(key)
-        if await client.validate() and client.remaining_quota > 0:
-            usable.append(client)
-        else:
-            # close immediately ➜ no “unclosed connector” warnings
-            try:
-                await client.client.close_async()
-            except Exception:
-                pass
-    return usable
-
-
-
-async def close_clients(clients: List[APIKeyClient]) -> None:     # ← NEW
-    for c in clients:
-        try:
-            await c.client.close_async()
-        except Exception:
-            pass
+            print(f"[ERROR] Scanning {file_path}: {e}")
 
 
 async def main():
-    # Ensure persistence files exist
-    for fn in (PROCESSED_FILE, RESULTS_FILE):
+    # initialize persistence files
+    for fn, init in [(PROCESSED_FILE, []), (RESULTS_FILE, [])]:
         if not os.path.exists(fn):
-            with open(fn, "w") as f:
-                f.write("[]")
+            with open(fn, 'w') as f:
+                json.dump(init, f)
 
-    # Load API keys
+    # setup proxy manager
+    proxy_mgr = ProxyManager(PROXIES_FILE)
+    await proxy_mgr.load_and_verify()
+
+    # load and initialize API keys
     if not os.path.exists(API_KEYS_FILE):
-        print(f"API keys file not found: {API_KEYS_FILE}")
+        print(f"API keys file missing: {API_KEYS_FILE}")
         return
     with open(API_KEYS_FILE) as f:
-        keys = [line.strip() for line in f if line.strip()]
-    if not keys:
-        print("No API keys!")
-        return
+        keys = [k.strip() for k in f if k.strip()]
 
-    # Load proxy list  (empty list ⇒ no rotation, direct connection)
-    proxies = []
-    if os.path.exists(PROXIES_FILE):
-        with open(PROXIES_FILE) as f:
-            proxies = [p.strip() for p in f if p.strip()]
-    checked = []
-    for p in proxies or [None]:
-        if await proxy_alive(p):
-            checked.append(p)
-        else:
-            print(f"[WARN] proxy {p or 'direct'} is unreachable – skipped.")
-    proxies = checked or [None]        # always have something to use
+    key_mgr = APIKeyManager(keys, proxy_mgr)
+    await key_mgr.initialize()
 
+    # load processed and results
     processed = await load_json_set(PROCESSED_FILE)
     results   = await load_json_list(RESULTS_FILE)
 
-    # Gather .bin files
-    all_files = []
-    for root, _, fnames in os.walk(MUTATIONS_DIRECTORY):
-        for fn in fnames:
-            if fn.lower().endswith(".bin"):
-                fp = os.path.abspath(os.path.join(root, fn))
-                if fp not in processed:            # skip already done
-                    all_files.append(fp)
+    # gather .bin files
+    files = [os.path.abspath(os.path.join(r, fn))
+             for r, _, fns in os.walk(MUTATIONS_DIRECTORY)
+             for fn in fns if fn.lower().endswith('.bin')]
 
-    if not all_files:
-        print("Nothing new to submit.")
-        return
+    sem = asyncio.Semaphore(CONCURRENCY)
+    tasks = [asyncio.create_task(process_file(fp, key_mgr, processed, results, sem)) for fp in files]
+    await asyncio.gather(*tasks)
+    print("[INFO] All done.")
 
-    # ───────────── Batch loop with proxy rotation ─────────────
-    start_time = time.time()
-    for batch_idx, start in enumerate(range(0, len(all_files), PROXY_ROTATE_EVERY)):
-
-        end          = start + PROXY_ROTATE_EVERY
-        batch_files  = all_files[start:end]
-        proxy_url    = proxies[batch_idx % len(proxies)]
-        set_proxy_env(proxy_url)                   # ← NEW
-        if proxy_url:
-            print(f"\n[INFO] ► Using proxy {proxy_url}")
-        else:
-            print(f"\n[INFO] ► Direct connection (no proxy)")
-
-        clients = await create_clients(keys)       # ← NEW
-        if not clients:
-            print("No usable API keys for this batch. Aborting.")
-            return
-
-        sem   = asyncio.Semaphore(CONCURRENCY)
-        tasks = [asyncio.create_task(
-                    process_file(fp, clients, processed, results, sem)
-                 ) for fp in batch_files]
-        await asyncio.gather(*tasks)
-
-        await close_clients(clients)               # ← NEW
-        print(f"[INFO] ▲ Completed batch {batch_idx+1} "
-              f"({len(batch_files)} files)")
-
-    print("\n[DONE] All pending files processed.")
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     asyncio.run(main())

@@ -1,22 +1,16 @@
-import asyncio, aiohttp, pathlib
+from requests_ip_rotator import ApiGateway, EXTRA_REGIONS
+import requests, time
 
-PROXY_FILE = "proxies.txt"
-TEST_URL   = "https://www.virustotal.com/"
+# Create a gateway that fronts the target you’re contacting
+gateway = ApiGateway("https://virustotal.com", regions=EXTRA_REGIONS)  # ~25 AWS regions → ~25 IPs *
+gateway.start()
 
-async def probe(proxy):
-    try:
-        async with aiohttp.ClientSession() as s:
-            async with s.head(TEST_URL, proxy=proxy, timeout=10):
-                return proxy, "OK"
-    except Exception as e:
-        return proxy, f"{type(e).__name__}: {e}"
+session = requests.Session()
+session.mount("https://virustotal.com", gateway)     # attach the rotator
 
-async def main():
-    proxies = [p.strip() for p in pathlib.Path(PROXY_FILE).read_text().splitlines() if p.strip()]
-    results = await asyncio.gather(*(probe(p if "://" in p else f"http://{p}") for p in proxies))
-    for p, r in results:
-        # print(f"{p:<35} -> {r}")
-        if r == "OK":
-            print(f"{p}")
+for i in range(100):
+    r = session.get("https://virustotal.com")        # every request leaves via a new IP
+    print(i, r.status_code, r.headers.get("x-amz-cf-pop"))
+    time.sleep(2)
 
-asyncio.run(main())
+gateway.shutdown()

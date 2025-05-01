@@ -20,6 +20,9 @@ CONCURRENCY        = 20  # Number of concurrent tasks
 
 users = ['jakyd','jakfu']
 
+current_client = 0
+apy_key_num = 0
+
 MUTATIONS_DIRECTORY = "mutations/mutations"
 
 
@@ -110,11 +113,19 @@ async def process_file(file_path: str, clients: list, processed: set, results: l
 
         # pick client with available quota
         client = None
+        remaining_clients = []
         for c in clients:
             await c.update_quota()
             if c.remaining_quota > 0:
+                remaining_clients.append(c)
                 client = c
                 break
+        client_num = len(remaining_clients)
+
+        client = remaining_clients[current_client]
+        current_client += 1
+        current_client %= client_num
+        
         if not client:
             print("[WARN] All API quotas exhausted.")
             return
@@ -153,6 +164,7 @@ async def main():
 
     with open(API_KEYS_FILE) as f:
         keys = [line.strip() for line in f if line.strip()]
+        api_keys_num = len(keys)
 
     clients = []
     for key in keys:
