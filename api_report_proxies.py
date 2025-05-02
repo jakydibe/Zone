@@ -219,6 +219,7 @@ async def process_file(file_path: str, key_mgr: APIKeyManager, processed: set, r
 
 async def main():
     # initialize persistence files
+
     for fn, init in [(PROCESSED_FILE, []), (RESULTS_FILE, [])]:
         if not os.path.exists(fn):
             with open(fn, 'w') as f:
@@ -250,6 +251,18 @@ async def main():
     sem = asyncio.Semaphore(CONCURRENCY)
     tasks = [asyncio.create_task(process_file(fp, key_mgr, processed, results, sem)) for fp in files]
     await asyncio.gather(*tasks)
+
+    processed = await load_json_set(PROCESSED_FILE)
+    results   = await load_json_list(RESULTS_FILE)
+    
+    missing = set(files) - processed
+    if missing:
+        print(f"[WARN] {len(missing)} files not processed:")
+        for fp in missing:
+            print(f"  {fp}")
+    else:
+        print("[INFO] All files processed.")
+
     print("[INFO] All done.")
 
 if __name__ == '__main__':
