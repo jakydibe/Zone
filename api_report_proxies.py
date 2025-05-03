@@ -219,49 +219,53 @@ async def process_file(file_path: str, key_mgr: APIKeyManager, processed: set, r
 
 async def main():
     # initialize persistence files
+    finished = False
+    while not finished:
 
-    for fn, init in [(PROCESSED_FILE, []), (RESULTS_FILE, [])]:
-        if not os.path.exists(fn):
-            with open(fn, 'w') as f:
-                json.dump(init, f)
+        for fn, init in [(PROCESSED_FILE, []), (RESULTS_FILE, [])]:
+            if not os.path.exists(fn):
+                with open(fn, 'w') as f:
+                    json.dump(init, f)
 
-    # setup proxy manager
-    proxy_mgr = ProxyManager(PROXIES_FILE)
-    await proxy_mgr.load_and_verify()
+        # setup proxy manager
+        proxy_mgr = ProxyManager(PROXIES_FILE)
+        await proxy_mgr.load_and_verify()
 
-    # load and initialize API keys
-    if not os.path.exists(API_KEYS_FILE):
-        print(f"API keys file missing: {API_KEYS_FILE}")
-        return
-    with open(API_KEYS_FILE) as f:
-        keys = [k.strip() for k in f if k.strip()]
+        # load and initialize API keys
+        if not os.path.exists(API_KEYS_FILE):
+            print(f"API keys file missing: {API_KEYS_FILE}")
+            return
+        with open(API_KEYS_FILE) as f:
+            keys = [k.strip() for k in f if k.strip()]
 
-    key_mgr = APIKeyManager(keys, proxy_mgr)
-    await key_mgr.initialize()
+        key_mgr = APIKeyManager(keys, proxy_mgr)
+        await key_mgr.initialize()
 
-    # load processed and results
-    processed = await load_json_set(PROCESSED_FILE)
-    results   = await load_json_list(RESULTS_FILE)
+        # load processed and results
+        processed = await load_json_set(PROCESSED_FILE)
+        results   = await load_json_list(RESULTS_FILE)
 
-    # gather .bin files
-    files = [os.path.abspath(os.path.join(r, fn))
-             for r, _, fns in os.walk(MUTATIONS_DIRECTORY)
-             for fn in fns if fn.lower().endswith('.bin')]
+        # gather .bin files
+        files = [os.path.abspath(os.path.join(r, fn))
+                for r, _, fns in os.walk(MUTATIONS_DIRECTORY)
+                for fn in fns if fn.lower().endswith('.bin')]
 
-    sem = asyncio.Semaphore(CONCURRENCY)
-    tasks = [asyncio.create_task(process_file(fp, key_mgr, processed, results, sem)) for fp in files]
-    await asyncio.gather(*tasks)
+        sem = asyncio.Semaphore(CONCURRENCY)
+        tasks = [asyncio.create_task(process_file(fp, key_mgr, processed, results, sem)) for fp in files]
+        await asyncio.gather(*tasks)
 
-    processed = await load_json_set(PROCESSED_FILE)
-    results   = await load_json_list(RESULTS_FILE)
-    
-    missing = set(files) - processed
-    if missing:
-        print(f"[WARN] {len(missing)} files not processed:")
-        for fp in missing:
-            print(f"  {fp}")
-    else:
-        print("[INFO] All files processed.")
+        processed = await load_json_set(PROCESSED_FILE)
+        results   = await load_json_list(RESULTS_FILE)
+        
+        missing = set(files) - processed
+        if missing:
+            finished = False
+            print(f"[WARN] {len(missing)} files not processed:")
+            for fp in missing:
+                print(f"  {fp}")
+        else:
+            finished = True
+            print("[INFO] All files processed.")
 
     print("[INFO] All done.")
 
