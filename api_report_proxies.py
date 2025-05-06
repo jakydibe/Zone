@@ -15,9 +15,9 @@ import aiohttp
 # Configuration
 API_KEYS_FILE       = "api_keys.txt"
 PROXIES_FILE        = "proxies.txt"
-PROCESSED_FILE      = "processed_files.json"
-RESULTS_FILE        = "results.json"
-MUTATIONS_DIRECTORY = "mutations/mutations"
+PROCESSED_FILE      = "processed_files_sgn.json"
+RESULTS_FILE        = "results_sgn.json"
+MUTATIONS_DIRECTORY = "sgn_mutated/"
 CONCURRENCY         = 15  # Number of concurrent file scans
 ROTATE_PROXY_EVERY  = 30  # requests per proxy before rotating
 ROTATE_KEY_EVERY    = 1   # requests per API key before rotating
