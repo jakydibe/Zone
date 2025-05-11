@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Zone** is a PE-obfuscator equipped with a metamorphic engine, designed to evade static analysis. This project represents a significant personal achievement, likened to the most challenging "hello_world.exe" I've ever created.
+**Zone** is a raw payload and PE-obfuscator equipped with a metamorphic engine, designed to evade static analysis. This project represents a significant personal achievement, likened to the most challenging "hello_world.exe" I've ever created.
 
 ## Introduction to Metamorphism
 
