@@ -1,124 +1,104 @@
 #!/usr/bin/env python3
 import os
+import sys
 import json
-import argparse
-from collections import defaultdict
 import matplotlib.pyplot as plt
 
-# base techniques
 SINGLES = ['nop', 'eq', 'pii', 'bcf', 'ibp']
-# valid 3-way combos now using eq_nop_<third>
 THIRDS = ['pii', 'bcf', 'ibp']
-COMBOS = [f'eq_nop_{t}' for t in THIRDS]
-
-# full list of categories in plotting order
-CATEGORIES = SINGLES + COMBOS
-
-def parse_args():
-    p = argparse.ArgumentParser(
-        description="Generate per-architecture charts of total and average detections by technique/combo."
-    )
-    p.add_argument('report', help="Path to the JSON report file")
-    p.add_argument('outdir', help="Directory where the PNGs will be saved")
-    return p.parse_args()
+CATEGORIES = SINGLES + [f'eq_nop_{t}' for t in THIRDS]
 
 def classify(parts):
-    """
-    Given the filename split on '_', return one of:
-      - a single technique (e.g. 'nop')
-      - a combo 'eq_nop_bcf' / 'eq_nop_pii' / 'eq_nop_ibp'
-    or None if it doesn't match the allowed patterns.
-    """
     found = {t for t in SINGLES if t in parts}
-
-    # single-tech payload
     if len(found) == 1:
         return found.pop()
-
-    # combo: must have both nop & eq, plus exactly one of the THIRDS
     if 'nop' in found and 'eq' in found:
         thirds = found & set(THIRDS)
         if len(thirds) == 1:
             return f'eq_nop_{thirds.pop()}'
-
     return None
 
-def make_bar_chart(values, labels, title, ylabel, out_path):
-    fig, ax = plt.subplots()
-    x = range(len(labels))
-    ax.bar(x, values)
-    ax.set_xticks(x)
-    ax.set_xticklabels(labels, rotation=30, ha='right')
-    ax.set_ylabel(ylabel)
-    ax.set_xlabel('Technique / Combo')
-    ax.set_title(title)
-    plt.tight_layout()
-    plt.savefig(out_path)
-    plt.close(fig)
-    print(f'→ Saved {out_path}')
-
-
-
-def main():
-    args = parse_args()
-    averagex64_dets = 0
-    averagex86_dets = 0
-    x64_pl_num = 0
-    x86_pl_num = 0
-    with open(args.report, 'r') as f:
+def load_rates(report_path):
+    with open(report_path, 'r') as f:
         records = json.load(f)
 
-    # initialize sums and counts per arch & category
-    total_detections = {arch: {cat: 0 for cat in CATEGORIES} for arch in ('x86','x64')}
-    payload_counts   = {arch: {cat: 0 for cat in CATEGORIES} for arch in ('x86','x64')}
+    total = next((rec["total"] for rec in records if "total" in rec and rec["total"] > 0), None)
+    if total is None:
+        print("Warning: no 'total' field found, assuming 70")
+        total = 76
+
+    data = {"x86": {cat: [] for cat in CATEGORIES},
+            "x64": {cat: [] for cat in CATEGORIES}}
 
     for rec in records:
-        path = rec.get('file','')
-        arch = 'x64' if '\\x64\\' in path or '/x64/' in path else 'x86'
+        path = rec.get("file", "")
+        arch = "x64" if "/x64/" in path or "\\x64\\" in path else "x86"
         name = os.path.basename(path)
-        parts = name.rsplit('.',1)[0].split('_')
+        parts = name.rsplit('.', 1)[0].split('_')
         cat = classify(parts)
         if not cat:
             continue
+        rate = (rec.get("malicious", 0) / total) * 100
+        data[arch][cat].append(rate)
 
-        # accumulate
-        payload_counts[arch][cat]   += 1
-        total_detections[arch][cat] += rec.get('malicious', 0)
-        if arch == 'x64':
-            averagex64_dets += rec.get('malicious', 0)
-            x64_pl_num += 1
+    # Compute average per category
+    avg = {"x86": [], "x64": []}
+    for cat in CATEGORIES:
+        for arch in ["x86", "x64"]:
+            values = data[arch][cat]
+            avg[arch].append(sum(values) / len(values) if values else 0)
+    return avg
+
+def plot_comparison(avg_rates, output_path):
+    x = range(len(CATEGORIES))
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    # ax.plot(x, avg_rates["x86"], marker='o', label='x86', color='blue',alpha=0.5)
+    # ax.plot(x, avg_rates["x64"], marker='s', label='x64', color='orange',alpha=0.5)
+    # scatter plot
+    rates64 = avg_rates["x64"]
+    rates86 = avg_rates["x86"]
+    ax.scatter(x, rates64, s=90, color='orange',alpha=0.5, marker='s', edgecolors='black', label='x64')
+    ax.scatter(x, rates86, s=90, color='blue',alpha=0.5, marker='s', edgecolors='black', label='x86')
+
+    # also plot an average for each arch
+    avg64 = sum(rates64) / len(rates64) if rates64 else 0
+    avg86 = sum(rates86) / len(rates86) if rates86 else 0
+    ax.plot(x, [avg64] * len(x), color='orange',alpha=0.2, linestyle='--', label=f'Avg x64: {avg64:.1f}%')
+    ax.text(len(x) - 1.4, avg64 + 0.1, f'', ha='right', va='bottom', fontsize=10, color='orange', alpha=0.5)
+    ax.plot(x, [avg86] * len(x), color='blue',alpha=0.15, linestyle='--', label=f'Avg x86: {avg86:.1f}%')
+    ax.text(len(x) - 1.4, avg86 + 0.1, f'', ha='right', va='bottom', fontsize=10, color='blue', alpha=0.5)
+    # Add exact values
+    for i in x:
+        highest = max(avg_rates["x86"][i], avg_rates["x64"][i])
+        if avg_rates["x86"][i] > avg_rates["x64"][i]:
+        
+            ax.text(i, highest + 0.5, f'{avg_rates["x86"][i]:.1f}%', ha='center', va='bottom', fontsize=13, color='grey')
+            ax.text(i, highest + 0.2, f'{avg_rates["x64"][i]:.1f}%', ha='center', va='bottom', fontsize=13, color='grey')
         else:
-            averagex86_dets += rec.get('malicious', 0)
-            x86_pl_num += 1
+            ax.text(i, highest + 0.5, f'{avg_rates["x64"][i]:.1f}%', ha='center', va='bottom', fontsize=13, color='grey')
+            ax.text(i, highest + 0.2, f'{avg_rates["x86"][i]:.1f}%', ha='center', va='bottom', fontsize=13, color='grey')
+    ax.set_xticks(x)
+    ax.set_xticklabels(CATEGORIES, rotation=45, ha='right', fontsize=18)
+    ax.set_ylabel("Detection Rate (%)", fontsize=20)
+    ax.set_title("Detection Rate Comparison (x86 vs x64)", fontsize=20)
+    ax.set_xlabel("Obfuscation techniques", fontsize=20)
+    ax.set_ylim(0, 4)
+    ax.grid(True, axis='y', alpha=0.3)
+    ax.legend()
+    plt.tight_layout()
+    plt.savefig(output_path)
+    print(f"Saved to {output_path}")
 
-    print(f"Average x64 detections: {averagex64_dets/x64_pl_num:.2f}")
-    print(f"Average x86 detections: {averagex86_dets/x86_pl_num:.2f}")
-    os.makedirs(args.outdir, exist_ok=True)
+def main():
+    if len(sys.argv) != 3:
+        print(f"Usage: {sys.argv[0]} report.json output.png")
+        sys.exit(1)
+    report_path = sys.argv[1]
+    output_path = sys.argv[2]
 
-    # for each architecture, plot total & average
-    for arch in ('x86','x64'):
-        # TOTAL DETECTIONS
-        totals = [ total_detections[arch][c] for c in CATEGORIES ]
-        make_bar_chart(
-            totals,
-            CATEGORIES,
-            f'Total detections by category ({arch})',
-            'Total detections',
-            os.path.join(args.outdir, f'{arch}.png')
-        )
+    avg_rates = load_rates(report_path)
+    plot_comparison(avg_rates, output_path)
 
-        # AVERAGE DETECTIONS PER FILE
-        avgs = []
-        for c in CATEGORIES:
-            cnt = payload_counts[arch][c]
-            avgs.append( (total_detections[arch][c] / cnt) if cnt > 0 else 0 )
-        make_bar_chart(
-            avgs,
-            CATEGORIES,
-            f'Average detections per payload ({arch})',
-            'Avg detections per file',
-            os.path.join(args.outdir, f'{arch}_avg.png')
-        )
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

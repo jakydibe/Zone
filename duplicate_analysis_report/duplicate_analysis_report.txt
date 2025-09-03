@@ -1,0 +1,1312 @@
+================================================================================
+MUTATION DUPLICATE ANALYSIS REPORT
+Generated: 2025-08-10 03:23:10
+================================================================================
+
+OVERALL SUMMARY
+----------------------------------------
+Total files analyzed: 80919
+Total duplicate files: 279
+Overall uniqueness rate: 99.66%
+
+BY ARCHITECTURE
+----------------------------------------
+x64: 26/30400 duplicates (99.9% unique)
+x86: 253/50519 duplicates (99.5% unique)
+
+BY TECHNIQUE
+----------------------------------------
+bcf:
+  Total files: 10200
+  Duplicates: 0
+  Average uniqueness: 100.0%
+eq:
+  Total files: 10200
+  Duplicates: 279
+  Average uniqueness: 97.3%
+eq_nop_bcf:
+  Total files: 10200
+  Duplicates: 0
+  Average uniqueness: 100.0%
+eq_nop_ibp:
+  Total files: 10200
+  Duplicates: 0
+  Average uniqueness: 100.0%
+eq_nop_pii:
+  Total files: 9946
+  Duplicates: 0
+  Average uniqueness: 100.0%
+ibp:
+  Total files: 10200
+  Duplicates: 0
+  Average uniqueness: 100.0%
+nop:
+  Total files: 10200
+  Duplicates: 0
+  Average uniqueness: 100.0%
+pii:
+  Total files: 9773
+  Duplicates: 0
+  Average uniqueness: 99.0%
+
+TOP 10 WORST CASES (Most Duplicates)
+----------------------------------------
+1. x86/windows_meterpreter_bind_nonx_tcp/eq
+   Duplicates: 13, Uniqueness: 87.0%
+2. x86/windows_vncinject_bind_tcp/eq
+   Duplicates: 12, Uniqueness: 88.0%
+3. x86/windows_custom_bind_tcp/eq
+   Duplicates: 11, Uniqueness: 89.0%
+4. x86/windows_vncinject_reverse_tcp_uuid/eq
+   Duplicates: 11, Uniqueness: 89.0%
+5. x86/windows_custom_reverse_nonx_tcp/eq
+   Duplicates: 10, Uniqueness: 90.0%
+6. x86/windows_patchupmeterpreter_bind_tcp/eq
+   Duplicates: 10, Uniqueness: 90.0%
+7. x86/windows_patchupmeterpreter_reverse_nonx_tcp/eq
+   Duplicates: 10, Uniqueness: 90.0%
+8. x86/windows_shell_bind_nonx_tcp/eq
+   Duplicates: 10, Uniqueness: 90.0%
+9. x86/windows_custom_bind_nonx_tcp/eq
+   Duplicates: 9, Uniqueness: 91.0%
+10. x86/windows_meterpreter_reverse_nonx_tcp/eq
+   Duplicates: 9, Uniqueness: 91.0%
+
+DETAILED DUPLICATE LISTINGS
+================================================================================
+
+x64/windows_x64_custom_reverse_http/eq:
+----------------------------------------
+MD5: 10216c5311842ef72cb0e53b5f1e1f6e
+  Duplicate files (2):
+    - windows_x64_custom_reverse_http_mut_100.bin
+    - windows_x64_custom_reverse_http_mut_72.bin
+MD5: d502dcfa622fc522241123f4d1a9013a
+  Duplicate files (2):
+    - windows_x64_custom_reverse_http_mut_20.bin
+    - windows_x64_custom_reverse_http_mut_61.bin
+MD5: 3067eecb1dcab2f0ece54e8ef9fd6f38
+  Duplicate files (2):
+    - windows_x64_custom_reverse_http_mut_32.bin
+    - windows_x64_custom_reverse_http_mut_94.bin
+MD5: 1379798e173572cc38b767cd51c82edd
+  Duplicate files (2):
+    - windows_x64_custom_reverse_http_mut_58.bin
+    - windows_x64_custom_reverse_http_mut_79.bin
+
+x64/windows_x64_custom_reverse_winhttp/eq:
+----------------------------------------
+MD5: c4b673cb2101552f50d994c46fd18375
+  Duplicate files (2):
+    - windows_x64_custom_reverse_winhttp_mut_74.bin
+    - windows_x64_custom_reverse_winhttp_mut_96.bin
+MD5: c78eaef0f2f9b6a275fc38a96f37b602
+  Duplicate files (2):
+    - windows_x64_custom_reverse_winhttp_mut_77.bin
+    - windows_x64_custom_reverse_winhttp_mut_79.bin
+
+x64/windows_x64_custom_reverse_winhttps/eq:
+----------------------------------------
+MD5: ee8913726e4fa7bccb5def717661d62a
+  Duplicate files (2):
+    - windows_x64_custom_reverse_winhttps_mut_11.bin
+    - windows_x64_custom_reverse_winhttps_mut_58.bin
+
+x64/windows_x64_messagebox/eq:
+----------------------------------------
+MD5: 6051298cd167c050851aae7f789e6c24
+  Duplicate files (2):
+    - windows_x64_messagebox_mut_33.bin
+    - windows_x64_messagebox_mut_84.bin
+MD5: cd35347722e4efebbec824f412d17e00
+  Duplicate files (2):
+    - windows_x64_messagebox_mut_36.bin
+    - windows_x64_messagebox_mut_57.bin
+
+x64/windows_x64_meterpreter_reverse_http/eq:
+----------------------------------------
+MD5: b8be8b80117bcc0e78ad22d496d8f2a2
+  Duplicate files (2):
+    - windows_x64_meterpreter_reverse_http_mut_13.bin
+    - windows_x64_meterpreter_reverse_http_mut_27.bin
+MD5: 207c23512420c14410b0b267d444c6de
+  Duplicate files (2):
+    - windows_x64_meterpreter_reverse_http_mut_30.bin
+    - windows_x64_meterpreter_reverse_http_mut_86.bin
+MD5: d16a142f0c83505102c594f930169098
+  Duplicate files (2):
+    - windows_x64_meterpreter_reverse_http_mut_34.bin
+    - windows_x64_meterpreter_reverse_http_mut_66.bin
+
+x64/windows_x64_meterpreter_reverse_https/eq:
+----------------------------------------
+MD5: 72e9804cae778dec006eb13f32794e2a
+  Duplicate files (2):
+    - windows_x64_meterpreter_reverse_https_mut_16.bin
+    - windows_x64_meterpreter_reverse_https_mut_46.bin
+MD5: 72346a109f1634c0d65b6b4bb329e170
+  Duplicate files (2):
+    - windows_x64_meterpreter_reverse_https_mut_5.bin
+    - windows_x64_meterpreter_reverse_https_mut_82.bin
+
+x64/windows_x64_meterpreter_reverse_winhttp/eq:
+----------------------------------------
+MD5: a1962c274257b35e481f7186f965dd99
+  Duplicate files (2):
+    - windows_x64_meterpreter_reverse_winhttp_mut_53.bin
+    - windows_x64_meterpreter_reverse_winhttp_mut_78.bin
+
+x64/windows_x64_vncinject_reverse_http/eq:
+----------------------------------------
+MD5: 21e186987dd8fccd1fbb7d3f744780e3
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_http_mut_12.bin
+    - windows_x64_vncinject_reverse_http_mut_63.bin
+MD5: b9378ce9e87f9cd4fc1b5773a6c9ca2f
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_http_mut_20.bin
+    - windows_x64_vncinject_reverse_http_mut_3.bin
+MD5: 6d08c2cf010ee88db6fa60bee42e92b7
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_http_mut_35.bin
+    - windows_x64_vncinject_reverse_http_mut_61.bin
+MD5: 3f626510697ead457020b93329565012
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_http_mut_36.bin
+    - windows_x64_vncinject_reverse_http_mut_92.bin
+
+x64/windows_x64_vncinject_reverse_https/eq:
+----------------------------------------
+MD5: c06f896e1c094e151e1824848a881793
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_https_mut_14.bin
+    - windows_x64_vncinject_reverse_https_mut_69.bin
+MD5: 764166b84f5ecfd0d0ad6855dbebb5e9
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_https_mut_21.bin
+    - windows_x64_vncinject_reverse_https_mut_27.bin
+MD5: ebceb32ae0947f374396fd41562e0418
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_https_mut_28.bin
+    - windows_x64_vncinject_reverse_https_mut_57.bin
+MD5: 31dd2c010b413cb56b74e9696fa57d80
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_https_mut_48.bin
+    - windows_x64_vncinject_reverse_https_mut_63.bin
+
+x64/windows_x64_vncinject_reverse_winhttp/eq:
+----------------------------------------
+MD5: db987cb392feba576825bd1b6d15061c
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_winhttp_mut_51.bin
+    - windows_x64_vncinject_reverse_winhttp_mut_99.bin
+
+x64/windows_x64_vncinject_reverse_winhttps/eq:
+----------------------------------------
+MD5: 9b26c3938720e01a0fc32af80a6c201c
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_winhttps_mut_49.bin
+    - windows_x64_vncinject_reverse_winhttps_mut_89.bin
+MD5: 6ecab5b1dd64900449c2627d5cf11dc4
+  Duplicate files (2):
+    - windows_x64_vncinject_reverse_winhttps_mut_62.bin
+    - windows_x64_vncinject_reverse_winhttps_mut_7.bin
+
+x86/windows_custom_bind_nonx_tcp/eq:
+----------------------------------------
+MD5: 1deb0fcbf3e93688f5028b7445ed22fd
+  Duplicate files (3):
+    - windows_custom_bind_nonx_tcp_mut_1.bin
+    - windows_custom_bind_nonx_tcp_mut_20.bin
+    - windows_custom_bind_nonx_tcp_mut_48.bin
+MD5: 0408a76f944e8be4ef809b9f8942bd43
+  Duplicate files (3):
+    - windows_custom_bind_nonx_tcp_mut_12.bin
+    - windows_custom_bind_nonx_tcp_mut_33.bin
+    - windows_custom_bind_nonx_tcp_mut_35.bin
+MD5: 119aa96d21508dcf1313d422783a4c8a
+  Duplicate files (2):
+    - windows_custom_bind_nonx_tcp_mut_2.bin
+    - windows_custom_bind_nonx_tcp_mut_99.bin
+MD5: ad21120e02837c11bffba99bf85d3133
+  Duplicate files (2):
+    - windows_custom_bind_nonx_tcp_mut_23.bin
+    - windows_custom_bind_nonx_tcp_mut_69.bin
+MD5: fa4601d2500e0613aef1339409141886
+  Duplicate files (2):
+    - windows_custom_bind_nonx_tcp_mut_3.bin
+    - windows_custom_bind_nonx_tcp_mut_98.bin
+MD5: 99f32fdd89cbcbc7db706812afccd55e
+  Duplicate files (2):
+    - windows_custom_bind_nonx_tcp_mut_36.bin
+    - windows_custom_bind_nonx_tcp_mut_82.bin
+MD5: 66dea63220ee783a1d17de395508162c
+  Duplicate files (2):
+    - windows_custom_bind_nonx_tcp_mut_8.bin
+    - windows_custom_bind_nonx_tcp_mut_84.bin
+
+x86/windows_custom_bind_tcp/eq:
+----------------------------------------
+MD5: 7171315cd902bf739447471ec863bfb5
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_1.bin
+    - windows_custom_bind_tcp_mut_51.bin
+MD5: 41905181fababbf1522ded68b78297b9
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_100.bin
+    - windows_custom_bind_tcp_mut_88.bin
+MD5: 90e417fad6805b9537583db285f0e2b5
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_16.bin
+    - windows_custom_bind_tcp_mut_38.bin
+MD5: 9c10c8cf5f5b610f0aa3d948fd5228e7
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_28.bin
+    - windows_custom_bind_tcp_mut_85.bin
+MD5: e222240bc8863c68cf08eb5f5de4bfc2
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_32.bin
+    - windows_custom_bind_tcp_mut_69.bin
+MD5: ecfb2e081aaf29b33ce1b0e95793371d
+  Duplicate files (3):
+    - windows_custom_bind_tcp_mut_39.bin
+    - windows_custom_bind_tcp_mut_49.bin
+    - windows_custom_bind_tcp_mut_86.bin
+MD5: 5e399811e48d73e5ed102335ed76ccb3
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_52.bin
+    - windows_custom_bind_tcp_mut_80.bin
+MD5: a04274578475b127f8935a29f95d3c60
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_55.bin
+    - windows_custom_bind_tcp_mut_91.bin
+MD5: 0b7c1168a179580959a53c5d20e882e6
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_60.bin
+    - windows_custom_bind_tcp_mut_73.bin
+MD5: 72a4891114030b3128f768037cd1d77c
+  Duplicate files (2):
+    - windows_custom_bind_tcp_mut_77.bin
+    - windows_custom_bind_tcp_mut_90.bin
+
+x86/windows_custom_bind_tcp_uuid/eq:
+----------------------------------------
+MD5: a18085f683f6fc2f05102c82d765ecc8
+  Duplicate files (2):
+    - windows_custom_bind_tcp_uuid_mut_13.bin
+    - windows_custom_bind_tcp_uuid_mut_14.bin
+MD5: 6a4242e7821fdabede371041d822db2f
+  Duplicate files (2):
+    - windows_custom_bind_tcp_uuid_mut_15.bin
+    - windows_custom_bind_tcp_uuid_mut_67.bin
+MD5: abccedc04b7fc6e3927955c83b3f500a
+  Duplicate files (2):
+    - windows_custom_bind_tcp_uuid_mut_34.bin
+    - windows_custom_bind_tcp_uuid_mut_7.bin
+MD5: 2fd8735e8c10eb4c9f958b32404bd7c7
+  Duplicate files (2):
+    - windows_custom_bind_tcp_uuid_mut_4.bin
+    - windows_custom_bind_tcp_uuid_mut_85.bin
+
+x86/windows_custom_reverse_nonx_tcp/eq:
+----------------------------------------
+MD5: fd754a93aa0f51ae5589bdeb8454033b
+  Duplicate files (3):
+    - windows_custom_reverse_nonx_tcp_mut_10.bin
+    - windows_custom_reverse_nonx_tcp_mut_27.bin
+    - windows_custom_reverse_nonx_tcp_mut_52.bin
+MD5: 3f29f043285a5793525fdf0e0a6ba31b
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_17.bin
+    - windows_custom_reverse_nonx_tcp_mut_99.bin
+MD5: 152a23a5ea364a0bfe4f6692d449c25d
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_19.bin
+    - windows_custom_reverse_nonx_tcp_mut_70.bin
+MD5: a68dc4ab96a547ce8a485389eb28d3fa
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_25.bin
+    - windows_custom_reverse_nonx_tcp_mut_77.bin
+MD5: 097ef9f4195724ed8c70035c3bb4e6c0
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_31.bin
+    - windows_custom_reverse_nonx_tcp_mut_39.bin
+MD5: 94cd20ca1b8f1330a28fea34d33b321e
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_35.bin
+    - windows_custom_reverse_nonx_tcp_mut_84.bin
+MD5: ec35ba13432ea17676de31e7e75d8068
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_37.bin
+    - windows_custom_reverse_nonx_tcp_mut_82.bin
+MD5: 97d70cb65f908fbb54ce544e38d01927
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_41.bin
+    - windows_custom_reverse_nonx_tcp_mut_49.bin
+MD5: b7f764ee6358a765c0195d88b9c347eb
+  Duplicate files (2):
+    - windows_custom_reverse_nonx_tcp_mut_59.bin
+    - windows_custom_reverse_nonx_tcp_mut_87.bin
+
+x86/windows_custom_reverse_tcp/eq:
+----------------------------------------
+MD5: 5b209885df5504a6b9c00e784582158a
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_mut_100.bin
+    - windows_custom_reverse_tcp_mut_89.bin
+MD5: 364eabbfd27c42fc2c2ee90ba9f364f9
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_mut_17.bin
+    - windows_custom_reverse_tcp_mut_62.bin
+
+x86/windows_custom_reverse_tcp_allports/eq:
+----------------------------------------
+MD5: 453a09ab80074ec87fb4a10f098d6e03
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_17.bin
+    - windows_custom_reverse_tcp_allports_mut_43.bin
+MD5: afdb977cbe40c23e2ca3a4c88d7ddce6
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_20.bin
+    - windows_custom_reverse_tcp_allports_mut_59.bin
+MD5: 7b6b1ac9dd74349fe6f636ca40ee63ae
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_25.bin
+    - windows_custom_reverse_tcp_allports_mut_93.bin
+MD5: ea18094f2dcf2731240c924561a17a39
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_35.bin
+    - windows_custom_reverse_tcp_allports_mut_39.bin
+MD5: 3f84c601ac4ad24c12dddd08ebecd36b
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_42.bin
+    - windows_custom_reverse_tcp_allports_mut_48.bin
+MD5: b0fc322f9327dced4ef2ec69ef927289
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_51.bin
+    - windows_custom_reverse_tcp_allports_mut_72.bin
+MD5: 7a1fc335024176067b6ab1c8f5d06aae
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_56.bin
+    - windows_custom_reverse_tcp_allports_mut_95.bin
+MD5: 16231b65699ec25c778bbbbc66075015
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_allports_mut_85.bin
+    - windows_custom_reverse_tcp_allports_mut_97.bin
+
+x86/windows_custom_reverse_tcp_dns/eq:
+----------------------------------------
+MD5: 542bec46787f9360cd3a00ceb2feda60
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_dns_mut_11.bin
+    - windows_custom_reverse_tcp_dns_mut_20.bin
+MD5: 2560e2fe647ebb46718d73f76e13f19e
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_dns_mut_81.bin
+    - windows_custom_reverse_tcp_dns_mut_94.bin
+
+x86/windows_custom_reverse_tcp_rc4/eq:
+----------------------------------------
+MD5: 1b59a18e7b22e444ad618133b814b1cb
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_rc4_mut_72.bin
+    - windows_custom_reverse_tcp_rc4_mut_92.bin
+
+x86/windows_custom_reverse_tcp_uuid/eq:
+----------------------------------------
+MD5: 5b5501d6a76afa99c2ee5e8a63394191
+  Duplicate files (3):
+    - windows_custom_reverse_tcp_uuid_mut_12.bin
+    - windows_custom_reverse_tcp_uuid_mut_20.bin
+    - windows_custom_reverse_tcp_uuid_mut_40.bin
+MD5: 4c8b5721151f2ab3ca573dc827ee9dd1
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_uuid_mut_15.bin
+    - windows_custom_reverse_tcp_uuid_mut_3.bin
+MD5: 322be6d7e738b3fc021b99424c6c3c60
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_uuid_mut_39.bin
+    - windows_custom_reverse_tcp_uuid_mut_5.bin
+MD5: 7c79b066eeabeb7476f674ea60a3d565
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_uuid_mut_50.bin
+    - windows_custom_reverse_tcp_uuid_mut_66.bin
+MD5: d914aa2b9853c7c5f6365558fc982263
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_uuid_mut_74.bin
+    - windows_custom_reverse_tcp_uuid_mut_9.bin
+MD5: bebe3578087802c31897ad5d33666563
+  Duplicate files (2):
+    - windows_custom_reverse_tcp_uuid_mut_78.bin
+    - windows_custom_reverse_tcp_uuid_mut_91.bin
+
+x86/windows_meterpreter_bind_nonx_tcp/eq:
+----------------------------------------
+MD5: eb328b726319b923f36e2f48f7e43a2a
+  Duplicate files (3):
+    - windows_meterpreter_bind_nonx_tcp_mut_1.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_77.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_91.bin
+MD5: 2a7220dba1f777f0a71dba5fc80a8b57
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_12.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_15.bin
+MD5: 1704d9636867ed2dc5ce7560ddaf0130
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_14.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_35.bin
+MD5: c55a095bb747f26cec4f431ab17d9b56
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_2.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_39.bin
+MD5: 92977917d24291ec47a34091a5aec5d1
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_32.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_68.bin
+MD5: 2efe90732679d8b0af954ca76ef1a8a2
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_33.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_38.bin
+MD5: 54d7c1bc065e276abf3359dd04676f3d
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_4.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_43.bin
+MD5: 0a8ff3ed0a60aa874aec3f48e74abf9c
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_42.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_48.bin
+MD5: 3eff200373fefddb1c26052dc74568a3
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_45.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_60.bin
+MD5: d159c4f82adac210ca3cd0c08be707d0
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_49.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_66.bin
+MD5: 91747ecf5a57021eb83773bc43ddf16b
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_54.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_74.bin
+MD5: fc8a1e0e957ad76d766b4090bbaaf27a
+  Duplicate files (2):
+    - windows_meterpreter_bind_nonx_tcp_mut_78.bin
+    - windows_meterpreter_bind_nonx_tcp_mut_8.bin
+
+x86/windows_meterpreter_bind_tcp_uuid/eq:
+----------------------------------------
+MD5: 7a909ccdec2e0356bb7ab41ba77d10cb
+  Duplicate files (2):
+    - windows_meterpreter_bind_tcp_uuid_mut_42.bin
+    - windows_meterpreter_bind_tcp_uuid_mut_51.bin
+
+x86/windows_meterpreter_reverse_nonx_tcp/eq:
+----------------------------------------
+MD5: 8a85b2bf3319dc69b0b0415afeee6c71
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_15.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_98.bin
+MD5: 81f10123ed9038c5d393b45754de1b68
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_17.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_20.bin
+MD5: 2a62802e8f10ba624114b4e383d78e5d
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_18.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_88.bin
+MD5: 43550c65c8f955f2e1c22275b141dab8
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_24.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_89.bin
+MD5: 0136c1f0d9c1c63ac0390815af254a18
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_3.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_42.bin
+MD5: c1950661527c498310254e2daf4bd872
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_36.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_85.bin
+MD5: b2255cc16756fd968daf17e19192918c
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_62.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_72.bin
+MD5: 191fd19c7449db4371470d99bfb5d9bc
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_68.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_70.bin
+MD5: b46eeead53c436eeced75caa8117d891
+  Duplicate files (2):
+    - windows_meterpreter_reverse_nonx_tcp_mut_79.bin
+    - windows_meterpreter_reverse_nonx_tcp_mut_9.bin
+
+x86/windows_meterpreter_reverse_tcp_allports/eq:
+----------------------------------------
+MD5: b74f69a061da0028b74b3205f26e3725
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_16.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_92.bin
+MD5: 0d08ef96e9e4491d5eda8d518550c20c
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_20.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_54.bin
+MD5: 3f84c601ac4ad24c12dddd08ebecd36b
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_22.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_49.bin
+MD5: a0fae6de4dccceadee7160de28fae32b
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_25.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_46.bin
+MD5: 55d1266e7cee05fcdef536031b383e9e
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_26.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_62.bin
+MD5: 00aa16b058c29f41d5cc9859041fa186
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_39.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_69.bin
+MD5: 7ceac6c7864619e6405327f74a515528
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_43.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_84.bin
+MD5: 8412589033714b420c47cdcb399c3f16
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_44.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_96.bin
+MD5: abdd910c00fbfd6b755f7ddf0814ca4f
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_allports_mut_77.bin
+    - windows_meterpreter_reverse_tcp_allports_mut_82.bin
+
+x86/windows_meterpreter_reverse_tcp_dns/eq:
+----------------------------------------
+MD5: 927f85df650e9bd878c891c8d29b4f60
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_dns_mut_1.bin
+    - windows_meterpreter_reverse_tcp_dns_mut_64.bin
+MD5: ebc245a0daee7e4669d9c5ca790c37f9
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_dns_mut_27.bin
+    - windows_meterpreter_reverse_tcp_dns_mut_95.bin
+MD5: e26659a9c83ba7ed5871c694d232ebf3
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_dns_mut_49.bin
+    - windows_meterpreter_reverse_tcp_dns_mut_77.bin
+
+x86/windows_meterpreter_reverse_tcp_uuid/eq:
+----------------------------------------
+MD5: 3638261885bbeb8ec1b2335fbe5a6cf5
+  Duplicate files (2):
+    - windows_meterpreter_reverse_tcp_uuid_mut_1.bin
+    - windows_meterpreter_reverse_tcp_uuid_mut_6.bin
+
+x86/windows_patchupmeterpreter_bind_nonx_tcp/eq:
+----------------------------------------
+MD5: 0f4a3a3ebcb9eb262eb9b66c9a4791f2
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_2.bin
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_87.bin
+MD5: 9569497322ff5131123d6dbb89f7a16f
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_22.bin
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_99.bin
+MD5: fabb80d03b614d27308e60dfc32e373c
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_31.bin
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_66.bin
+MD5: ad500fb0b8db0a79e249de6313a791c7
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_43.bin
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_80.bin
+MD5: d79a03191b9c858b1445dc419e29e5d9
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_65.bin
+    - windows_patchupmeterpreter_bind_nonx_tcp_mut_9.bin
+
+x86/windows_patchupmeterpreter_bind_tcp/eq:
+----------------------------------------
+MD5: 62131d55b64eb69a6767b198546a5435
+  Duplicate files (3):
+    - windows_patchupmeterpreter_bind_tcp_mut_12.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_69.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_86.bin
+MD5: 6a7f99f255aeb71391363166288de355
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_13.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_79.bin
+MD5: 0d7ec06247db2b37a191d9d070e64691
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_15.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_63.bin
+MD5: 392d6faf622e71de705a07478be32f49
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_19.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_55.bin
+MD5: 1adf4aecfbd73e72ce5ed87ba6a12e73
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_29.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_3.bin
+MD5: 0e58b9a1f12bb4ab7aef6b9b066d5503
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_38.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_44.bin
+MD5: ca5e0f8223f2589de3956e6ce525584c
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_52.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_56.bin
+MD5: 30604f20c2c70bb274d77fc76f1aab7c
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_71.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_97.bin
+MD5: 1f2080275eb9bc75ef518bc2eafd7394
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_mut_87.bin
+    - windows_patchupmeterpreter_bind_tcp_mut_89.bin
+
+x86/windows_patchupmeterpreter_bind_tcp_uuid/eq:
+----------------------------------------
+MD5: 0df2e4a77caddbac373ab5e5ef7d3136
+  Duplicate files (2):
+    - windows_patchupmeterpreter_bind_tcp_uuid_mut_14.bin
+    - windows_patchupmeterpreter_bind_tcp_uuid_mut_87.bin
+
+x86/windows_patchupmeterpreter_reverse_nonx_tcp/eq:
+----------------------------------------
+MD5: 8268ad88da2829fe4d0bae20b6e09f54
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_15.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_48.bin
+MD5: 4fe43f8e9bbd225ec0393d3da614b7ae
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_23.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_46.bin
+MD5: df23211c8306e1c8be5959c3b2d50abe
+  Duplicate files (3):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_32.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_6.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_70.bin
+MD5: 6739cfcbc605c5e148c5e97fca9de580
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_4.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_54.bin
+MD5: 0879e397c16c1c6763d7306015e34282
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_43.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_58.bin
+MD5: 97d70cb65f908fbb54ce544e38d01927
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_47.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_5.bin
+MD5: d8c398f91a032e2168b09de3953c26ce
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_55.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_86.bin
+MD5: 3becda858f9de2ee7c05adc6e0642686
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_59.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_94.bin
+MD5: 1d45128bb8f8c2b809be76bc20d548b6
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_84.bin
+    - windows_patchupmeterpreter_reverse_nonx_tcp_mut_95.bin
+
+x86/windows_patchupmeterpreter_reverse_tcp/eq:
+----------------------------------------
+MD5: 13826a20395477bd2db0e5e1c887341e
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_mut_1.bin
+    - windows_patchupmeterpreter_reverse_tcp_mut_40.bin
+MD5: 38439d4de9774b79ac27140b42634b82
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_mut_66.bin
+    - windows_patchupmeterpreter_reverse_tcp_mut_83.bin
+MD5: f41179b78a0e32007f614a2902fd4a19
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_mut_67.bin
+    - windows_patchupmeterpreter_reverse_tcp_mut_84.bin
+
+x86/windows_patchupmeterpreter_reverse_tcp_allports/eq:
+----------------------------------------
+MD5: e58f7f7a37d7854805a0e68828159c52
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_100.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_2.bin
+MD5: abdd910c00fbfd6b755f7ddf0814ca4f
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_24.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_97.bin
+MD5: 8df0a634a72a3aedde211b16e772ff16
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_33.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_39.bin
+MD5: 762bd37137f0182bb6f54e41b8d7a1ae
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_38.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_79.bin
+MD5: 64e5f2a2df084c10c2443edf4a5ca089
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_49.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_53.bin
+MD5: 0535023d23dba3a4350ac0315fe00224
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_51.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_76.bin
+MD5: aab6dc4ab360c380e8739d208aec30bb
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_64.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_85.bin
+MD5: 5b2af648870047bec5de42ba4f718201
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_75.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_78.bin
+MD5: 8c0ee0d8d9e145eb9e4a4232eb13ede0
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_77.bin
+    - windows_patchupmeterpreter_reverse_tcp_allports_mut_94.bin
+
+x86/windows_patchupmeterpreter_reverse_tcp_dns/eq:
+----------------------------------------
+MD5: 382a8d8e6a95ad2f0260b15b03c58a08
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_dns_mut_25.bin
+    - windows_patchupmeterpreter_reverse_tcp_dns_mut_59.bin
+MD5: dce3b6d6a0a8238add539585c6116a63
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_dns_mut_6.bin
+    - windows_patchupmeterpreter_reverse_tcp_dns_mut_88.bin
+MD5: d8cc6f7c8d9bb4ad196a51de59482e74
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_dns_mut_63.bin
+    - windows_patchupmeterpreter_reverse_tcp_dns_mut_8.bin
+
+x86/windows_patchupmeterpreter_reverse_tcp_uuid/eq:
+----------------------------------------
+MD5: d514266396b15274cc787de60e170234
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_28.bin
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_51.bin
+MD5: 90f001622ca71f6f318c53176497ccbb
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_30.bin
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_55.bin
+MD5: 5575ba85fd47a4de120171e902c62268
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_41.bin
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_70.bin
+MD5: 45ccae1f2f6b7f6a39f20988f468f007
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_53.bin
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_83.bin
+MD5: 540f3f8d38b764f27e457023261732a3
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_63.bin
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_93.bin
+MD5: 110f03584fbcdc94a194be3319017c86
+  Duplicate files (2):
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_69.bin
+    - windows_patchupmeterpreter_reverse_tcp_uuid_mut_82.bin
+
+x86/windows_pingback_bind_tcp/eq:
+----------------------------------------
+MD5: dd0cbb9c89d29f49528680dc2142f05e
+  Duplicate files (2):
+    - windows_pingback_bind_tcp_mut_24.bin
+    - windows_pingback_bind_tcp_mut_66.bin
+
+x86/windows_pingback_reverse_tcp/eq:
+----------------------------------------
+MD5: e59fbbf36588ffb37e5851213c746f62
+  Duplicate files (2):
+    - windows_pingback_reverse_tcp_mut_10.bin
+    - windows_pingback_reverse_tcp_mut_80.bin
+MD5: 78ceb145b33f4b6f1d3f639704bde257
+  Duplicate files (2):
+    - windows_pingback_reverse_tcp_mut_30.bin
+    - windows_pingback_reverse_tcp_mut_84.bin
+MD5: 094c2b4b218003fc544f969d85d2d504
+  Duplicate files (2):
+    - windows_pingback_reverse_tcp_mut_42.bin
+    - windows_pingback_reverse_tcp_mut_92.bin
+
+x86/windows_shell_bind_nonx_tcp/eq:
+----------------------------------------
+MD5: 4c8b856ebfa98b91de0b2eb82bea0c8b
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_13.bin
+    - windows_shell_bind_nonx_tcp_mut_79.bin
+MD5: 41c61e87f394a4772bd1e8c965e2af4a
+  Duplicate files (3):
+    - windows_shell_bind_nonx_tcp_mut_25.bin
+    - windows_shell_bind_nonx_tcp_mut_47.bin
+    - windows_shell_bind_nonx_tcp_mut_66.bin
+MD5: 68f7891638491886efd9b71019d74cd1
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_35.bin
+    - windows_shell_bind_nonx_tcp_mut_82.bin
+MD5: 85f4a4f43144230f692bd74a289b2370
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_36.bin
+    - windows_shell_bind_nonx_tcp_mut_43.bin
+MD5: afd77292d0e10c17bd38f6fd5ad753ae
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_41.bin
+    - windows_shell_bind_nonx_tcp_mut_96.bin
+MD5: 9f36ef8cbd3b53687f358dabc4fa4724
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_44.bin
+    - windows_shell_bind_nonx_tcp_mut_75.bin
+MD5: 99212dfa12ffff7484ff747c0674c0e0
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_49.bin
+    - windows_shell_bind_nonx_tcp_mut_59.bin
+MD5: 184d7ea4f4f05bf504ae352f8043dc30
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_6.bin
+    - windows_shell_bind_nonx_tcp_mut_90.bin
+MD5: 182cef54c82c8e8494b00f898693755a
+  Duplicate files (2):
+    - windows_shell_bind_nonx_tcp_mut_69.bin
+    - windows_shell_bind_nonx_tcp_mut_93.bin
+
+x86/windows_shell_bind_tcp/eq:
+----------------------------------------
+MD5: b8a63364d7639abf901f3ea010fa73fb
+  Duplicate files (2):
+    - windows_shell_bind_tcp_mut_24.bin
+    - windows_shell_bind_tcp_mut_48.bin
+
+x86/windows_shell_bind_tcp_rc4/eq:
+----------------------------------------
+MD5: 2d796ddb86c83a345ef7659fff03a83d
+  Duplicate files (2):
+    - windows_shell_bind_tcp_rc4_mut_100.bin
+    - windows_shell_bind_tcp_rc4_mut_31.bin
+
+x86/windows_shell_bind_tcp_uuid/eq:
+----------------------------------------
+MD5: f0db5c3e9c846190d48bc1e70daf68f5
+  Duplicate files (2):
+    - windows_shell_bind_tcp_uuid_mut_1.bin
+    - windows_shell_bind_tcp_uuid_mut_30.bin
+MD5: 778d22c6a911a2ba8884f2db1c609d53
+  Duplicate files (2):
+    - windows_shell_bind_tcp_uuid_mut_14.bin
+    - windows_shell_bind_tcp_uuid_mut_28.bin
+MD5: 32e1bc35b2e99e149915433d39c1d0bc
+  Duplicate files (2):
+    - windows_shell_bind_tcp_uuid_mut_21.bin
+    - windows_shell_bind_tcp_uuid_mut_63.bin
+MD5: 4b3840c32e97db2a7fd22bf8bcb09fe0
+  Duplicate files (3):
+    - windows_shell_bind_tcp_uuid_mut_27.bin
+    - windows_shell_bind_tcp_uuid_mut_41.bin
+    - windows_shell_bind_tcp_uuid_mut_95.bin
+MD5: 28f2c9bc500acb10fb2331f594659495
+  Duplicate files (2):
+    - windows_shell_bind_tcp_uuid_mut_32.bin
+    - windows_shell_bind_tcp_uuid_mut_50.bin
+MD5: 32b54dd7d25b096beb92ce938258f60e
+  Duplicate files (3):
+    - windows_shell_bind_tcp_uuid_mut_42.bin
+    - windows_shell_bind_tcp_uuid_mut_57.bin
+    - windows_shell_bind_tcp_uuid_mut_67.bin
+MD5: b671ec3e200bf2bcc566c8026cb7c6e4
+  Duplicate files (2):
+    - windows_shell_bind_tcp_uuid_mut_66.bin
+    - windows_shell_bind_tcp_uuid_mut_88.bin
+
+x86/windows_shell_reverse_nonx_tcp/eq:
+----------------------------------------
+MD5: 3f29f043285a5793525fdf0e0a6ba31b
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_10.bin
+    - windows_shell_reverse_nonx_tcp_mut_61.bin
+MD5: a6e359c79ff9dd2dc530c5f6dbb4343f
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_16.bin
+    - windows_shell_reverse_nonx_tcp_mut_7.bin
+MD5: ce62411cf9c2861a0bd865777dc9cf10
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_23.bin
+    - windows_shell_reverse_nonx_tcp_mut_73.bin
+MD5: 7c90aa750295b574b2e3a358e8b83a3f
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_32.bin
+    - windows_shell_reverse_nonx_tcp_mut_58.bin
+MD5: 9462129941a8eb6339b6af1d3388b95f
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_38.bin
+    - windows_shell_reverse_nonx_tcp_mut_65.bin
+MD5: 7ed4fb20c1c6e2f4206c264dd1fac6b4
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_4.bin
+    - windows_shell_reverse_nonx_tcp_mut_98.bin
+MD5: ea7bdac04b5a0c34f29a5971774a9e74
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_45.bin
+    - windows_shell_reverse_nonx_tcp_mut_90.bin
+MD5: 3b5ba89d77f156a963a808e7be65ea0d
+  Duplicate files (2):
+    - windows_shell_reverse_nonx_tcp_mut_46.bin
+    - windows_shell_reverse_nonx_tcp_mut_66.bin
+
+x86/windows_shell_reverse_tcp/eq:
+----------------------------------------
+MD5: b30070f2f3d59680aa1f2a0bd395c606
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_mut_18.bin
+    - windows_shell_reverse_tcp_mut_68.bin
+
+x86/windows_shell_reverse_tcp_allports/eq:
+----------------------------------------
+MD5: 67eaf83bef4509d4f85eae084441ebf4
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_allports_mut_1.bin
+    - windows_shell_reverse_tcp_allports_mut_93.bin
+MD5: 766415e80c2f5df8f0163d7bfb8d092e
+  Duplicate files (3):
+    - windows_shell_reverse_tcp_allports_mut_13.bin
+    - windows_shell_reverse_tcp_allports_mut_77.bin
+    - windows_shell_reverse_tcp_allports_mut_80.bin
+MD5: 1c6ad7cc6c2f48b91896f20446a828e3
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_allports_mut_16.bin
+    - windows_shell_reverse_tcp_allports_mut_46.bin
+MD5: 9c2177cb295f6269bd306209bc6eb1e1
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_allports_mut_23.bin
+    - windows_shell_reverse_tcp_allports_mut_88.bin
+MD5: 6b323581abaf210e05cc36bd7026d151
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_allports_mut_4.bin
+    - windows_shell_reverse_tcp_allports_mut_68.bin
+MD5: 943df9bf8ffae9d27e4e62358464391f
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_allports_mut_42.bin
+    - windows_shell_reverse_tcp_allports_mut_70.bin
+MD5: ba5e9d0b34e538d38f8257c4ad985a47
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_allports_mut_71.bin
+    - windows_shell_reverse_tcp_allports_mut_72.bin
+MD5: 91e2f8b3b09f4f908336efaf6a54b4f6
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_allports_mut_76.bin
+    - windows_shell_reverse_tcp_allports_mut_8.bin
+
+x86/windows_shell_reverse_tcp_dns/eq:
+----------------------------------------
+MD5: b642f5a4b0c15b6117f81c2613c88f9d
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_dns_mut_1.bin
+    - windows_shell_reverse_tcp_dns_mut_16.bin
+MD5: 751bb75b10f26bf3343f3c4520eaad21
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_dns_mut_26.bin
+    - windows_shell_reverse_tcp_dns_mut_54.bin
+MD5: eb1d4f534e84b6138ae698f505ca9378
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_dns_mut_46.bin
+    - windows_shell_reverse_tcp_dns_mut_84.bin
+MD5: fca308c68340216ae6d38a27d36d7d32
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_dns_mut_63.bin
+    - windows_shell_reverse_tcp_dns_mut_75.bin
+
+x86/windows_shell_reverse_tcp_rc4/eq:
+----------------------------------------
+MD5: 1629a8f287b11e70c7db6af23abd56c9
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_rc4_mut_20.bin
+    - windows_shell_reverse_tcp_rc4_mut_43.bin
+
+x86/windows_shell_reverse_tcp_uuid/eq:
+----------------------------------------
+MD5: 58a7ab4e734b23ee9e65dfff4b0b5819
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_uuid_mut_12.bin
+    - windows_shell_reverse_tcp_uuid_mut_36.bin
+MD5: fce719dd8feeb7c53c709860f3ecf77d
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_uuid_mut_17.bin
+    - windows_shell_reverse_tcp_uuid_mut_5.bin
+MD5: 36cde5ba03b8e4c02180ce38414b6c1f
+  Duplicate files (2):
+    - windows_shell_reverse_tcp_uuid_mut_31.bin
+    - windows_shell_reverse_tcp_uuid_mut_91.bin
+
+x86/windows_vncinject_bind_nonx_tcp/eq:
+----------------------------------------
+MD5: 9f40d0a1aa3bfadf436255b0e900650f
+  Duplicate files (2):
+    - windows_vncinject_bind_nonx_tcp_mut_24.bin
+    - windows_vncinject_bind_nonx_tcp_mut_28.bin
+MD5: 51809c4d7c3b0a927f13154ff4503c8c
+  Duplicate files (2):
+    - windows_vncinject_bind_nonx_tcp_mut_26.bin
+    - windows_vncinject_bind_nonx_tcp_mut_56.bin
+MD5: c9a5da4ee024c18f393108e5005d4bb8
+  Duplicate files (2):
+    - windows_vncinject_bind_nonx_tcp_mut_37.bin
+    - windows_vncinject_bind_nonx_tcp_mut_64.bin
+MD5: c3f391c8c8b744b9531b587198d819e0
+  Duplicate files (2):
+    - windows_vncinject_bind_nonx_tcp_mut_5.bin
+    - windows_vncinject_bind_nonx_tcp_mut_86.bin
+MD5: e1ddcfb554345733829b58c151eb8c62
+  Duplicate files (2):
+    - windows_vncinject_bind_nonx_tcp_mut_50.bin
+    - windows_vncinject_bind_nonx_tcp_mut_69.bin
+MD5: 99212dfa12ffff7484ff747c0674c0e0
+  Duplicate files (2):
+    - windows_vncinject_bind_nonx_tcp_mut_58.bin
+    - windows_vncinject_bind_nonx_tcp_mut_89.bin
+MD5: 16c06f2b4a723e8ea6edc6637ffee144
+  Duplicate files (2):
+    - windows_vncinject_bind_nonx_tcp_mut_84.bin
+    - windows_vncinject_bind_nonx_tcp_mut_96.bin
+
+x86/windows_vncinject_bind_tcp/eq:
+----------------------------------------
+MD5: 7422096c665142bfa5b5e340192430f1
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_100.bin
+    - windows_vncinject_bind_tcp_mut_9.bin
+MD5: d5f3555f5e792f1b630f9909cbdd38eb
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_13.bin
+    - windows_vncinject_bind_tcp_mut_97.bin
+MD5: 2ee59c57017bf5f795f28947b7a1c50b
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_15.bin
+    - windows_vncinject_bind_tcp_mut_68.bin
+MD5: a5e4cafe6f004c2e49cca511fd2d0b81
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_18.bin
+    - windows_vncinject_bind_tcp_mut_35.bin
+MD5: 0241c2ac166a99923457d9d97349f4f3
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_2.bin
+    - windows_vncinject_bind_tcp_mut_36.bin
+MD5: 0e45dc1dfdd873391911925d35af21a2
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_28.bin
+    - windows_vncinject_bind_tcp_mut_63.bin
+MD5: 7aef5707078fca8f472fc6593c98db81
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_31.bin
+    - windows_vncinject_bind_tcp_mut_41.bin
+MD5: c813d0a636599675e576d0e006921494
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_37.bin
+    - windows_vncinject_bind_tcp_mut_7.bin
+MD5: 0320f97e0b7560a5e9a585d6c846c1c7
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_45.bin
+    - windows_vncinject_bind_tcp_mut_49.bin
+MD5: 53475cea0b3830e36af04e6690fca6d5
+  Duplicate files (3):
+    - windows_vncinject_bind_tcp_mut_72.bin
+    - windows_vncinject_bind_tcp_mut_81.bin
+    - windows_vncinject_bind_tcp_mut_98.bin
+MD5: 7df40bca53dc1dac5a26cdb9086b4d52
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_mut_82.bin
+    - windows_vncinject_bind_tcp_mut_94.bin
+
+x86/windows_vncinject_bind_tcp_uuid/eq:
+----------------------------------------
+MD5: ce1094278a44e32508718252168b12cd
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_100.bin
+    - windows_vncinject_bind_tcp_uuid_mut_94.bin
+MD5: 1db59d9c8699bc4f5a3c48b985cc189f
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_19.bin
+    - windows_vncinject_bind_tcp_uuid_mut_59.bin
+MD5: 1f830390a879e44065e08a0c6dc394db
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_22.bin
+    - windows_vncinject_bind_tcp_uuid_mut_66.bin
+MD5: 998e4d1547650d8b0e3025343d385826
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_23.bin
+    - windows_vncinject_bind_tcp_uuid_mut_80.bin
+MD5: 0aab7513b884cb387cbcb75849420e32
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_26.bin
+    - windows_vncinject_bind_tcp_uuid_mut_63.bin
+MD5: 959d9cc4856d149beeac6d6ba845062f
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_37.bin
+    - windows_vncinject_bind_tcp_uuid_mut_49.bin
+MD5: ad7e84b3a8ad08600b278e48dc9a71b0
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_42.bin
+    - windows_vncinject_bind_tcp_uuid_mut_78.bin
+MD5: ec2b14fcac32c9a475d014a4abb95246
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_47.bin
+    - windows_vncinject_bind_tcp_uuid_mut_50.bin
+MD5: 9ad0167e48812f1e1323cb1428a87d3d
+  Duplicate files (2):
+    - windows_vncinject_bind_tcp_uuid_mut_6.bin
+    - windows_vncinject_bind_tcp_uuid_mut_87.bin
+
+x86/windows_vncinject_reverse_nonx_tcp/eq:
+----------------------------------------
+MD5: 7f2e849f64a7e5b168dbb4565750e53f
+  Duplicate files (2):
+    - windows_vncinject_reverse_nonx_tcp_mut_1.bin
+    - windows_vncinject_reverse_nonx_tcp_mut_2.bin
+MD5: 872a455b8c752729475cf1b3015b8810
+  Duplicate files (2):
+    - windows_vncinject_reverse_nonx_tcp_mut_15.bin
+    - windows_vncinject_reverse_nonx_tcp_mut_32.bin
+MD5: f792f32462da79cf7be486528544b84e
+  Duplicate files (2):
+    - windows_vncinject_reverse_nonx_tcp_mut_19.bin
+    - windows_vncinject_reverse_nonx_tcp_mut_76.bin
+MD5: e2645f5ab6398154b152b78b9c8bac88
+  Duplicate files (2):
+    - windows_vncinject_reverse_nonx_tcp_mut_27.bin
+    - windows_vncinject_reverse_nonx_tcp_mut_34.bin
+MD5: 00f860150ca694906079d01e0e5bfe12
+  Duplicate files (2):
+    - windows_vncinject_reverse_nonx_tcp_mut_47.bin
+    - windows_vncinject_reverse_nonx_tcp_mut_79.bin
+MD5: 0bc9216e1484be6d8c25e123093247ae
+  Duplicate files (2):
+    - windows_vncinject_reverse_nonx_tcp_mut_9.bin
+    - windows_vncinject_reverse_nonx_tcp_mut_91.bin
+
+x86/windows_vncinject_reverse_tcp/eq:
+----------------------------------------
+MD5: c7c5351322b5e699bbb98bb7a578d8c6
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_mut_13.bin
+    - windows_vncinject_reverse_tcp_mut_53.bin
+MD5: 451622e1129204b97c2957ee8d3e51aa
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_mut_15.bin
+    - windows_vncinject_reverse_tcp_mut_30.bin
+MD5: 17a885d6939fc00871bf842db1aefc9a
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_mut_18.bin
+    - windows_vncinject_reverse_tcp_mut_48.bin
+MD5: 3d9dfe5281695599fec220ed8352ab4d
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_mut_37.bin
+    - windows_vncinject_reverse_tcp_mut_83.bin
+MD5: ef6062d92d426405ab8a150d50076fc2
+  Duplicate files (3):
+    - windows_vncinject_reverse_tcp_mut_59.bin
+    - windows_vncinject_reverse_tcp_mut_72.bin
+    - windows_vncinject_reverse_tcp_mut_85.bin
+MD5: 409bf2d1fe8c4da4a89579750c9af0db
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_mut_67.bin
+    - windows_vncinject_reverse_tcp_mut_70.bin
+
+x86/windows_vncinject_reverse_tcp_allports/eq:
+----------------------------------------
+MD5: df43c9f80e9fa770341292d86d7aa733
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_10.bin
+    - windows_vncinject_reverse_tcp_allports_mut_77.bin
+MD5: 6ba0981bf87ef5cc3ff2a88c34f6fb6f
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_18.bin
+    - windows_vncinject_reverse_tcp_allports_mut_72.bin
+MD5: 9c98e423ed035137d672679925592afa
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_20.bin
+    - windows_vncinject_reverse_tcp_allports_mut_78.bin
+MD5: a2995b72ce39dc54f0578a454e8969c2
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_24.bin
+    - windows_vncinject_reverse_tcp_allports_mut_81.bin
+MD5: 81e5b7c59934fa3b14a2403497f90897
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_28.bin
+    - windows_vncinject_reverse_tcp_allports_mut_34.bin
+MD5: fa2808ea9cfccffa2e5be0d5c32810cd
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_33.bin
+    - windows_vncinject_reverse_tcp_allports_mut_76.bin
+MD5: 7b6b1ac9dd74349fe6f636ca40ee63ae
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_40.bin
+    - windows_vncinject_reverse_tcp_allports_mut_96.bin
+MD5: 0bc658e7b8d101e6b5506bf9c1ec63f1
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_42.bin
+    - windows_vncinject_reverse_tcp_allports_mut_65.bin
+MD5: e9bd5f8000b67c3f57ff85217c0feb9d
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_allports_mut_7.bin
+    - windows_vncinject_reverse_tcp_allports_mut_75.bin
+
+x86/windows_vncinject_reverse_tcp_dns/eq:
+----------------------------------------
+MD5: 8bc73900486711e45cdd2b2505ebecef
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_dns_mut_16.bin
+    - windows_vncinject_reverse_tcp_dns_mut_89.bin
+MD5: c07329113e7650a2a19f16895fd6fba1
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_dns_mut_40.bin
+    - windows_vncinject_reverse_tcp_dns_mut_99.bin
+MD5: 6280c3c513026b126065e1ca725b2bf3
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_dns_mut_57.bin
+    - windows_vncinject_reverse_tcp_dns_mut_85.bin
+MD5: 5254a4e2fbe6d5b737f74666331b0176
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_dns_mut_82.bin
+    - windows_vncinject_reverse_tcp_dns_mut_98.bin
+
+x86/windows_vncinject_reverse_tcp_uuid/eq:
+----------------------------------------
+MD5: ff5cfec7bc7ea539635c8c52158dd64e
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_1.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_12.bin
+MD5: 7ff71c65431680897a90f8420ba5a594
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_11.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_40.bin
+MD5: 80bed1f05bcded2ca32cda0364995243
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_14.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_80.bin
+MD5: c244f1f5faf67a2edd411e63c8c7e0b7
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_19.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_36.bin
+MD5: 451f14d780cc05a33bef33504b3e7ecc
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_21.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_34.bin
+MD5: 5ec1cfd0c9a8ee272f9816c4d976d451
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_27.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_4.bin
+MD5: 5dd45545ffd1f3b366d7fe675d3ec9d0
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_32.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_98.bin
+MD5: d0ca0d009593c03b72ab98fdef0b485a
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_53.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_68.bin
+MD5: 0dafa715348537cee648b3a88df8609d
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_62.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_8.bin
+MD5: e20e64ca1b13d0c81bfff90868955a9c
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_71.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_96.bin
+MD5: 14a8419da5e2e73ae012789c2eb51045
+  Duplicate files (2):
+    - windows_vncinject_reverse_tcp_uuid_mut_81.bin
+    - windows_vncinject_reverse_tcp_uuid_mut_83.bin

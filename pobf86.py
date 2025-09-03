@@ -3,7 +3,7 @@ from keystone import *   #e' un assembler
 import sys
 import pefile
 import time
-import lief
+# import lief
 import os
 import random
 from capstone import x86_const

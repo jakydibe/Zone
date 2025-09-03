@@ -3,14 +3,14 @@ from keystone import *   #e' un assembler
 import sys
 import pefile
 import time
-import lief
+# import lief
 import os
 import random
 from capstone import x86_const
 import zone_utils
 import increase_text
 import traceback
-import asmjit
+# import asmjit
 import subprocess
 
 
@@ -41,7 +41,7 @@ class Zone:
 
         #utile per skippare dati inutili nella .text (tipo stringhe o tabelle di jump)
         # useful for skipping useless data in the .text (like strings or jump
-        self.cs.skipdata = False 
+        self.cs.skipdata = True 
 
 
 
