@@ -48292,5 +48292,911 @@
     "malicious": 0,
     "total_scans": 76,
     "date": "2025-05-04T02:23:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:22:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:22:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:22:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:22:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:22:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:23:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_3.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:23:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:23:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:23:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:24:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:24:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_9.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:24:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:24:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_6.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:24:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:24:34"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 74,
+    "date": "2025-09-04T17:24:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_bcf_4.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_eq_10.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_eq_1.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_3.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:25:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:26:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:26:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:26:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:26:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:26:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_ibp_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_10.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_3.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_ibp_7.bin",
+    "malicious": 1,
+    "total_scans": 74,
+    "date": "2025-09-04T17:27:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_1.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_6.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_1.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_9.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:27:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:28:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:28:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:28:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:28:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:28:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:28:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_3.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:28:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_1.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_6.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_9.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_10.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:29:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_eq_3.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:13"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_eq_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_eq_1.bin",
+    "malicious": 1,
+    "total_scans": 74,
+    "date": "2025-09-04T17:30:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:30:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_ibp_4.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_bcf_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:31:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:32:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:32:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_eq_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:32:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:32:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:32:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:32:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_ibp_7.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:32:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_ibp_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:13"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_10.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:33:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_eq_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_eq_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_9.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_bcf_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:34:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_5.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:35:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:36:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_eq_4.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:36:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:36:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 74,
+    "date": "2025-09-04T17:36:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:36:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:37:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:37:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_eq_ibp_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:38:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_uuid_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:38:13"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_10.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:39:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_2.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_ibp_9.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:40:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:41:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_rc4_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-04T17:42:30"
   }
 ]

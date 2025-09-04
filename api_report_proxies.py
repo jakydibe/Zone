@@ -15,13 +15,16 @@ import aiohttp
 # Configuration
 API_KEYS_FILE       = "api_keys.txt"
 PROXIES_FILE        = "proxies.txt"
-PROCESSED_FILE      = "processed_files_sgn.json"
-RESULTS_FILE        = "results_sgn.json"
-MUTATIONS_DIRECTORY = "sgn_mutated/"
+PROCESSED_FILE      = "processed_files.json"
+RESULTS_FILE        = "results.json"
+MUTATIONS_DIRECTORY = "mutations/mutations"
 CONCURRENCY         = 15  # Number of concurrent file scans
 ROTATE_PROXY_EVERY  = 30  # requests per proxy before rotating
 ROTATE_KEY_EVERY    = 1   # requests per API key before rotating
 
+# Progress tracking
+processed_count = 0
+total_files = 0
 
 def beep(seconds):
     os.system(f"echo -n '\a'; sleep {seconds}; echo -n '\a'")
@@ -192,6 +195,8 @@ class APIKeyClient:
 
 
 async def process_file(file_path: str, key_mgr: APIKeyManager, processed: set, results: list, sem: asyncio.Semaphore):
+    global processed_count, total_files
+    
     async with sem:
         if file_path in processed:
             return
@@ -202,7 +207,12 @@ async def process_file(file_path: str, key_mgr: APIKeyManager, processed: set, r
             stats = analysis.stats
             mal = stats.get("malicious", 0)
             tot = sum(stats.values())
-            print(f"{file_path}: {mal}/{tot} scans flagged malicious.")
+            
+            processed_count += 1
+            remaining = total_files - processed_count
+            progress_pct = (processed_count / total_files) * 100 if total_files > 0 else 0
+            
+            print(f"[{processed_count}/{total_files}] ({progress_pct:.1f}%) {file_path}: {mal}/{tot} scans flagged malicious. [{remaining} remaining]")
 
             processed.add(file_path)
             results.append({
@@ -218,6 +228,8 @@ async def process_file(file_path: str, key_mgr: APIKeyManager, processed: set, r
 
 
 async def main():
+    global processed_count, total_files
+    
     # initialize persistence files
     finished = False
     while not finished:
@@ -249,6 +261,20 @@ async def main():
         files = [os.path.abspath(os.path.join(r, fn))
                 for r, _, fns in os.walk(MUTATIONS_DIRECTORY)
                 for fn in fns if fn.lower().endswith('.bin')]
+
+        # Initialize progress tracking
+        total_files = len(files)
+        already_processed = len([f for f in files if f in processed])
+        processed_count = already_processed
+        remaining_files = total_files - already_processed
+        
+        print(f"[INFO] Found {total_files} total .bin files")
+        print(f"[INFO] Already processed: {already_processed}")
+        print(f"[INFO] Remaining to process: {remaining_files}")
+        
+        if remaining_files == 0:
+            print("[INFO] All files already processed.")
+            break
 
         sem = asyncio.Semaphore(CONCURRENCY)
         tasks = [asyncio.create_task(process_file(fp, key_mgr, processed, results, sem)) for fp in files]
