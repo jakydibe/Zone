@@ -10,7 +10,7 @@ from capstone import x86_const
 import zone_utils
 import increase_text
 import traceback
-import asmjit
+# import asmjit
 import subprocess
 
 #blablablableblebleblublublublublublublublublublublublublu
