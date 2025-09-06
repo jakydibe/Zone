@@ -486,7 +486,7 @@ def plot_combined_metrics(entropy_data, entropy_change_data, cosine_data, asm_co
 
 if __name__ == "__main__":
     # Categories for analysis
-    CATEGORIES = ['nop', 'eq', 'pii', 'bcf', 'ibp', 'eq_nop_pii', 'eq_nop_bcf', 'eq_nop_ibp']
+    CATEGORIES = ['nop', 'eq', 'pii', 'bcf', 'ibp', 'eq_nop_pii', 'eq_nop_bcf', 'eq_nop_ibp', 'eq_nop', 'eq_pii', 'eq_bcf', 'eq_ibp', 'nop_pii', 'nop_bcf', 'nop_ibp']
     
     # Process original files
     original_files_x64 = []
@@ -577,6 +577,20 @@ if __name__ == "__main__":
                         elif technique == "eq_nop_bcf" and "eq_nop_bcf" in file:
                             tech_files.append(os.path.join(root, file))
                         elif technique == "eq_nop_ibp" and "eq_nop_ibp" in file:
+                            tech_files.append(os.path.join(root, file))
+                        elif technique == "eq_nop" and "eq_nop" in file:
+                            tech_files.append(os.path.join(root, file))
+                        elif technique == "eq_pii" and "eq_pii" in file:
+                            tech_files.append(os.path.join(root, file))
+                        elif technique == "eq_bcf" and "eq_bcf" in file:
+                            tech_files.append(os.path.join(root, file))
+                        elif technique == "eq_ibp" and "eq_ibp" in file:
+                            tech_files.append(os.path.join(root, file))
+                        elif technique == "nop_pii" and "nop_pii" in file:
+                            tech_files.append(os.path.join(root, file))
+                        elif technique == "nop_bcf" and "nop_bcf" in file:
+                            tech_files.append(os.path.join(root, file))
+                        elif technique == "nop_ibp" and "nop_ibp" in file:
                             tech_files.append(os.path.join(root, file))
                         elif technique in ["nop", "eq", "bcf", "ibp", "pii"]:
                             # Avoid matching compound techniques

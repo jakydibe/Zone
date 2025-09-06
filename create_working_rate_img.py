@@ -9,11 +9,12 @@ SINGLES = ['nop', 'eq', 'pii', 'bcf', 'ibp']
 # valid 3-way combos using eq_nop_<third>
 THIRDS = ['pii', 'bcf', 'ibp']
 COMBOS = [f'eq_nop_{t}' for t in THIRDS]
+SBLEUR = ['eq_nop', 'eq_bcf', 'eq_ibp', 'eq_pii', 'nop_bcf', 'nop_ibp', 'nop_pii']
 
 rates86 = []
 rates64 = []
 # plotting categories in order
-CATEGORIES = SINGLES + COMBOS
+CATEGORIES = SINGLES + COMBOS + SBLEUR
 
 def parse_args():
     p = argparse.ArgumentParser(
@@ -30,6 +31,7 @@ def classify(parts):
     Given filename.split('_'), return:
       - a single technique (e.g. 'nop')
       - a combo 'eq_nop_bcf', etc.
+      - a 2-way combo like 'eq_bcf', 'nop_ibp', etc.
     or None if it doesn't match.
     """
     found = {t for t in SINGLES if t in parts}
@@ -38,13 +40,20 @@ def classify(parts):
     if len(found) == 1:
         return found.pop()
 
-    # combo: must have both nop & eq + exactly one third
+    # 3-way combos: eq + nop + one of THIRDS
     if 'nop' in found and 'eq' in found:
         thirds = found & set(THIRDS)
         if len(thirds) == 1:
             return f'eq_nop_{thirds.pop()}'
 
+    # 2-way combos (SBLEUR)
+    if len(found) == 2:
+        # sort to keep consistent order with CATEGORIES
+        a, b = found
+        return f'{a}_{b}'
+
     return None
+
 
 def make_bar_chart(rates, labels, title, out_path, y_max=None):
     fig, ax = plt.subplots()
