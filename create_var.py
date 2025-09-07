@@ -6,12 +6,23 @@ import numpy as np
 from collections import Counter
 from sklearn.metrics.pairwise import cosine_similarity as sklearn_cosine_similarity
 from capstone import *
-
+import re
 # Global variables for averages
 x64_avg_len = 0
 x86_avg_len = 0
 x64_avg_entropy = 0
 x86_avg_entropy = 0
+
+
+BASIC = {"nop", "eq", "pii", "bcf", "ibp"}
+
+def has_tag(name: str, tag: str) -> bool:
+    # match del tag come token separato (underscore, inizio/fine, ecc.)
+    return re.search(rf'(?<![A-Za-z0-9]){tag}(?![A-Za-z0-9])', name) is not None
+
+def tags_in(name: str):
+    base = os.path.basename(name)
+    return {t for t in BASIC if has_tag(base, t)}
 
 
 def disassemble_file(filename, is_x64=True):
@@ -53,79 +64,79 @@ def disassemble_file(filename, is_x64=True):
     
     return '\n'.join(asm_lines)
 
-def calculate_entropy(filename):
-    """Calculate Shannon entropy of a file"""
-    entropy = 0
-    with open(filename, "rb") as file:
-        counters = {byte: 0 for byte in range(2 ** 8)}
+# def calculate_entropy(filename):
+#     """Calculate Shannon entropy of a file"""
+#     entropy = 0
+#     with open(filename, "rb") as file:
+#         counters = {byte: 0 for byte in range(2 ** 8)}
         
-        for byte in file.read():
-            counters[byte] += 1
+#         for byte in file.read():
+#             counters[byte] += 1
         
-        filesize = file.tell()
+#         filesize = file.tell()
         
-        if filesize == 0:
-            return 0
+#         if filesize == 0:
+#             return 0
             
-        probabilities = [counter / filesize for counter in counters.values()]
-        entropy = -sum(probability * math.log2(probability) for probability in probabilities if probability > 0)
+#         probabilities = [counter / filesize for counter in counters.values()]
+#         entropy = -sum(probability * math.log2(probability) for probability in probabilities if probability > 0)
         
-    return entropy
-
-# import math
-# from collections import Counter
-
-# def calculate_entropy(filename) -> float:
-#     """
-#     Calculate Shannon entropy of assembly code based on token frequency.
-#     Tokens include both opcodes and operands (not just raw bytes).
-
-#     Parameters
-#     ----------
-#     asm : str
-#         Assembly code snippet (one instruction per line).
-
-#     Returns
-#     -------
-#     float
-#         Shannon entropy value.
-#     """
-
-#     asm = ""
-
-
-#     if "x64" in filename:
-#         asm = disassemble_file(filename, True)
-#     elif "x86" in filename:
-#         asm = disassemble_file(filename, False)
-
-#     # Tokenize assembly (opcodes + operands)
-#     def tokenize(asm: str):
-#         tokens = []
-#         for line in asm.splitlines():
-#             line = line.strip()
-#             if not line:
-#                 continue
-#             parts = [tok.strip() for tok in line.replace(',', ' ').split() if tok.strip()]
-#             tokens.extend(parts)
-#         return tokens
-
-#     tokens = tokenize(asm)
-
-#     if not tokens:
-#         return 0.0
-
-#     # Count frequency of each token
-#     counter = Counter(tokens)
-#     total_tokens = sum(counter.values())
-
-#     # Compute Shannon entropy
-#     entropy = -sum(
-#         (count / total_tokens) * math.log2(count / total_tokens)
-#         for count in counter.values()
-#     )
-
 #     return entropy
+
+import math
+from collections import Counter
+
+def calculate_entropy(filename) -> float:
+    """
+    Calculate Shannon entropy of assembly code based on token frequency.
+    Tokens include both opcodes and operands (not just raw bytes).
+
+    Parameters
+    ----------
+    asm : str
+        Assembly code snippet (one instruction per line).
+
+    Returns
+    -------
+    float
+        Shannon entropy value.
+    """
+
+    asm = ""
+
+
+    if "x64" in filename:
+        asm = disassemble_file(filename, True)
+    elif "x86" in filename:
+        asm = disassemble_file(filename, False)
+
+    # Tokenize assembly (opcodes + operands)
+    def tokenize(asm: str):
+        tokens = []
+        for line in asm.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            parts = [tok.strip() for tok in line.replace(',', ' ').split() if tok.strip()]
+            tokens.extend(parts)
+        return tokens
+
+    tokens = tokenize(asm)
+
+    if not tokens:
+        return 0.0
+
+    # Count frequency of each token
+    counter = Counter(tokens)
+    total_tokens = sum(counter.values())
+
+    # Compute Shannon entropy
+    entropy = -sum(
+        (count / total_tokens) * math.log2(count / total_tokens)
+        for count in counter.values()
+    )
+
+    return entropy
 
 
 
@@ -578,7 +589,7 @@ if __name__ == "__main__":
                             tech_files.append(os.path.join(root, file))
                         elif technique == "eq_nop_ibp" and "eq_nop_ibp" in file:
                             tech_files.append(os.path.join(root, file))
-                        elif technique == "eq_nop" and "eq_nop" in file:
+                        elif technique == "eq_nop" and "nop_eq" in file:
                             tech_files.append(os.path.join(root, file))
                         elif technique == "eq_pii" and "eq_pii" in file:
                             tech_files.append(os.path.join(root, file))
@@ -586,16 +597,17 @@ if __name__ == "__main__":
                             tech_files.append(os.path.join(root, file))
                         elif technique == "eq_ibp" and "eq_ibp" in file:
                             tech_files.append(os.path.join(root, file))
-                        elif technique == "nop_pii" and "nop_pii" in file:
+                        elif technique == "nop_pii" and "nop_pii" in file and "eq_nop_pii" not in file:
                             tech_files.append(os.path.join(root, file))
-                        elif technique == "nop_bcf" and "nop_bcf" in file:
+                        elif technique == "nop_bcf" and "nop_bcf" in file and "eq_nop_bcf" not in file:
                             tech_files.append(os.path.join(root, file))
-                        elif technique == "nop_ibp" and "nop_ibp" in file:
+                        elif technique == "nop_ibp" and "nop_ibp" in file and "eq_nop_ibp" not in file:
                             tech_files.append(os.path.join(root, file))
                         elif technique in ["nop", "eq", "bcf", "ibp", "pii"]:
-                            # Avoid matching compound techniques
-                            if technique in file and not any(comp in file for comp in ["eq_nop_"]):
+                            others = {"nop", "eq", "bcf", "ibp", "pii"} - {technique}
+                            if has_tag(file, technique) and not any(has_tag(file, t) for t in others):
                                 tech_files.append(os.path.join(root, file))
+
             
             # Calculate metrics for this technique
             if tech_files:

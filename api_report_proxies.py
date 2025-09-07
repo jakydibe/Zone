@@ -18,7 +18,7 @@ PROXIES_FILE        = "proxies.txt"
 PROCESSED_FILE      = "processed_files.json"
 RESULTS_FILE        = "results.json"
 MUTATIONS_DIRECTORY = "mutations/mutations"
-CONCURRENCY         = 15  # Number of concurrent file scans
+CONCURRENCY         = 10  # Number of concurrent file scans
 ROTATE_PROXY_EVERY  = 30  # requests per proxy before rotating
 ROTATE_KEY_EVERY    = 1   # requests per API key before rotating
 
