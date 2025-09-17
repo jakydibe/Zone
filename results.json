@@ -86356,5 +86356,3773 @@
     "malicious": 0,
     "total_scans": 76,
     "date": "2025-09-15T11:31:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:06:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:06:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:06:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:06:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:07:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:07:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:07:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:07:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:07:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:07:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:07:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:08:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:08:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:08:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:08:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:08:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:09:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:09:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:09:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T12:09:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:09:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:10:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:10:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:10:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:10:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:10:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:10:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:10:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T12:11:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:11:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:12:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:13:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:13:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:14:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:14:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:14:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T12:14:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:14:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:14:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:15:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:15:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:15:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:16:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_1.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:17:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:18:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:18:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:18:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:18:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:18:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:18:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:18:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:19:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:19:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:19:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:19:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:19:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:20:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:20:13"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:20:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:20:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:21:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:21:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:21:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:21:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:22:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:22:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:23:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:23:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:26:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:26:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:27:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:28:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:29:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:30:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:30:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:30:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:30:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T12:30:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T12:30:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_bind_tcp_uuid_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:05:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_http_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:09"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:06:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:06:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_nonx_tcp_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:06:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_4.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:07:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:07:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:07:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:07:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:07:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:07:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:07:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:08:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:08:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:13"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:09:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:09:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:10:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:10:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:10:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:10:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:10:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:10:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:10:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:10:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:10:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:11:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:11:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:11:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:11:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:12:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:12:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_eq_8.bin",
+    "malicious": 1,
+    "total_scans": 75,
+    "date": "2025-09-15T19:12:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:12:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:12:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:12:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_bcf_7.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:12:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:12:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:13:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:13:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:13:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:15:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:15:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:16:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_allports_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:16:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:17:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:18:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:19:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:20:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:20:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:20:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:21:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:21:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:21:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:21:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_5.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:21:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:22:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_2.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:22:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:22:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:22:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:22:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:22:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:09"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:23:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:24:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:26:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:26:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:27:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:27:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:28:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:28:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:28:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:28:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:33:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:34:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_10.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_dns_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:36:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:38:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:38:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:38:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:38:47"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:38:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:39:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:39:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:34"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:40:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:41:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:41:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_3.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-15T19:42:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:42:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_8.bin",
+    "malicious": 3,
+    "total_scans": 76,
+    "date": "2025-09-15T19:42:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:42:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:42:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_6.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_7.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_5.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:43:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:44:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:44:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:45:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:46:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:46:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:46:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:46:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:47:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:47:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:47:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:47:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:47:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:48:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:48:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:48:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_1.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:48:34"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:49:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:49:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_5.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:50:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:34"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:51:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:52:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:52:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:52:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:52:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:52:27"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:52:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:53:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:53:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:54:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:54:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:54:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:54:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:54:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:54:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:54:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:54:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:55:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:55:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:55:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:55:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:55:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:55:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:55:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-15T19:55:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_6.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-15T19:55:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:56:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:56:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:56:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:57:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:57:11"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:57:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:57:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:57:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:58:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-15T19:59:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:26:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:26:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:26:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:26:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:26:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:26:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:26:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:27:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:27:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:27:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:27:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:27:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:28:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:28:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:28:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_5.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-17T10:28:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_6.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-17T10:28:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_8.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:29:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_dns_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:30:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:31:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:32:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:32:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:33:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:33:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:33:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:33:34"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:33:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:33:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:33:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:34:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:34:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:35:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:35:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:35:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:36:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:37:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:37:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_7.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-17T10:37:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:38:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:38:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:38:47"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:38:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:38:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:39:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:39:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:39:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:39:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:39:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:40:12"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:40:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:40:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:40:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:40:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:40:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:40:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:41:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:41:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_2.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-17T10:41:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:41:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:41:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:42:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:42:09"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:42:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:42:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:42:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:43:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:43:16"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:43:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:43:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:44:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:44:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_9.bin",
+    "malicious": 1,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:26"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:28"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:50:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:51:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:51:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:51:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:51:42"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:53"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:52:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:53:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:53:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:53:09"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_1.bin",
+    "malicious": 2,
+    "total_scans": 76,
+    "date": "2025-09-17T10:53:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:53:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:53:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:53:44"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:53:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:54:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:54:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:54:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:54:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:54:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:55:23"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:55:34"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:55:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:55:59"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:56:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:56:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:56:29"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:56:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:56:37"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:57:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:57:14"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:57:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:57:20"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:57:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T10:57:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:58:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:58:46"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T10:59:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:00:43"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T11:00:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:01:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:01:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:01:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:01:47"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:01:47"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T11:01:57"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:02:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:02:22"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:02:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:02:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:03:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:04:09"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_uuid_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:10:50"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:01"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:14:03"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:17:36"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:20:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:20:55"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:20:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_tcp_rc4_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:20:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:21:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:21:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:21:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:21:38"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:09"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:21"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:30"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:45"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:22:47"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:02"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:10"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_3.bin",
+    "malicious": 0,
+    "total_scans": 75,
+    "date": "2025-09-17T11:23:15"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:32"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:40"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:56"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:23:58"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:24:04"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:24:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:24:41"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:24:49"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:25:06"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:25:09"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:25:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_eq_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:25:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:25:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:25:25"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:25:54"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:26:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:26:31"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_ibp_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:29:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:29:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:29:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:17"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:18"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_1.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:19"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:24"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:33"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_10.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:35"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:31:39"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:33:05"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_ibp_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:33:48"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:07"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_8.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:08"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_3.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_eq_pii_9.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_2.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_bcf_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_4.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:51"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_6.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:34:52"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_7.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:37:00"
+  },
+  {
+    "file": "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x86\\windows_vncinject_reverse_winhttp_nop_pii_5.bin",
+    "malicious": 0,
+    "total_scans": 76,
+    "date": "2025-09-17T11:37:00"
   }
 ]
